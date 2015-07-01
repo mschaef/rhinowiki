@@ -1,0 +1,54 @@
+<html>
+
+<title>Defects</title>
+
+<body>
+
+<h1>Open Defects</h1>
+
+<form action="." method="post">
+   <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr bgcolor="#000070" style="color:#cccccc">
+         <td align="center">ID</td>
+         <td>Summary</td>
+         <td align="center">Status</td>
+         <td align="center">Priority</td>
+         <td align="center">Category</td>
+      </tr>
+
+      <% var oddRow = false;
+
+         obj.forLocalDataKeys(function(key) {
+            oddRow = !oddRow;
+      %>
+         <tr bgcolor="<%= oddRow ? "#bbbbbb" : "#dddddd" %>">
+            <td align="center"><a href="./<%=key%>"><%=key%></a></td>
+            <td><%=obj[key].summary%></td>
+            <td align="center"><%=obj[key].status%></td>
+            <td align="center"><%=obj[key].priority%></td>
+            <td align="center"><%=obj[key].category%></td>
+         </tr>
+      <% }); %>
+
+      <tr>
+        <td><input type="submit" name="submit" value="New"/></td>
+        <td><input type="text" name="summary" style="width: 100%"/></td>
+        <td></td>
+        <td><%=obj._priorities.htmlSelect("priority")%></td>
+        <td><%=obj._categories.htmlSelect("category")%></td>
+      <tr>
+      <tr>
+        <td></td>
+        <td><textarea name="description" cols="60" rows="10"  style="width: 100%"></textarea></td>
+      </tr>
+
+   </table>
+</form>
+
+<hr>
+
+<a href="../wiki">[Wiki]</a>
+
+<a href="..">[Toplevel]</a>
+
+</html>

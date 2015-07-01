@@ -1,0 +1,71 @@
+<% var converter = new Showdown.converter(); %>
+
+<html>
+
+<title>Defect - <%=obj.summary%></title>
+
+<body>
+
+<h2>Defect <%=obj.name%> - <%=obj.summary%></h2>
+
+<% if (postData.edit) { %>
+   <form action="./<%=obj.name%>" method="post">
+<% } %>
+
+<p>
+   <b>Status:</b>
+<% if (postData.edit) { %>
+     <%=obj._parent._statuses.htmlSelect("status", obj.status)%>
+<% } else { %>
+     <%=obj.status%>
+<% } %>
+    <br>
+
+   <b>Priority:</b>
+<% if (postData.edit) { %>
+     <%=obj._parent._priorities.htmlSelect("priority", obj.priority)%>
+<% } else { %>
+     <%=obj.priority%>
+<% } %>
+   <br>
+
+   <b>Category:</b>
+<% if (postData.edit) { %>
+     <%=obj._parent._categories.htmlSelect("category", obj.category)%>
+<% } else { %>
+     <%=obj.category%>
+<% } %>
+
+</p>
+
+<hr>
+
+<% if (postData.edit) { %>
+    <textarea name="description" rows="20" style="width:100%"><%=obj.description%></textarea>
+<% } else { %>
+    <%=converter.makeHtml(obj.description)%> 
+<% } %>
+
+<% if (postData.edit) { %>
+   <br>
+   <input type="submit" name="submit"/>
+   <a href="./<%=obj.name%>">[Cancel Edit]</a>
+   </form>
+<% } %>
+
+<hr>
+
+
+<a href=".">[Defect List]</a>
+
+<a href="../wiki">[Wiki]</a>
+
+<a href="..">[Toplevel]</a>
+
+<a href="./<%=obj.name%>.json">[As JSON]</a>
+
+<% if (!postData.edit) { %>
+  <a href="./<%=obj.name%>?edit=true">[Edit This Page]</a>
+<% } %>
+
+</html>

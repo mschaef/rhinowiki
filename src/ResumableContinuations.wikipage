@@ -1,0 +1,25 @@
+@RhinoWiki doesn't use these yet, but I want to incorporate them into
+the design in the near future. Currently in @RhinoWiki, @JavaScript
+provides the underlying data model; JSON objects are the way that
+RhinoWiki stores data.  What continuations would do is
+allow @JavaScript to also provide the control-flow model. This is a
+bit tricky to wrap your head around, but a conventional web server is
+almost completely stateless.  A request comes in, the server figures
+out how to respond to that request, and then replies with its response
+(which is either a document, a redirection, or an
+error). Continuations would let the server respond to a request,
+suspend the computation at the point the response is complete, and
+then resume the computation at the next incoming request. This would
+let you write code like this:
+
+     _submitDefect: function(defectInfo) {
+        while(!DefectInfoValid(defectInfo))
+           AskUserToEditDefectInfo(defectInfo);
+
+        if (IsUserSure())
+           AddDefectToDefectList(defectInfo);
+        else
+           GoBackToDefectListPage();
+     }
+
+

@@ -1,0 +1,4 @@
+init.js is the code that launches the application. It's the JavaScript entry
+point. Note that the Java entry point is in com.acn.rhinowiki.Main, but most
+of what happens there is interpreter setup and immediate delegation to JavaScript
+code contained in init.js.

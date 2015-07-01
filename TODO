@@ -1,0 +1,11 @@
+* Add support for HEAD to the static content handler.
+* Add support for POST
+* Add load from file.
+* Add autoloading.
+* Factor out the REPL I/O calls out of Main.
+* Add a static content directory to the standard build.
+* Protect against '..'s in static content URL's.
+* Integrate jQuery
+* Add native object detection to the json printer, and use it to avoid the ***.valueOf() error we get when printing native objects.
+* Take a look at repro-global-fn and determine why that fix doesn't appear to work in the mainline build.
+* Determine why the repro-global-fn fix is needed at all.

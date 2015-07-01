@@ -1,0 +1,35 @@
+<html>
+
+<title>Wiki</title>
+
+<body>
+
+<h1>Wiki Pages</h1>
+
+<list>
+   <% obj.forLocalDataKeys(function(key) { %>
+      <li><a href="./<%=key%>"><%=key%></a>
+   <% }); %>
+</list>
+
+<form action="." method="post">
+  <table>
+     <tr>
+        <td>Page Name:</td>
+        <td><input type="text" name="name" size="30"/></td>
+     </tr>
+     <tr>
+        <td>Contents:</td>
+        <td><textarea name="markdown" cols="60" rows="20"></textarea></td>
+     </tr>
+  </table>
+  <input type="submit" name="submit"/>
+</form>
+
+<hr>
+
+<a href="../defects">[Defects]</a>
+
+<a href="..">[Toplevel]</a>
+
+</html>

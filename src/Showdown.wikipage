@@ -1,0 +1,12 @@
+[Showdown](http://attacklab.net/showdown/) is an implemenation in @JavaScript of
+[John Gruber](http://daringfireball.net/])'s [Markdown](http://daringfireball.net/projects/markdown/)
+text markup language. The only change I've made for @RhinoWiki is to add a syntax
+for links beginning with `@`. These links are links to other pages in RhinoWiki, and the
+target can be anything in the tool (a wiki page, a defect report, etc.). They are specified
+as the path part of a URI, and they are rendered in the document as the text of the path.
+
+@/defects/15 is an enhancement to add another kind of link to Showdown, the include
+link. These links will have a `@@` prefix, and will work slightly differently. Rather
+than hyperlinking to the target document, they will fetch the target document, render it
+into an HTML fragment, and include that HTML inline in the document. This will allow
+a number of different kinds of composite document scenarios.

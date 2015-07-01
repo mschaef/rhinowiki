@@ -1,0 +1,11 @@
+Rhino is an implementation of @JavaScript written in @Java. Netscape originally
+developed Rhino as part of its Javagator project, which was an attempt to
+reimplement Netscape Navigator in Java. The Javagator project ultimately failed,
+but not before spinning off Rhino. Rhino is mature, with ten years of history,
+and shares in the benefits of running on the JVM. Rhino offers a number of
+interesting features.
+
+* Rhino offers good interoperability between Java and JavaScript.
+* Depending on the @OptimizationLevel, it can compile JavaScript into JVM bytecode for efficient operation.
+* It offers support for @ResumableContinuations.
+* Rhino is JavaScript, so it's the same as the language running in the browser.
