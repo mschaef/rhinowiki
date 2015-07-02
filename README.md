@@ -3,7 +3,7 @@
 Simple Wiki system built in server-side JavaScript using the Rhino
 JavaScript engine.
 
-To run, use the command `ant start`.
+To run, use the command `gradle run`.
 
 ## License
 
