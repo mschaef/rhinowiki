@@ -1,5 +1,5 @@
 
-var batchMode = false; // If false, launch a REPL on startup. If true, block until a shutdown is requested.
+var batchMode = true; // If false, launch a REPL on startup. If true, block until a shutdown is requested.
 var port      = 8088;
 
 load("json2.js");             // The standard JSON parser implemetnation written in JavaScript
