@@ -1,4 +1,0 @@
-RhinoWiki is built on a collection of libraries, written in both Java and
-JavaScript. The most important library is @Rhino, a Java implementation of
-the @JavaScript programming language. @Rhino is at the foundation of RhinoWiki.
-Other libraries include @Json2, @ResigTemplates, @Showdown, as well as @log4j.

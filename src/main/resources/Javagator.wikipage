@@ -1,5 +1,0 @@
-Javagator was a a Netscape project from the mid-to-late 90's to reimplement
-Netscape Navigator in Java. This was one of several 'boil the ocean' attempts
-by Netscape to take their flagship product and re-implement it. It was a stupid
-idea at the time, since it cost them time and marketshare to Microsoft Internet
-Explorer. However, it did result in @Rhino, which is pretty cool.

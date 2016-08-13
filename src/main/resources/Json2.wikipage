@@ -1,5 +1,0 @@
-[JSON 2](http://www.json.org/js.html) is a standard JSON reader and
-writer written in @JavaScript. In runs unmodified in @Rhino, but
-@JavaInteroperability presents some problems.  @Rhino lets you
-access @Java objects just as if they were native @JavaScript objects.
-However, @Json2 expects 
