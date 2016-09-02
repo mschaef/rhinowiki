@@ -1,46 +1,17 @@
 (ns rhinowiki.core
   (:gen-class)
   (:use compojure.core
-        [ring.middleware
-         not-modified
-         content-type
-         browser-caching])  
+        rhinowiki.utils
+        [ring.middleware not-modified content-type browser-caching])  
   (:require [clojure.tools.logging :as log]            
             [ring.adapter.jetty :as jetty]
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]
             [ring.util.response :as ring-response]
             [compojure.handler :as handler]
-            [compojure.route :as route]))
+            [compojure.route :as route]
+            [rhinowiki.data :as data]))
 
-(defmacro get-version []
-  ;; Capture compile-time property definition from Lein
-  (System/getProperty "rhinowiki.version"))
-
-(defmacro unless [ condition & body ]
-  `(when (not ~condition)
-     ~@body))
-
-(defn parsable-integer? [ str ]
-  (try
-   (Integer/parseInt str)
-   (catch Exception ex
-     false)))
-
-(defn config-property 
-  ( [ name ] (config-property name nil))
-  ( [ name default ]
-      (let [prop-binding (System/getProperty name)]
-        (if (nil? prop-binding)
-          default
-          (if-let [ int (parsable-integer? prop-binding) ]
-            int
-            prop-binding)))))
-
-(defn add-shutdown-hook [ shutdown-fn ]
-  (.addShutdownHook (Runtime/getRuntime)
-                    (Thread. (fn []
-                               (shutdown-fn)))))
 
 (defn wrap-request-logging [ app ]
   (fn [req]
@@ -57,6 +28,9 @@
 
 (defroutes all-routes
   ;; user/public-routes
+  (GET "/:article-name" { { article-name :article-name } :params }
+    ( (data/articles) article-name))
+  
   (route/resources  (str "/" (get-version)))
   (route/not-found "Resource Not Found"))
 
