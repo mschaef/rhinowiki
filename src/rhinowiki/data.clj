@@ -1,7 +1,12 @@
 (ns rhinowiki.data
-  (:use rhinowiki.utils))
+     (:use rhinowiki.utils))
 
+(defn- data-files []
+  (filter #(.isFile %)
+          (file-seq (java.io.File. "data/"))))
 
 (defn articles []
-  {"hello" "Hello World"
-   "goodbye" "Goodbye"})
+  (into {}
+        (map (fn [ data-file ]
+               [(.getName data-file) (slurp data-file)])
+             (data-files))))

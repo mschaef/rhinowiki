@@ -10,6 +10,7 @@
             [ring.util.response :as ring-response]
             [compojure.handler :as handler]
             [compojure.route :as route]
+            [markdown.core :as markdown]
             [rhinowiki.data :as data]))
 
 
@@ -29,7 +30,8 @@
 (defroutes all-routes
   ;; user/public-routes
   (GET "/:article-name" { { article-name :article-name } :params }
-    ( (data/articles) article-name))
+    (markdown/md-to-html-string
+     ((data/articles) article-name)))
   
   (route/resources  (str "/" (get-version)))
   (route/not-found "Resource Not Found"))
