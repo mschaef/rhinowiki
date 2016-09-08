@@ -1,11 +1,16 @@
 (ns rhinowiki.data
-     (:use rhinowiki.utils))
+  (:use rhinowiki.utils)
+  (:require [markdown.core :as markdown]))
 
 (defn- data-files []
   (map (fn [ data-file ]
-         {:name (.getName data-file)
-          :content-markdown (slurp data-file)
-          :last-modified (java.util.Date. (.lastModified data-file))})
+         (let [parsed (markdown/md-to-html-string-with-meta (slurp data-file))
+               file-name (.getName data-file) 
+               title (first (get-in parsed [:metadata :title] [ file-name ]))]
+           {:name file-name
+            :title title
+            :content-html (:html parsed)
+            :last-modified (java.util.Date. (.lastModified data-file))}))
        (filter #(.isFile %)
                (file-seq (java.io.File. "data/")))))
 
