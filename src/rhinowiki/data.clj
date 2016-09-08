@@ -2,10 +2,16 @@
   (:use rhinowiki.utils)
   (:require [markdown.core :as markdown]))
 
+(defn file-base-name [ file ]
+  (let [ file-name (.getName file) ]
+    (if-let [ extension-delim-pos (.indexOf file-name ".") ]
+      (.substring file-name 0 extension-delim-pos)
+      file-name)))
+
 (defn- data-files []
   (map (fn [ data-file ]
          (let [parsed (markdown/md-to-html-string-with-meta (slurp data-file))
-               file-name (.getName data-file) 
+               file-name (file-base-name data-file) 
                title (first (get-in parsed [:metadata :title] [ file-name ]))]
            {:name file-name
             :title title
