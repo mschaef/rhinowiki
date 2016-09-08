@@ -28,22 +28,40 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
-(defn content-page [ article-name content-markdown ]
+(defn page [ title body ]
+  (hiccup/html
+   [:html
+    [:head
+     [:title title]]
+    [:body
+     [:h1 title]
+     [:div.body
+      body]]]))
+
+(defn content-page [ article-name {content-markdown :content-markdown
+                                   last-modified :last-modified} ]
   (let [parsed (markdown/md-to-html-string-with-meta content-markdown)
         title (first (get-in parsed [:metadata :title] [ article-name ]))]
-    (hiccup/html
-     [:html
-      [:head
-       [:title title]]
-      [:body
-       [:h1 title]
-       [:div.article
-        (:html parsed)]]])))
+    (page title [:div
+                 [:div.last-modified
+                  last-modified]
+                 [:div.article
+                  (:html parsed)]])))
+
+(defn recent-articles-page []
+  (page "Recent Articles"
+        [:ul
+         (map (fn [ article-info ]
+                [:li [:a { :href (str "/" (:name article-info))} (:name article-info)]])
+              (data/recent-articles))]))
 
 (defroutes all-routes
   ;; user/public-routes
+  (GET "/" []
+    (recent-articles-page))
+  
   (GET "/:article-name" { { article-name :article-name } :params }
-    (content-page article-name ((data/articles) article-name)))
+    (content-page article-name ((data/articles-by-name) article-name)))
   
   (route/resources  (str "/" (get-version)))
   (route/not-found "Resource Not Found"))
