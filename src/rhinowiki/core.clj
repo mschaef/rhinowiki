@@ -10,6 +10,7 @@
             [ring.util.response :as ring-response]
             [compojure.handler :as handler]
             [compojure.route :as route]
+            [hiccup.core :as hiccup]
             [markdown.core :as markdown]
             [rhinowiki.data :as data]))
 
@@ -27,11 +28,22 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
+(defn content-page [ article-name content-markdown ]
+  (let [parsed (markdown/md-to-html-string-with-meta content-markdown)
+        title (first (get-in parsed [:metadata :title] [ article-name ]))]
+    (hiccup/html
+     [:html
+      [:head
+       [:title title]]
+      [:body
+       [:h1 title]
+       [:div.article
+        (:html parsed)]]])))
+
 (defroutes all-routes
   ;; user/public-routes
   (GET "/:article-name" { { article-name :article-name } :params }
-    (markdown/md-to-html-string
-     ((data/articles) article-name)))
+    (content-page article-name ((data/articles) article-name)))
   
   (route/resources  (str "/" (get-version)))
   (route/not-found "Resource Not Found"))
