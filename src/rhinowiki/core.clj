@@ -11,6 +11,7 @@
             [compojure.handler :as handler]
             [compojure.route :as route]
             [hiccup.core :as hiccup]
+            [hiccup.page :as page]
             [rhinowiki.data :as data]))
 
 
@@ -27,10 +28,19 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
+(defn resource [ path ]
+  (str "/" (get-version) "/" path))
+
+
 (defn page [ title body ]
   (hiccup/html
    [:html
     [:head
+     (page/include-css (resource "style.css"))
+     (page/include-css (resource "rainbow.css"))
+     (page/include-js (resource "highlight.pack.js"))
+     [:script "hljs.initHighlightingOnLoad();"]
+
      [:title title]]
     [:body
      [:h1 title]

@@ -4,6 +4,8 @@
   
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+
+  :plugins [[lein-ring "0.9.7"]]
   
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.3.1"]
@@ -14,6 +16,8 @@
                  [hiccup "1.0.5"]
                  [markdown-clj "0.9.89"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.4.1.201607150455-r"]]
+
+  :ring { :handler rhinowiki.core/handler }
   
   :main ^:skip-aot rhinowiki.core
   :target-path "target/%s"

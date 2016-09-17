@@ -9,6 +9,10 @@ Hello World
 * a
 * list
 
-    (code)
+```clojure
+(defn incr [ x ]
+  (+ x 1))
+```
+
 
 
