@@ -1,7 +1,42 @@
 h1 {
-    background: red;
+    margin-bottom: 0px;
 }
 
+
+body {
+    width: 64em;
+    text-align: left;
+    margin: 0 auto;
+
+    margin-top: 2em;
+}
+
+A:hover {
+    background: #e0e0e0;
+}
+
+A:visited {
+    color: black;
+}
+
+A:link {
+    color: black;
+    text-decoration: none;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 150%;
+}
+
+code {
+    margin-left: 4em;
+    margin-right: 4em;
+}
+
+.article {
+    margin-top: 1.5em;
+}
 
 /* highlight.js - Rainbow style
 

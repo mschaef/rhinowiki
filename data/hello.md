@@ -10,8 +10,19 @@ Hello World
 * list
 
 ```clojure
-(defn incr [ x ]
-  (+ x 1))
+(defn page [ title body ]
+  (hiccup/html
+   [:html
+    [:head
+     (page/include-css (resource "style.css"))
+     (page/include-css (resource "rainbow.css"))
+     (page/include-js (resource "highlight.pack.js"))
+     [:script "hljs.initHighlightingOnLoad();"]
+     [:title title]]
+    [:body
+     [:h1 title]
+     [:div.body
+      body]]]))
 ```
 
 

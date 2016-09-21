@@ -32,46 +32,55 @@
   (str "/" (get-version) "/" path))
 
 
-(defn page [ title body ]
+(def blog-title "Mike Schaeffer's Weblog")
+
+(defn site-page [ page-title body ]
   (hiccup/html
    [:html
     [:head
      (page/include-css (resource "style.css"))
-     (page/include-css (resource "rainbow.css"))
      (page/include-js (resource "highlight.pack.js"))
      [:script "hljs.initHighlightingOnLoad();"]
-
-     [:title title]]
+     [:title page-title]]
     [:body
-     [:h1 title]
-     [:div.body
-      body]]]))
+     [:div.header
+      [:a {:href "/"}
+       [:h1 blog-title]]]
+     body]]))
 
-(defn content-page [ {content-html :content-html
-                      last-modified :last-modified
-                      title :title}  ]
-  (page title [:div
-               [:div.last-modified
-                last-modified]
-               [:div.article
-                content-html]]))
+(def date-format (java.text.SimpleDateFormat. "MMMM d, y"))
+
+(defn article-block [ article-info ]
+  [:div.article
+   [:div.title
+    (:title article-info)]
+   [:div.date
+    (.format date-format (:date article-info))]
+   (:content-html article-info)])
+
+(defn article-page [ article-name ]
+  (when-let [ article-info  ((data/articles-by-name) article-name) ]
+    (site-page (:title article-info) (article-block article-info))))
 
 (defn recent-articles-page []
-  (page "Recent Articles"
-        [:ul
-         (map (fn [ article-info ]
-                [:li [:a { :href (str "/" (:name article-info))} (:title article-info)]])
-              (data/recent-articles))]))
+  (page blog-title
+        (map (fn [ article-info ]
+               [:div
+                (article article-info)
+                [:a { :href (str "/" (:name article-info))}
+                 "Permalink"]])
+             (take 10 (data/recent-articles)))))
 
 (defroutes all-routes
-  ;; user/public-routes
   (GET "/" []
     (recent-articles-page))
   
-  (GET "/:article-name" { { article-name :article-name } :params }
-    (content-page ((data/articles-by-name) article-name)))
+  (GET "/:article-name" { params :params }
+    (article-page (:article-name params)))
   
   (route/resources  (str "/" (get-version)))
+  (route/resources "/")
+  
   (route/not-found "Resource Not Found"))
 
 (def handler (-> all-routes

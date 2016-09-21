@@ -16,7 +16,7 @@
            {:name file-name
             :title title
             :content-html (:html parsed)
-            :last-modified (java.util.Date. (.lastModified data-file))}))
+            :date (java.util.Date. (.lastModified data-file))}))
        (filter #(.isFile %)
                (file-seq (java.io.File. "data/")))))
 
