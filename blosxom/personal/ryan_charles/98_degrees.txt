@@ -1,4 +1,7 @@
-99.0...98.9...98.8...98.7...98.6...
+title: 99.0...98.9...98.8...98.7...98.6...
+date: 2006-11-17
+filename: ./personal/ryan_charles/98_degrees.txt
+
 
 It's been a couple weeks since my last post about Ryan's first fever, 
 but I'm pleased to say we got through it without much incident.  The 
@@ -36,5 +39,3 @@ being 'that baby' (you know, the baby crying through the whole flight
 and irritating all of the adults).  Actually, Ryan didn't cry at all.  
 He was quite the little trooper, and both Mommy and Daddy were very 
 proud. Two flights to go this holiday season.
-date: 2006-11-17
-filename: ./personal/ryan_charles/98_degrees.txt

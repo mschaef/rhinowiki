@@ -1,4 +1,7 @@
-Cingular 2125 Followup
+title: Cingular 2125 Followup
+date: 2008-01-12
+filename: ./tech/products/c2125_followup.txt
+
 
 Last June, I wrote <a href="http://www.mschaef.com/blog/tech/products/c2125.txt">a bit</a>
 on my experiences with the Cingular 2125 Windows Smartphone. After more than a year, the 
@@ -50,5 +53,3 @@ the bad.
     a nice way to check mail in a pinch.
 
 </list>
-date: 2008-01-12
-filename: ./tech/products/c2125_followup.txt

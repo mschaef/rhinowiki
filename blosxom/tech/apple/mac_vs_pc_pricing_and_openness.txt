@@ -1,4 +1,7 @@
-Macintosh vs. PC Pricing, and missing the point.
+title: Macintosh vs. PC Pricing, and missing the point.
+date: 2008-08-18
+filename: ./tech/apple/mac_vs_pc_pricing_and_openness.txt
+
 
 Harry McCracken just wrote <a 
 href="http://technologizer.com/2008/08/14/are-macs-more-expensive-lets-do-the-math-once-and-for-all/"> 
@@ -52,5 +55,3 @@ Part of the value of the PC is that it allows other vendors to enlarge
 the platform into new segments. Missing out on this is one of the costs 
 of picking an Apple that is missing in most comparisons, including 
 McCracken's.
-date: 2008-08-18
-filename: ./tech/apple/mac_vs_pc_pricing_and_openness.txt

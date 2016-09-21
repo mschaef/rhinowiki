@@ -1,4 +1,7 @@
-vCalc
+title: vCalc
+date: 2005-02-08
+filename: ./tech/ectworks/vcalc/vcalc.txt
+
 
 vCalc is the other side project I have going on right now. It's
 a simple RPN style calculator written for Win32. Underlying
@@ -15,5 +18,3 @@ Like Noisemaker, vCalc is shareware available through
 <a href="http://www.icegiant.com/vcalc.shtml">IceGiant</a>.
 <p><p>
 
-date: 2005-02-08
-filename: ./tech/ectworks/vcalc/vcalc.txt

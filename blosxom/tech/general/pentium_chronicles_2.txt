@@ -1,4 +1,7 @@
-Pentium Chronicles, Part 2
+title: Pentium Chronicles, Part 2
+date: 2006-01-10
+filename: ./tech/general/pentium_chronicles_2.txt
+
 
 I finished <a 
 href="http://www.mschaef.com/cgi-bin/blosxom.cgi/tech/general/pentium_chronicles.txt"> 
@@ -33,5 +36,3 @@ book, my answer is yes. However, it's important to go into the book with the rig
 expectations. If you go in expecting something like <a 
 href="http://www.amazon.com/gp/product/0316491977/103-2221210-9905457?v=glance&n=283155"><i>Soul 
 of a New Machine</i></a>, you'll be disappointed.
-date: 2006-01-10
-filename: ./tech/general/pentium_chronicles_2.txt

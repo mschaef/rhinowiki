@@ -1,4 +1,7 @@
-Michael Kaplan's Blog and a Few Other Good Links
+title: Michael Kaplan's Blog and a Few Other Good Links
+date: 2005-03-01
+filename: ./tech/general/m_kaplan.txt
+
 
 Another useful blog from <a href="http://www.microsoft.com">Microsoft</a>.
 <a href="http://weblogs.asp.net/michkap/">Michael Kaplan has been blogging</a>
@@ -14,5 +17,3 @@ I've also found, via <a href="http://lambda-the-ultimate.org/">Lambda the Ultima
 a website dedicated to  <a href="http://lambda-the-ultimate.org/node/view/553">Alexander
 Stepanov's papers and code</a>. Stepanov is one of the principals behind the C++
 STL (STepanov and Lee) Standard Template Library.
-date: 2005-03-01
-filename: ./tech/general/m_kaplan.txt

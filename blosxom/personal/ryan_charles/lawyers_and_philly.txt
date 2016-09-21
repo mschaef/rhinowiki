@@ -1,4 +1,7 @@
-Lawyers and Philadelphia
+title: Lawyers and Philadelphia
+date: 2006-09-09
+filename: ./personal/ryan_charles/lawyers_and_philly.txt
+
 
 <a
 href="http://www.edmunds.com/apps/vdpcontainers/do/vdp/articleId=104581/pageNumber=1">80%
@@ -65,5 +68,3 @@ from the government.
 Sorry for the gripe, but this is an irritating (for me) 
 fact of life in the modern world.
 
-date: 2006-09-09
-filename: ./personal/ryan_charles/lawyers_and_philly.txt

@@ -1,4 +1,7 @@
-Ryan's First Thanksgiving
+title: Ryan's First Thanksgiving
+date: 2006-11-26
+filename: ./personal/ryan_charles/first_thanksgiving.txt
+
 
 We just got back from Ryan's first Thanksgiving holiday. Rather than spread
 the travel out across the entire holiday season, we decided to hit both
@@ -19,5 +22,3 @@ some pictures up <a href="http://www.mschaef.com/albums/ryan_thanksgiving_2006/i
 We hope everybody had a good Thanksgiving holiday and wish everybody a happy holiday
 season!
 
-date: 2006-11-26
-filename: ./personal/ryan_charles/first_thanksgiving.txt

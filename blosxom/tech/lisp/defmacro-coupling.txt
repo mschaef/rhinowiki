@@ -1,4 +1,7 @@
-defmacro and coupling.
+title: defmacro and coupling.
+date: 2008-04-10
+filename: ./tech/lisp/defmacro-coupling.txt
+
 
 A few months ago, I ran into a problem with a macro that seriously
 changed my opinions on how they should be used. It all comes down to
@@ -155,5 +158,3 @@ Into this macro/function pair:
 (defmacro (with-output-to-string . code)
   `(call-with-output-to-string (lambda () ,@code)))
 </pre>
-date: 2008-04-10
-filename: ./tech/lisp/defmacro-coupling.txt

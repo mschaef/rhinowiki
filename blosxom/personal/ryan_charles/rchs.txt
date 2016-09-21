@@ -1,4 +1,7 @@
-Ryan Charles Harrison Schaeffer
+title: Ryan Charles Harrison Schaeffer
+date: 2006-09-04
+filename: ./personal/ryan_charles/rchs.txt
+
 
 Where did Ryan's name come from? Lots of agonizing.  We didn't
 find out Ryan's gender prior to his birth and for some reason
@@ -21,5 +24,3 @@ Anyway, here's the etymology:
 
 <li><b>Schaeffer</b> - Mike's family name.
 </ul>
-date: 2006-09-04
-filename: ./personal/ryan_charles/rchs.txt

@@ -1,4 +1,7 @@
-Formulas Driven from AutoFilters
+title: Formulas Driven from AutoFilters
+date: 2005-10-03
+filename: ./tech/excel/list_filter_2_reverse.txt
+
 
 <b>I had this written out and then discovered a better way. SUBTOTAL
 is "sensitive to AutoFilter settings", right? Assuming A1 isn't 
@@ -84,5 +87,3 @@ A couple sidenotes:
 <li>Excel's SUBTOTAL intrinsic function is also sensitive to AutoFilter settings.
 
 </ul>
-date: 2005-10-03
-filename: ./tech/excel/list_filter_2_reverse.txt

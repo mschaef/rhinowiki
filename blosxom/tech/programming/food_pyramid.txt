@@ -1,4 +1,7 @@
-The programmer's 'food' pyramid.
+title: The programmer's 'food' pyramid.
+date: 2008-01-17
+filename: ./tech/programming/food_pyramid.txt
+
 
 I don't usually write posts for the sole purpose of linking to other 
 posts, but this is an exception. <a 
@@ -11,5 +14,3 @@ how to better interact with others, be they clients or team-mates. If you
 can design your way out of a rewrite, or work with your client to recast 
 requirements to save complexity, it can be far more cost effective than 
 even the best raw code.
-date: 2008-01-17
-filename: ./tech/programming/food_pyramid.txt

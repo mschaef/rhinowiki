@@ -1,4 +1,7 @@
-Renaming SVN Users on Windows
+title: Renaming SVN Users on Windows
+date: 2008-02-22
+filename: ./tech/programming/renaming-svn-users-on-windows.txt
+
 
 The instructions I gave earlier on <a 
 href="http://www.mschaef.com/blog/tech/programming/renaming-svn-users.html">Renaming 
@@ -16,5 +19,3 @@ The default return code from a batch file is success, which SVN interprets as a
 property changes, all the time, by anybody. If you want to implement an actual policy, 
 Philibert Pérusse has posted a <a 
 href="http://svn.haxx.se/users/archive-2006-03/0107.shtml">template script</a> online.
-date: 2008-02-22
-filename: ./tech/programming/renaming-svn-users-on-windows.txt

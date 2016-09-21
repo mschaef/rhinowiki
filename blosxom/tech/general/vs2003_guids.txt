@@ -1,4 +1,7 @@
-Visual Studio 2003 Safety Tip: Your Projects have GUIDs
+title: Visual Studio 2003 Safety Tip: Your Projects have GUIDs
+date: 2006-03-20
+filename: ./tech/general/vs2003_guids.txt
+
 
 If you ever manually work with Visual Studio 2003
 projects (<tt>*.vcproj</tt> files), be aware that projects have both
@@ -27,5 +30,3 @@ why the GUIDs are used.
 {4051A65D-4718-41AE-8C94-6B1906EB4D77} = \
   {4051A65D-4718-41AE-8C94-6B1906EB4D77}
 </ptr>
-date: 2006-03-20
-filename: ./tech/general/vs2003_guids.txt

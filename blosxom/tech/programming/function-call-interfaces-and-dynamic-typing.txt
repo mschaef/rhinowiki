@@ -1,4 +1,7 @@
-Function Call Interfaces and Dynamic Typing
+title: Function Call Interfaces and Dynamic Typing
+date: 2008-01-08
+filename: ./tech/programming/function-call-interfaces-and-dynamic-typing.txt
+
 
 Lately, I've been thinking a bit about the way language design
 influences library design. My line of thought started out inspired by
@@ -247,5 +250,3 @@ value, one holding information on whether or not the key was found.
 a return value and a reference value.</i> The dynamic typing isn't
 necessarily adding any expressive power, but it is giving another,
 concise means of expressing what we're trying to say.
-date: 2008-01-08
-filename: ./tech/programming/function-call-interfaces-and-dynamic-typing.txt

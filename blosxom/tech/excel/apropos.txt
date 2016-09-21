@@ -1,4 +1,7 @@
-"Apropos of..." Better Autofilter Results.
+title: "Apropos of..." Better Autofilter Results.
+date: 2005-11-04
+filename: ./tech/excel/apropos.txt
+
 
 At my job, we use Excel extensively to keep track of software
 testing progress. One typical use is to maintain a list of features
@@ -29,5 +32,3 @@ to aggregate the columns together:
 
 So, why the name apropos? Follow this <a 
 href="http://www.lisp.org/HyperSpec/Body/fun_aproposcm_apropos-list.html">link</a>.
-date: 2005-11-04
-filename: ./tech/excel/apropos.txt

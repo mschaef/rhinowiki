@@ -1,4 +1,7 @@
-SRFI-74: Octet-Addressed Binary Blocks
+title: SRFI-74: Octet-Addressed Binary Blocks
+date: 2005-11-04
+filename: ./tech/lisp/srfi_74.txt
+
 
 
 <a href="http://www-pu.informatik.uni-tuebingen.de/users/sperber/">
@@ -16,5 +19,3 @@ of a bunch of applications for this:
 <li>A way to represent binary data longer than a byte that's written to and
     read from binary ports.
 </ul>
-date: 2005-11-04
-filename: ./tech/lisp/srfi_74.txt

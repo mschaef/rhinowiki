@@ -1,4 +1,7 @@
-Excel 12 Databars, Now. (Sort of)
+title: Excel 12 Databars, Now. (Sort of)
+date: 2005-10-07
+filename: ./tech/excel/databar.txt
+
 
 Microsoft has just announced a cool new feature on the Excel 12 blog: the
 databar. I think a picture (linked from Microsoft's 
@@ -124,5 +127,3 @@ plot cells...
 you bought the monochrome, non-graphics, video board, characters like this 
 were as close as you could get to a bar chart.)</i>
 
-date: 2005-10-07
-filename: ./tech/excel/databar.txt

@@ -1,4 +1,6 @@
-A few logistical notes
+title: A few logistical notes
+date: 2006-08-17
+filename: ./tech/this_blog/ryans_logistics.txt
 
 With <a href="http://www.mschaef.com/blog/personal/ryan_charles">Ryan</a>'s
 arrival, my blog is going to start containing more non-techical material.
@@ -23,6 +25,3 @@ here are the good weblog links:
 <li><a href="http://www.mschaef.com/blog/tech/">Technical content only</a>
     (<a href="http://www.mschaef.com/blog/tech/index.rss">RSS</a>)
 </ul>
-
-date: 2006-08-17
-filename: ./tech/this_blog/ryans_logistics.txt

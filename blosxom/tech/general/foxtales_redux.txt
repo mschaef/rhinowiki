@@ -1,4 +1,7 @@
-Kerry Nietz and FoxTales
+title: Kerry Nietz and FoxTales
+date: 2006-07-07
+filename: ./tech/general/foxtales_redux.txt
+
 
 <a href="http://www.nietz.com/">Kerry Nietz</a>, author of <a 
 href="http://www.amazon.com/gp/product/1930919506/104-3479054-5315925?v=glance&n=283155">
@@ -23,5 +26,3 @@ of <a href="http://en.wikipedia.org/wiki/Christopher_J._Date">C.J. Date</a>'s
 in Depth,</a> ironically enough), and it still
 seems relevant, six months after the initial read. That's always a 
 good sign.
-date: 2006-07-07
-filename: ./tech/general/foxtales_redux.txt

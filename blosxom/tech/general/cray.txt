@@ -1,4 +1,7 @@
-Seymour Cray
+title: Seymour Cray
+date: 2005-05-17
+filename: ./tech/general/cray.txt
+
 
 For some reason, I've been thinking a lot lately about Seymour Cray.
 When I was growing up, I remember asking my dad
@@ -53,5 +56,3 @@ Reading through them, a couple of things made impressions on me:
 
 Anyway, I have nothing but the utmost respect for the man and his
 accomplishments. R.I.P, Mr. Cray.
-date: 2005-05-17
-filename: ./tech/general/cray.txt

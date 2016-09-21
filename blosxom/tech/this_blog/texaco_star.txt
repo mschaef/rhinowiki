@@ -1,4 +1,6 @@
-The "Star of the American Road"
+title: The "Star of the American Road"
+date: 2005-06-23
+filename: ./tech/this_blog/texaco_star.txt
 
 Oddly enough, the search term that brings the most visitors
 to my little website is "Texaco". I suspect most of those people
@@ -34,5 +36,3 @@ stuck it in a  little
 For some reason, that picture brings more visitors to this site than
 anything else. If you happen across this site and actually use the image for
 something you owe its presence to a ten year old accident of fate.
-date: 2005-06-23
-filename: ./tech/this_blog/texaco_star.txt

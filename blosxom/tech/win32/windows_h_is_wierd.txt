@@ -1,4 +1,6 @@
-Windows.h is wierd...
+title: Windows.h is wierd...
+date: 2006-01-23
+filename: ./tech/win32/windows_h_is_wierd.txt
 
 I've recently spent some time experimenting with the 
 <a href="http://msdn.microsoft.com/library/en-us/ power/base/callntpowerinformation.asp">CallNtPowerInformation</a>
@@ -75,5 +77,3 @@ extern "C" {
 </pre>
 
 I'm not honestly sure why this had to be quite this complicated...
-date: 2006-01-23
-filename: ./tech/win32/windows_h_is_wierd.txt

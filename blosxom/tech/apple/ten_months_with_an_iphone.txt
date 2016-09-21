@@ -1,4 +1,7 @@
-iPhone
+title: iPhone
+date: 2009-08-05
+filename: ./tech/apple/ten_months_with_an_iphone.txt
+
 
 I've been meaning to write this for months... after switching to an
 iPhone last October I have some thoughts on the transition away from
@@ -97,5 +100,3 @@ part of that equation.
 
 I do like the thing, and I wouldn't switch away, but it's far from
 perfect. Let's hope it gets better.
-date: 2009-08-05
-filename: ./tech/apple/ten_months_with_an_iphone.txt

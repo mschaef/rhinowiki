@@ -1,4 +1,7 @@
-Oracle and Table Descriptions
+title: Oracle and Table Descriptions
+date: 2007-05-15
+filename: ./tech/general/oracle_and_table_descriptions.txt
+
 
 
 The other day, I created a table in Oracle with the following command. This 
@@ -94,5 +97,3 @@ If you really do need table information in tabular form, there are always
 the <tt>ALL_TABLES</tt> and <tt>ALL_TAB_COLS</tt> views. (Of course, a 
 really wonderful solution to all of this would be to make those views 
 writable, somehow standardize them, and then skip the DDL entirely. :-)
-date: 2007-05-15
-filename: ./tech/general/oracle_and_table_descriptions.txt

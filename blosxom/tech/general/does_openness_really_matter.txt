@@ -1,4 +1,7 @@
- Does Openness Matter Anymore?
+title:  Does Openness Matter Anymore?
+date: 2008-06-12
+filename: ./tech/general/does_openness_really_matter.txt
+
 
 I was born in 1975. In the 'computer world', this means I grew up at
 the tail end of the 8-bit era. By the time I was a teenager the market
@@ -143,5 +146,3 @@ again, has a product that looks 'next generation', but the pricing and
 openness factors that cost them that advantage in the early 90's are
 no longer there. It's a good time to be involved in the iPhone,
 methinks.
-date: 2008-06-12
-filename: ./tech/general/does_openness_really_matter.txt

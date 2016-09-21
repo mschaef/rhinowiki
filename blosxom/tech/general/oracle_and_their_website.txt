@@ -1,4 +1,7 @@
-Oracle and their website...
+title: Oracle and their website...
+date: 2007-03-23
+filename: ./tech/general/oracle_and_their_website.txt
+
 
 My current day job involves devloping software that uses Oracle as its back end. 
 I've built a local development environment on my laptop using Oracle Express 
@@ -25,5 +28,3 @@ directly proportional to the number of developers coding for it and the amount o
 code written to it. Make it as easy as possible, and it will only help your bottom 
 line. Microsoft understands this, why don't you?
 	
-date: 2007-03-23
-filename: ./tech/general/oracle_and_their_website.txt

@@ -1,4 +1,7 @@
-I had a dream...
+title: I had a dream...
+date: 2005-08-24
+filename: ./tech/excel/let_in_excel.txt
+
 
 I literally dreamed about this last night. It would be <b>wonderful</b>
 if Excel supported formulas like this:
@@ -63,5 +66,3 @@ End Function
 This isn't bad, but it requires that spreadsheet authors and
 readers understand VBA. It also imposes significant performance
 costs: calling into VBA from a worksheet takes time.
-date: 2005-08-24
-filename: ./tech/excel/let_in_excel.txt

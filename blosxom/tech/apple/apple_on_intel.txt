@@ -1,4 +1,7 @@
-Apple on Intel - Not^H^H^H gonna happen
+title: Apple on Intel - Not^H^H^H gonna happen
+date: 2005-06-06
+filename: ./tech/apple/apple_on_intel.txt
+
 
 So, the big rumor is that <a href="http://apple.slashdot.org/article.pl?sid=05/06/06/1131250&tid=118&tid=181&tid=3">
 Apple is switching to Intel processors</a>, and Steve Jobs is going to make the announcement during his
@@ -106,5 +109,3 @@ out why they'd do it, and I have some ideas there too:
     
 
 Anyway, let's see what Jobs says...
-date: 2005-06-06
-filename: ./tech/apple/apple_on_intel.txt

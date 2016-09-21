@@ -1,4 +1,6 @@
-Recent Blog Posts
+title: Recent Blog Posts
+date: 2014-03-26
+filename: ./tech/blogging-in-2013.txt
 
 Sorry for the radio silence, but recently I've been focusing my
 writing time on the <a href="https://www.ksmpartners.com/blog/">KSM
@@ -58,12 +60,3 @@ bytecode. If you'd like to play with the code,
 <li><a href="https://www.ksmpartners.com/2014/01/rpn-calc-part-7-refactoring-loops-with-reduce/">RPN Calc, Part 7 - Refactoring Loops with Reduce</a>
 </ul>
 
-
-
-
-
-
-
-
-date: 2014-03-26
-filename: ./tech/blogging-in-2013.txt

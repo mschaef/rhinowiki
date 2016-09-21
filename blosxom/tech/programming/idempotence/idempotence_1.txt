@@ -1,4 +1,7 @@
-Programming Well: Embrace Idempotence, Part 1
+title: Programming Well: Embrace Idempotence, Part 1
+date: 2005-02-22
+filename: ./tech/programming/idempotence/idempotence_1.txt
+
 
 
 There's a good <a href="http://dictionary.reference.com/search?q=idempotent">
@@ -43,5 +46,3 @@ of automated logic.
 <br><br>
 
 Of course, this is pretty commonplace. More is to come...
-date: 2005-02-22
-filename: ./tech/programming/idempotence/idempotence_1.txt

@@ -1,4 +1,7 @@
-From USB port to battery charger...
+title: From USB port to battery charger...
+date: 2006-06-22
+filename: ./tech/general/usb_power_hub.txt
+
 
 I don't know how plausible it is, but it'd be awfully nice if laptops had
 a way to power USB ports when the machine is off but plugged in. Perhaps this
@@ -21,5 +24,3 @@ extra for a laptop with this feature.
 Another way this could be implemented would be to put 3-4 power-only USB
 ports on the laptop's power brick.
 
-date: 2006-06-22
-filename: ./tech/general/usb_power_hub.txt

@@ -1,4 +1,7 @@
-Wanna buy a car?
+title: Wanna buy a car?
+date: 2006-06-15
+filename: ./misc/wanna_buy_a_car_p.txt
+
 
 Let's see, the modern car buying experience is:
 
@@ -14,5 +17,3 @@ Let's see, the modern car buying experience is:
 Don't get me wrong, I like cars as much as the next red-blooded
 American guy, but if you view your car as anything other than a 
 tremendous expense, you really need to rethink your point of view.
-date: 2006-06-15
-filename: ./misc/wanna_buy_a_car_p.txt

@@ -1,4 +1,7 @@
-The scourge of flip phones....
+title: The scourge of flip phones....
+date: 2006-06-01
+filename: ./tech/general/flip_phones.txt
+
 
 Flip phones seem pretty popular these days. I wonder why. After all,
 the hinge is just a weak spot in the structure of the phone. It also
@@ -10,5 +13,3 @@ open to see your caller ID. To fix that problem, there's a second
 display on the outside of the phone. Why, exactly, is this a good
 idea?
 
-date: 2006-06-01
-filename: ./tech/general/flip_phones.txt

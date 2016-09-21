@@ -1,4 +1,7 @@
-List filtering with Formulas in Microsoft Excel: Motivation
+title: List filtering with Formulas in Microsoft Excel: Motivation
+date: 2005-07-18
+filename: ./tech/excel/list_filter_0_motivation.txt
+
 
 One of Excel's more interesting features for querying data sets
 is the AutoFilter. Applied to a table of data in a spreadsheet,
@@ -65,5 +68,3 @@ own limitations, some of which are very similar to AutoFilter's.)</i>
 I'll post a way to get AutoFilter-like behavior directly from
 Excel formulas. This technique has its own issues, but it does
 address lots of the issues I mentioned here.
-date: 2005-07-18
-filename: ./tech/excel/list_filter_0_motivation.txt

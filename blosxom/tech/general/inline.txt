@@ -1,4 +1,7 @@
-Macros and Inline Functions
+title: Macros and Inline Functions
+date: 2006-03-20
+filename: ./tech/general/inline.txt
+
 
 I recently converted a bunch of accessor macros in vCalc over to inline
 functions. These macros are a legacy of vCalc's <a href="http://people.delphiforums.com/gjc/winsiod.html">
@@ -47,5 +50,3 @@ minutes of testing, two related to reading complex numbers, and one related to
 macroexpansion of a specific class of form. Adding these type checks also killed
 performance, but that was pretty easy to solve by making the additional checks
 independently switchable.
-date: 2006-03-20
-filename: ./tech/general/inline.txt

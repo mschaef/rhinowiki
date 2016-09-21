@@ -1,4 +1,7 @@
-Programming Well: Global Variables
+title: Programming Well: Global Variables
+date: 2005-04-12
+filename: ./tech/programming/globals.txt
+
 
 Global variables tend get a bad rap, kind of like goto and pointers.
 Personally, I think they can be pretty useful if you are careful.
@@ -51,5 +54,3 @@ collisions as well as clearely denotes what variables are global, when you
 have to read or alter your code. If you have multiple global variables,
 I'd also be tempted to wrap them all up in a structure, for some of the
 same reasons. 
-date: 2005-04-12
-filename: ./tech/programming/globals.txt

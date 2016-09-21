@@ -1,4 +1,7 @@
-A few good Lisp and Scheme (and Smalltalk) Related Links
+title: A few good Lisp and Scheme (and Smalltalk) Related Links
+date: 2005-03-04
+filename: ./tech/lisp/more_links.txt
+
 
 It never ceases to amaze me how much good material there is
 online. Here's some more:
@@ -39,5 +42,3 @@ online. Here's some more:
 philosophy of undergraduate advising</a>. It's an example to be followed. ;-) </i>
 
 
-date: 2005-03-04
-filename: ./tech/lisp/more_links.txt

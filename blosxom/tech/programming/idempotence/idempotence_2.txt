@@ -1,4 +1,7 @@
-Programming Well: Embrace Idempotence, Part 2 (It works at runtime too)
+title: Programming Well: Embrace Idempotence, Part 2 (It works at runtime too)
+date: 2005-03-01
+filename: ./tech/programming/idempotence/idempotence_2.txt
+
 
 
 Idempotence has benefits at a program's run-time, as well as at 
@@ -124,5 +127,3 @@ cs and potentially duplicate it.
 <br><Br>
 
 Next up are a few more examples of idempotence, as well as a look into some of the pitfalls.
-date: 2005-03-01
-filename: ./tech/programming/idempotence/idempotence_2.txt

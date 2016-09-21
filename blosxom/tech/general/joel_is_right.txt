@@ -1,4 +1,7 @@
-Joel is Right
+title: Joel is Right
+date: 2005-02-16
+filename: ./tech/general/joel_is_right.txt
+
 
 Jon Galloway <a href="http://weblogs.asp.net/jgalloway/archive/2005/02/16/374212.aspx">recently
 posted</a> a set of six counterarguments to Joel Spolsky's assertation that 
@@ -116,5 +119,3 @@ Now, speaking to Jon's particular issues
 	your programming will ultimately suffer for not knowing it.	
 </p>
 
-date: 2005-02-16
-filename: ./tech/general/joel_is_right.txt

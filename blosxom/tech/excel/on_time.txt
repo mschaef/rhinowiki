@@ -1,4 +1,7 @@
-MoveAfterReturn, OnTime, and the Excel Status Bar
+title: MoveAfterReturn, OnTime, and the Excel Status Bar
+date: 2005-09-20
+filename: ./tech/excel/on_time.txt
+
 
 I really liked
 <a href="http://www.dicks-blog.com/archives/2005/09/19/move-after-selection/#comments">
@@ -75,5 +78,3 @@ Sub MaybeToggleMAR()
     DisableMARChangesSoon
 End Sub
 </pre>
-date: 2005-09-20
-filename: ./tech/excel/on_time.txt

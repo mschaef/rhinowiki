@@ -1,4 +1,7 @@
-A few interesing software books.
+title: A few interesing software books.
+date: 2007-07-02
+filename: ./tech/general/book_list.txt
+
 
 <p>
    I wrote this list of good software books a few years ago, in an effort
@@ -374,5 +377,3 @@ href="http://www.amazon.com/exec/obidos/tg/detail/-/0262011530/qid=1061505635/sr
    course at MIT, this book talks a lot about varying styles of computation
    and how they can be used. 
 </p>
-date: 2007-07-02
-filename: ./tech/general/book_list.txt

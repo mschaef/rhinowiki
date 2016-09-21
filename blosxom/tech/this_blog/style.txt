@@ -1,4 +1,7 @@
-Should blog posts be written like a newspaper article?
+title: Should blog posts be written like a newspaper article?
+date: 2005-06-01
+filename: ./tech/this_blog/style.txt
+
 
 Should blog posts be written with the <a href="http://www.freep.com/jobspage/academy/writing.htm">
 essential content at the beginning</a> and less interesting details at the end?
@@ -18,5 +21,3 @@ worth the time...
 More established bloggers, with a better track record of writing interesting
 stuff, might have more leeway.
 
-date: 2005-06-01
-filename: ./tech/this_blog/style.txt

@@ -1,4 +1,7 @@
-Hook 'Em Horns...
+title: Hook 'Em Horns...
+date: 2006-01-05
+filename: ./personal/hook_em_horns_2006.txt
+
 
 My alma mater, <a href="http://www.utexas.edu">The University
 of Texas at Austin</a>, <a href="http://mackbrown-texasfootball.com/index.php?s=&url_channel_id=40&url_article_id=1874&url_subchannel_id=&change_well_id=2">
@@ -14,5 +17,3 @@ cam</a> will have to do.
 
 
 
-date: 2006-01-05
-filename: ./personal/hook_em_horns_2006.txt

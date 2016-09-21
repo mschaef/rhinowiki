@@ -1,4 +1,7 @@
-DCOM Server Process Launcher
+title: DCOM Server Process Launcher
+date: 2006-06-27
+filename: ./tech/general/dcom_server_process_launcher.txt
+
 
 I took a look around my computer for information on the "DCOM Server Process Launcher" referred to in <a 
 href="http://www.mschaef.com/cgi-bin/my_blosxom.cgi/tech/general/the_even_more_abominable_dialog_box.txt">this post</a>.  
@@ -29,5 +32,3 @@ services and processes to function correctly -- including the Windows Firewall. 
 For bonus points, the service description would also be available from the fault notification dialog box, possibly with 
 hyperlinks to the appropriate developer information on MSDN (which could also be stored locally). The whole key here: trust 
 the user of your product and enable them to use it efficiently. 
-date: 2006-06-27
-filename: ./tech/general/dcom_server_process_launcher.txt

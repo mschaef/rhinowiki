@@ -1,4 +1,7 @@
-"Saving Excursions" in Excel
+title: "Saving Excursions" in Excel
+date: 2005-06-02
+filename: ./tech/excel/save_excursion.txt
+
 
 Lately, I've been finding myself spending lots of time toggling between
 two Excel spreadsheets to make edits. This little macro makes it easy in
@@ -37,5 +40,3 @@ The "saving excursions" in the title is a reference to the
 form</a> in Emacs Lisp. This macro isn't quite the same (and not nearly as powerful), but it
 reminded me of the Emacs feature.  If it turns out to be useful, I might generalize my
 little macro to include some of the capabilities of Emacs' save-excursion.
-date: 2005-06-02
-filename: ./tech/excel/save_excursion.txt

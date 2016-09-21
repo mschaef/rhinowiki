@@ -1,4 +1,7 @@
-Memory bandwidth and modern processors...
+title: Memory bandwidth and modern processors...
+date: 2006-01-20
+filename: ./tech/general/bandwidth_stream.txt
+
 
 I saw this over on the <a href="http://www.cs.virginia.edu/stream/">STREAM</a> website.
 
@@ -9,5 +12,3 @@ I saw this over on the <a href="http://www.cs.virginia.edu/stream/">STREAM</a> w
 <br><br>
 
 It's yet another perspective on the importance of caching to software performance.
-date: 2006-01-20
-filename: ./tech/general/bandwidth_stream.txt

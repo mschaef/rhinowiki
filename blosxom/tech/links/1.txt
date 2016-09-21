@@ -1,4 +1,6 @@
-New Computer... Links from the old...
+title: New Computer... Links from the old...
+date: 2007-05-21
+filename: ./tech/links/1.txt
 
 Tomorrow, my employer is replacing my three year old <a 
 href="http://www.dell.com/downloads/us/products/latit/d400_spec.pdf">Dell 
@@ -80,5 +82,3 @@ the next couple weeks reading.
 href="http://justus.anglican.org/resources/bcp/formatted_1979.htm"><b>1979 
 Episcopal Book of Common Prayer</b></a>
 </ul>
-date: 2007-05-21
-filename: ./tech/links/1.txt

@@ -1,4 +1,7 @@
-Excel, CR/LF, and CSV
+title: Excel, CR/LF, and CSV
+date: 2008-02-01
+filename: ./tech/excel/cr-lf.txt
+
 
 I've spent a fair amount of time lately working with code that generates 
 Comma Seperated Value files for loading into Excel.  You'd think the 
@@ -21,5 +24,3 @@ quotes in a CSV file just act as a signal to turn off <b>all</b> special charact
 just handling that signals new rows and cells. Either way, it's more than a little irritating 
 that Excel compatible CSV files with multi-line values have to have two seperate end of line 
 conventions.
-date: 2008-02-01
-filename: ./tech/excel/cr-lf.txt

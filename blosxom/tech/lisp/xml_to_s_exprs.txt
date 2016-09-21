@@ -1,4 +1,7 @@
-Mapping XML to S-Expressions
+title: Mapping XML to S-Expressions
+date: 2005-06-30
+filename: ./tech/lisp/xml_to_s_exprs.txt
+
 
 I've been playing around with how to map XML to S-Expressions
 For a while, I had been considering a mapping like the following:
@@ -44,5 +47,3 @@ It's a subtle design point, but this'll probably end up in vCalc in the XML
 support... I've had XML for vCalc on the back-burner for a while now, but
 due to some real work obligations, I might have to make it a higher
 priority.
-date: 2005-06-30
-filename: ./tech/lisp/xml_to_s_exprs.txt

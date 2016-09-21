@@ -1,4 +1,7 @@
-Long Time, No See.
+title: Long Time, No See.
+date: 2008-01-08
+filename: ./personal/long_time_no_see.txt
+
 
 It seems that it's been a while since I've posted: about four months. 
 That's longer then I meant, but isn't that always the case?
@@ -17,5 +20,3 @@ of judgement. :-)
 Anyway, I hope your holiday season was all you wanted it to be, and Happy 
 New Year. I have a few ideas for new posts, so with some luck, the next 
 gap won't be four months long.
-date: 2008-01-08
-filename: ./personal/long_time_no_see.txt

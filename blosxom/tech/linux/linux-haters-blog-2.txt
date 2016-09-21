@@ -1,4 +1,7 @@
-Would you look at that...
+title: Would you look at that...
+date: 2009-04-16
+filename: ./tech/linux/linux-haters-blog-2.txt
+
 
 <br>
 
@@ -8,5 +11,3 @@ Would you look at that...
 <br><br>
 
 I can't say that either of these things suprises me.
-date: 2009-04-16
-filename: ./tech/linux/linux-haters-blog-2.txt

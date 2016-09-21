@@ -1,4 +1,7 @@
-Excel: 'Repeat', the Simplest Macro
+title: Excel: 'Repeat', the Simplest Macro
+date: 2005-10-06
+filename: ./tech/excel/the_simplest_macro.txt
+
 
 This is a simple little two-bit Excel trick that I find myself
 using <b>all the time</b>, particularly when formatting worksheets.
@@ -26,5 +29,3 @@ In a sense, Control+Y is a command that's eternally bound to a
 simple macro that Excel keeps updating with your last action.
 If you plan your work to group actions together, this 'automatic'
 macro can save a lots of time.
-date: 2005-10-06
-filename: ./tech/excel/the_simplest_macro.txt

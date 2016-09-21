@@ -1,4 +1,6 @@
-What is a Company for?
+title: What is a Company for?
+date: 2005-04-12
+filename: ./tech/company.txt
 
 The last line of my <a href="http://www.mschaef.com/cgi-bin/blosxom.cgi/2005/04/12#vb6">VB6
 post</a> was this: <i>"Commercial vendors, particularly, have no legal obligation to their
@@ -24,5 +26,3 @@ treated, the best protest you can make is to make Microsoft's decision
 a bad one. Make it unprofitable. When it comes time to pick a replacement
 platform, vote with your wallets and send your dollars somewhere else (and
 hopefully to a platform served by more than one vendor).
-date: 2005-04-12
-filename: ./tech/company.txt

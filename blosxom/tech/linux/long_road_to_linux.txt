@@ -1,4 +1,7 @@
-The long^H^H^H^Hshort road to Linux...
+title: The long^H^H^H^Hshort road to Linux...
+date: 2006-09-15
+filename: ./tech/linux/long_road_to_linux.txt
+
 
 I ran Linux for a few years back in college ('94-'97),
 lapsing back to Windows for professional reasons when
@@ -76,5 +79,3 @@ work, there were half a dozen different widget sets on the screen
 at any time and your choices for word processing included Andrew ez,
 groff, and/or TeX. Linux has come a long way.
 
-date: 2006-09-15
-filename: ./tech/linux/long_road_to_linux.txt

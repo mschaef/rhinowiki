@@ -1,4 +1,7 @@
-Experience and Dogma
+title: Experience and Dogma
+date: 2009-02-12
+filename: ./tech/programming/experience_and_dogma.txt
+
 
 In the recent debate surronding the <a
 href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod">SOLID
@@ -97,5 +100,3 @@ SOLID, and Atwood's blog post is either useless or harmful. Maybe
 there are some valid points here, but they're obscured by a dogmatism 
 that is more of a distraction than a productive way to think about 
 software design.
-date: 2009-02-12
-filename: ./tech/programming/experience_and_dogma.txt

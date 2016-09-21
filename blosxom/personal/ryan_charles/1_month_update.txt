@@ -1,4 +1,6 @@
-Ryan After One Month
+title: Ryan After One Month
+filename: ./personal/ryan_charles/1_month_update.txt
+
 
 Ryan turned one month old the other day! In honor of the occasion we've put a 
 few more pictures online in <a 
@@ -12,4 +14,3 @@ some smiles!
 Happy Birthday Ryan,<br>
 Mom and Dad
 date: 2006-09-04
-filename: ./personal/ryan_charles/1_month_update.txt

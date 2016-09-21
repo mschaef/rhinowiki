@@ -1,4 +1,7 @@
-Better Text for GDI Applications
+title: Better Text for GDI Applications
+date: 2005-05-17
+filename: ./tech/general/vctext.txt
+
 
 This is <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/fontext_1wmq.asp">well
 documented on MSDN</a>, but it's still pretty cool.
@@ -54,5 +57,3 @@ formatting of the text you display. That is, if you're still computing
 text positioning on per-pixel increments, you'll still get mediocre
 layout.  vCalc does this, but it also has very minimal text layout
 requirements for now.
-date: 2005-05-17
-filename: ./tech/general/vctext.txt

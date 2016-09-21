@@ -1,4 +1,7 @@
-Life with a Cingular 2125
+title: Life with a Cingular 2125
+date: 2007-06-19
+filename: ./tech/products/c2125.txt
+
 
 Last October, I upgraded my <a
 href="http://www.mschaef.com/blog/tech/products/t637.txt">Sony
@@ -168,5 +171,3 @@ something like the iPhone, and it's hard to get all that excited about
 spending five times more money for a phone with no e-mail integration,
 the same lousy EDGE network, and even less opportunities for outside
 software. 
-date: 2007-06-19
-filename: ./tech/products/c2125.txt

@@ -1,4 +1,7 @@
-Programming Well: Write (and Read) your Data ASAP
+title: Programming Well: Write (and Read) your Data ASAP
+date: 2005-09-07
+filename: ./tech/programming/dumper.txt
+
 
 One of the first functions I like to write when creating
 a new data structure is a human-readable dumper. This
@@ -62,5 +65,3 @@ A few tips for dump functions:
 <li>Reading dumped structures back in can also be useful.
 
 </ul>
-date: 2005-09-07
-filename: ./tech/programming/dumper.txt

@@ -1,4 +1,7 @@
-UseHR, High Resolution Displays, and the Internet
+title: UseHR, High Resolution Displays, and the Internet
+date: 2005-06-30
+filename: ./tech/general/usehr_and_the_web.txt
+
 
 For a few years, I used this graphic as the front matter for
 my website:
@@ -33,5 +36,3 @@ about the client's display than the server. Therefore, my logo is
 now CSS formatted plain text. That means it looks the right size on more
 screens, anti-aliases appropriately, uses ClearType if it's available. The next
 step is going to be to switch from pixel sizes to 'real' sizes.
-date: 2005-06-30
-filename: ./tech/general/usehr_and_the_web.txt

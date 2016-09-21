@@ -1,4 +1,7 @@
-Happy New Year, 2006!
+title: Happy New Year, 2006!
+date: 2006-01-03
+filename: ./happy_new_year_2006.txt
+
 
 It's hard to believe that it's been six years since people were buying out 
 stocks of portable generators and predicting the end of the civilized 
@@ -27,5 +30,3 @@ of mine that are appropriate to this weblog.
 <li>There will be a release of a new version of vCalc this year.
 <li>There will be a release of a new version of NoiseMaker this year.
 </ul>
-date: 2006-01-03
-filename: ./happy_new_year_2006.txt

@@ -1,4 +1,7 @@
-./blosxom.cgi: 444 lines, 16674 characters.
+title: ./blosxom.cgi: 444 lines, 16674 characters.
+date: 2005-02-09
+filename: ./tech/this_blog/blosxom.txt
+
 
 I've spent a little time doing some things to tweak Bloxsom
 so that it fits better into my website. So far, I've:
@@ -18,5 +21,3 @@ hopefully editing blog posts, and then setting up a web-based
 way to upload images into the blog. My current workflow for posting
 to the blog involves two levels of nested SSH logins and the use
 of vi. *shudder*.
-date: 2005-02-09
-filename: ./tech/this_blog/blosxom.txt

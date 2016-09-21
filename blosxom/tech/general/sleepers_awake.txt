@@ -1,4 +1,7 @@
-Sleepers, Awake.
+title: Sleepers, Awake.
+date: 2006-01-04
+filename: ./tech/general/sleepers_awake.txt
+
 
 Now that the new year has begun, the holiday season lull in
 blog posts has started to abate.  I had wondered if posts would
@@ -22,5 +25,3 @@ I've worked at, I am 100% positive that blogging activities
 would have been considered a distant priority behind shipping and 
 supporting product. Maybe it's old fashioned of me to say it,
 but that seems like the correct approach.
-date: 2006-01-04
-filename: ./tech/general/sleepers_awake.txt

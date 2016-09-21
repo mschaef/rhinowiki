@@ -1,4 +1,7 @@
-The abominable dialog box...
+title: The abominable dialog box...
+date: 2006-06-21
+filename: ./tech/general/the_abominable_dialog_box.txt
+
 
 Every once in a while, my Windows XP laptop decides to display
 this little jewel of interaction design:
@@ -57,5 +60,3 @@ the control panel, they weren't willing to allow those users to make
 their own decisions about when patches are applied. For some reason
 it made more sense to preemptively restart users' computers.  Is this
 kind of known invasive bad behavior really justified by the risk?
-date: 2006-06-21
-filename: ./tech/general/the_abominable_dialog_box.txt

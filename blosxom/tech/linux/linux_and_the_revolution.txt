@@ -1,4 +1,7 @@
-2 Months With the 'Revolution'.
+title: 2 Months With the 'Revolution'.
+date: 2006-11-18
+filename: ./tech/linux/linux_and_the_revolution.txt
+
 
 It's been about two months since I've installed Ubuntu Linux on my Dell
 Inspiron 6000 laptop. The <a 
@@ -83,5 +86,3 @@ vendors. If this is really the case, and Linux really is for the 'young', then w
 will it ever become relevant to the broader audience of Windows and Mac OS X users? I 
 just don't know. I will keep up the struggle for a while longer, January 2007 seems 
 like a good time to reassess.
-date: 2006-11-18
-filename: ./tech/linux/linux_and_the_revolution.txt

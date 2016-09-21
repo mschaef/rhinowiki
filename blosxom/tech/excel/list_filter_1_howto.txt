@@ -1,4 +1,7 @@
-List filtering with Formulas in Microsoft Excel: How it's done
+title: List filtering with Formulas in Microsoft Excel: How it's done
+date: 2005-07-28
+filename: ./tech/excel/list_filter_1_howto.txt
+
 
 
 Now that I've written a little about why you might want to 
@@ -63,5 +66,3 @@ to identify rows that don't contain values. After all this is said and done, we 
 spreadsheet range that contains only a result set, updates like every other range in
 Excel, and can be used in formulas like every other range.  I have a sample spreadsheet
 that implements a lot of this <a href="http://www.mschaef.com/list_filter.zip">here</a>.
-date: 2005-07-28
-filename: ./tech/excel/list_filter_1_howto.txt

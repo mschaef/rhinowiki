@@ -1,4 +1,7 @@
-Renaming historical users (svn:author's) in SVN repositories
+title: Renaming historical users (svn:author's) in SVN repositories
+date: 2008-02-11
+filename: ./tech/programming/renaming-svn-users.txt
+
 
 I've been keeping track of the vCalc source code in an SVN
 repository since May of 2005. While I'm the only person who has
@@ -86,5 +89,3 @@ you're at all interested in the security of your repository, it
 is best to restore whatever revision property policy was in place
 as soon as possible.
 
-date: 2008-02-11
-filename: ./tech/programming/renaming-svn-users.txt

@@ -1,4 +1,7 @@
-A couple Lisp/Programming Language Blogs
+title: A couple Lisp/Programming Language Blogs
+date: 2005-02-08
+filename: ./tech/lisp/a_couple_lisp_blogs.txt
+
 
 One interest of mine is programming languages, and more
 specifically, Lisp and Scheme. Lately, the blogosphere
@@ -18,5 +21,3 @@ Lippert's Blog</a> over on <a href="http://weblogs.asp.net">Weblogs @ASP.Net</a>
 Eric is a developer at Microsoft who's done a lot of work on Windows scripting
 and the Windows script languages. 
 
-date: 2005-02-08
-filename: ./tech/lisp/a_couple_lisp_blogs.txt

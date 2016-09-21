@@ -1,4 +1,7 @@
-Dell Service Manuals
+title: Dell Service Manuals
+date: 2005-05-27
+filename: ./tech/general/dell_docs.txt
+
 
 This is cool... I knew IBM (er, Lenovo) did <a 
 href="http://support.dell.com/support/systemsinfo/documentation.aspx?c=us&cs=555&l=en&s=biz">this</a>, 
@@ -17,5 +20,3 @@ Dell was called PC's Limited.
 
 <i>Note: The IBM link above is actually still on the IBM site... I expect the
 link to break whenever Lenovo takes the contents.</i>
-date: 2005-05-27
-filename: ./tech/general/dell_docs.txt

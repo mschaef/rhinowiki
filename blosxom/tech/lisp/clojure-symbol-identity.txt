@@ -1,4 +1,7 @@
-Symbol Identity in Lisp and Clojure
+title: Symbol Identity in Lisp and Clojure
+date: 2011-06-29
+filename: ./tech/lisp/clojure-symbol-identity.txt
+
 
 One typical property of Lisp systems is that they they intern
 symbols. Roughly speaking, when symbols are interned, two symbols with
@@ -196,5 +199,3 @@ variable bindings availble in the language, the naming benefits of
 globals are still available for use in the REPL. It's taken a while
 for me to get there, but the overall effect of un-interned symbols on
 the design of a Lisp seems generally positive.
-date: 2011-06-29
-filename: ./tech/lisp/clojure-symbol-identity.txt

@@ -1,4 +1,7 @@
-The Inspiron has arrived...
+title: The Inspiron has arrived...
+date: 2005-06-28
+filename: ./tech/general/inspiron_6000d_is_here.txt
+
 
 I haven't had as much time to play with it as I'd like, but the laptop
 arrived today.  In the hour I've had it running, so far I'm quite impressed.
@@ -27,5 +30,3 @@ A couple quick thoughts:
   that much, and I haven't used a modem in years.
 <li>XP Media edition looks the same as XP Pro, so far.
 </ul>
-date: 2005-06-28
-filename: ./tech/general/inspiron_6000d_is_here.txt

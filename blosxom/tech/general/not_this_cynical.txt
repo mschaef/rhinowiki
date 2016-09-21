@@ -1,4 +1,7 @@
-I hope I never get this cynical about our industry...
+title: I hope I never get this cynical about our industry...
+date: 2006-01-20
+filename: ./tech/general/not_this_cynical.txt
+
 
 <i>"Look, the tech industry is and always will be fucked up. They still 
 somehow manage to make a semi-usable product every once in a while. My Mac 
@@ -24,5 +27,3 @@ developing several major pieces of consumer application software, designed
 a couple hugely significant internet procotols, and <a 
 href="http://www.kottke.org/05/10/weblogscom-sold-to-verisign">made some 
 signficant money in the process</a>. Most people should be so lucky.
-date: 2006-01-20
-filename: ./tech/general/not_this_cynical.txt

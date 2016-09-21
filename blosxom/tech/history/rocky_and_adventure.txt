@@ -1,4 +1,7 @@
-Rocky's Boots, The Oregon Trail, and Atari 2600 Adventure
+title: Rocky's Boots, The Oregon Trail, and Atari 2600 Adventure
+date: 2007-06-12
+filename: ./tech/history/rocky_and_adventure.txt
+
 
 I just saw <a 
 href="http://apple.slashdot.org/apple/07/06/12/1212237.shtml"O>this 
@@ -20,5 +23,3 @@ href="http://www.warrenrobinett.com/adventure/index.html">Adventure</a>,
 including the famous, ego-driven <a 
 href="http://en.wikipedia.org/wiki/Adventure_(Atari_2600)#Easter_egg">easter 
 egg</a>.
-date: 2007-06-12
-filename: ./tech/history/rocky_and_adventure.txt

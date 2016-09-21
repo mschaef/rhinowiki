@@ -1,4 +1,7 @@
-101.1... 101.2... 101.3... 101.4...
+title: 101.1... 101.2... 101.3... 101.4...
+date: 2006-10-27
+filename: ./personal/ryan_charles/102_degrees.txt
+
 
 Ryan came down with a significant fever last night.  Due to measurement 
 'complexities', it's hard to know for sure what the exact number is, but I 
@@ -28,5 +31,3 @@ You should know your Mom and Dad love you.<br>
 <b>Update:</b> Two minutes after my initial post, we just got an 
 appointment in half an hour. One of the things I love about where we live 
 is that we're five minutes away from the pediatrician.
-date: 2006-10-27
-filename: ./personal/ryan_charles/102_degrees.txt

@@ -1,4 +1,7 @@
-Still not tested... still not working... sort of...
+title: Still not tested... still not working... sort of...
+date: 2008-01-21
+filename: ./tech/programming/still_not_tested.txt
+
 
 Another one along the lines of <a 
 href="http://www.mschaef.com/blog/tech/programming/not_tested_not_working.html">My 
@@ -83,5 +86,3 @@ design than the code itself.  While the design I have for user/compiler
 seperation seems to work most of the time, it's not adequate to solve this 
 kind of problem. I'm not yet exactly sure what the solution is, but it 
 won't necessarily involve a missing unit test.
-date: 2008-01-21
-filename: ./tech/programming/still_not_tested.txt

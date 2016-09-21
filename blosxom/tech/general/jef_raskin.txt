@@ -1,4 +1,7 @@
-Jef Raskin
+title: Jef Raskin
+date: 2005-02-27
+filename: ./tech/general/jef_raskin.txt
+
 
 Reading <a href="http://www.slashdot.org">Slashdot</a> today, I heard
 that <a href="http://apple.slashdot.org/apple/05/02/27/1835231.shtml?tid=3">
@@ -25,5 +28,3 @@ in his book, <a href="http://www.amazon.com/exec/obidos/tg/detail/-/0201379376/q
 <br><br>
 
 This is a sad day, indeed.
-date: 2005-02-27
-filename: ./tech/general/jef_raskin.txt

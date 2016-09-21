@@ -1,4 +1,7 @@
-The world's most popular functional programming language...
+title: The world's most popular functional programming language...
+date: 2005-09-20
+filename: ./tech/excel/functional_programming.txt
+
 
 This may be something of a suprise, but Excel has even gotten
 the attention of <a href="http://research.microsoft.com">Microsoft
@@ -15,5 +18,3 @@ As a sidenote, this reminds me a little of how <a href="http://www.ni.com/labvie
 LabView</a> handled subfunction definitions: subfunctions are defined
 using the same visual tools as top-level functions.  It worked, but 'felt'
 a little heavy weight in actual use.
-date: 2005-09-20
-filename: ./tech/excel/functional_programming.txt

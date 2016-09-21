@@ -1,4 +1,7 @@
-What's in *your* clipboard...
+title: What's in *your* clipboard...
+date: 2006-06-23
+filename: ./tech/excel/what_is_in_your_clipboard.txt
+
 
 The clipboard is one of the oldest and most often used data exchange
 mechanisms in Microsoft Windows.  It's been around since Windows 1.0
@@ -109,5 +112,3 @@ format, some of which take longer than others. If you happened to
 have a Windows message viewer looking at the message stream to
 the Excel window, you'd see a series of window messages requesting
 rendered copies of unrendered formats.
-date: 2006-06-23
-filename: ./tech/excel/what_is_in_your_clipboard.txt

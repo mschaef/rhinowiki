@@ -1,4 +1,7 @@
-CAR, CDR, and Lisp...
+title: CAR, CDR, and Lisp...
+date: 2008-02-14
+filename: ./tech/lisp/car-cdr.txt
+
 
 A couple weeks ago, I got into a brief <a href="http://www.reddit.com">reddit</a> <a
 href="http://reddit.com/info/677u6/comments/c031w9f">discussion</a> on the relative merits
@@ -176,5 +179,3 @@ automatically portable to other sequence types. If you're using cons cells as a
 ad hoc structure, then you can either use <tt>car</tt> and <tt>cdr</tt> and accept those
 names as  historical baggage of the second oldest major programming language, or
 investigate some of  the other more modern ways of structuring data in Lisp programs. 
-date: 2008-02-14
-filename: ./tech/lisp/car-cdr.txt

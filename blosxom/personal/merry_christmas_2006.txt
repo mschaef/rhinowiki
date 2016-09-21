@@ -1,4 +1,7 @@
-Merry Christmas!
+title: Merry Christmas!
+date: 2006-12-26
+filename: ./personal/merry_christmas_2006.txt
+
 
 Well, another Christmas has come and gone. This one was particularly special for us, 
 since it was both Ryan's first Christmas and our first Christmas with a child. 
@@ -45,5 +48,3 @@ We have pictures and videos we're going to try to post in the next week or two.
 
 We all hope everybody reading this is having a similarly blessed Holiday season and has a 
 wonderful New Year!
-date: 2006-12-26
-filename: ./personal/merry_christmas_2006.txt
