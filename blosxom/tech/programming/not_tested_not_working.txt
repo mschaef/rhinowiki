@@ -55,3 +55,5 @@ Here are the morals I'm taking from this little story:
 
 </list>
 
+date: 2008-01-20
+filename: ./tech/programming/not_tested_not_working.txt

@@ -15,3 +15,5 @@ Cause that monster in the mirror he just might be you"</i>
 
 Yes, we're starting the <a href="http://en.wikipedia.org/wiki/Sesame_Street">Sesame
 Street</a> early.
+date: 2006-09-26
+filename: ./personal/ryan_charles/wisdom_of_grover.txt

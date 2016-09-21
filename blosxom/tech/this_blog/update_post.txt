@@ -38,3 +38,5 @@ touch -r ${DATE_MARKER} $1
 
 rm ${DATE_MARKER}
 </pre>
+date: 2006-08-28
+filename: ./tech/this_blog/update_post.txt

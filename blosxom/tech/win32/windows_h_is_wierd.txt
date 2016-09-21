@@ -75,3 +75,5 @@ extern "C" {
 </pre>
 
 I'm not honestly sure why this had to be quite this complicated...
+date: 2006-01-23
+filename: ./tech/win32/windows_h_is_wierd.txt

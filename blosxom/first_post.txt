@@ -5,3 +5,5 @@ Welcome to my little blog. This is the first post.
 It took a while, but I decided to base the thing on 
 <a href="http://www.blosxom.com">Blosxom</a>. 
 Nice and simple...
+date: 2005-02-08
+filename: ./first_post.txt

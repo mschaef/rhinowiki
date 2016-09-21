@@ -33,3 +33,5 @@ about the client's display than the server. Therefore, my logo is
 now CSS formatted plain text. That means it looks the right size on more
 screens, anti-aliases appropriately, uses ClearType if it's available. The next
 step is going to be to switch from pixel sizes to 'real' sizes.
+date: 2005-06-30
+filename: ./tech/general/usehr_and_the_web.txt

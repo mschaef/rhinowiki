@@ -17,3 +17,5 @@ of judgement. :-)
 Anyway, I hope your holiday season was all you wanted it to be, and Happy 
 New Year. I have a few ideas for new posts, so with some luck, the next 
 gap won't be four months long.
+date: 2008-01-08
+filename: ./personal/long_time_no_see.txt

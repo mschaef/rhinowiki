@@ -17,3 +17,5 @@ American business employing American workers. An example of this is hiring
 a Madison Avenue firm to put together an ad campaign. Sure, it'd be possible
 to develop the talent in house to do this yourself, but there are many advantages
 in outsourcing the work to a more specialized vendor.
+date: 2005-03-04
+filename: ./tech/business/offshoring.txt

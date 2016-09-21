@@ -143,3 +143,5 @@ again, has a product that looks 'next generation', but the pricing and
 openness factors that cost them that advantage in the early 90's are
 no longer there. It's a good time to be involved in the iPhone,
 methinks.
+date: 2008-06-12
+filename: ./tech/general/does_openness_really_matter.txt

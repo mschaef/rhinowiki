@@ -26,3 +26,5 @@ PS: I've ordered the WUXGA (>2 Megapixels, ~140dpi) display with the
 128MB Radeon X300 video adapter. If on screen content isn't too
 small, I expect the detail to be fabulous.  I'll post comments
 (and screenshots) when I get some experience with the machine.
+date: 2005-06-23
+filename: ./tech/general/inspiron_6000d.txt

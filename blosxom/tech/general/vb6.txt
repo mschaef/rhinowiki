@@ -37,3 +37,5 @@ development yourself (if you absolutely need to).  Whatever you do,
 don't pick a one vendor tool and complain when the vendor
 decides to drop it. <i>Commercial vendors, particularly, have
 <b>no legal obligation</b> to their customers.</i>
+date: 2005-04-12
+filename: ./tech/general/vb6.txt

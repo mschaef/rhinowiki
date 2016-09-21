@@ -91,3 +91,5 @@ always going down."</i>. Maybe I'd miss it more if it were gone, but I
 can't shake the feeling that the time spent on the phone would be
 better spent elsewhere.  Then again, I wouldn't have known about that
 NPR quotation, unless I had heard it on the NPR app in my phone.
+date: 2012-01-12
+filename: ./tech/apple/iphone_revisited.txt

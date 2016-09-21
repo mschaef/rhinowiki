@@ -62,3 +62,5 @@ A few tips for dump functions:
 <li>Reading dumped structures back in can also be useful.
 
 </ul>
+date: 2005-09-07
+filename: ./tech/programming/dumper.txt

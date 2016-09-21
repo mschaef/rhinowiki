@@ -26,3 +26,5 @@ In a sense, Control+Y is a command that's eternally bound to a
 simple macro that Excel keeps updating with your last action.
 If you plan your work to group actions together, this 'automatic'
 macro can save a lots of time.
+date: 2005-10-06
+filename: ./tech/excel/the_simplest_macro.txt

@@ -35,3 +35,5 @@ the performance hit of calling UDF and the requirement that the
 spreadsheet contain a macro. I honestly don't know which is better style, 
 but can say that this would be a perfect time to use a paramaterized range 
 name (if Excel had such a thing).
+date: 2005-10-07
+filename: ./tech/excel/databar_2.txt

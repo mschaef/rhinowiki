@@ -50,3 +50,5 @@ the bad.
     a nice way to check mail in a pinch.
 
 </list>
+date: 2008-01-12
+filename: ./tech/products/c2125_followup.txt

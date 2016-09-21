@@ -24,3 +24,5 @@ treated, the best protest you can make is to make Microsoft's decision
 a bad one. Make it unprofitable. When it comes time to pick a replacement
 platform, vote with your wallets and send your dollars somewhere else (and
 hopefully to a platform served by more than one vendor).
+date: 2005-04-12
+filename: ./tech/company.txt

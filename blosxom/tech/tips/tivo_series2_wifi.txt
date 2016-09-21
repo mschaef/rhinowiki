@@ -60,3 +60,5 @@ One more thing: the TiVo Series 3, <a
 href="http://www.tivolovers.com/252572.html">announced today</a>, has 
 10/100Base-T Ethernet on the back panel. Now there's a good reason not 
 to pick the TiVo $300 "Lifetime of the box" service plan.
+date: 2006-01-06
+filename: ./tech/tips/tivo_series2_wifi.txt

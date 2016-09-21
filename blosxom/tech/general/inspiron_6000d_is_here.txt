@@ -27,3 +27,5 @@ A couple quick thoughts:
   that much, and I haven't used a modem in years.
 <li>XP Media edition looks the same as XP Pro, so far.
 </ul>
+date: 2005-06-28
+filename: ./tech/general/inspiron_6000d_is_here.txt

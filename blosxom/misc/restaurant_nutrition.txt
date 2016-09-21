@@ -58,3 +58,5 @@ information easily available in the store, at the time of purchase. To avoid
 too much adverse impact on smaller restaurants, perhaps this could be means
 tested: restaurants serving fewer than X people per day could be excluded, etc. 
 Either way, I want to be able to know what I'm eating.
+date: 2006-03-24
+filename: ./misc/restaurant_nutrition.txt

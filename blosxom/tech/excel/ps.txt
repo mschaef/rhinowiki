@@ -65,3 +65,5 @@ Maybe this is being picky, but spreadsheets have a real strength in that they
 made it a lot easier for non-techies to specify how a computer can automatically
 solve certain types of problems. It's just a shame that so many of Excel's
 features are excluded from the natural way Excel is programmed.
+date: 2005-07-18
+filename: ./tech/excel/ps.txt

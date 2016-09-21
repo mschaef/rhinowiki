@@ -21,3 +21,5 @@ so much about Lisp.
 <i>But it doesn't...</i>
 
 
+date: 2009-04-16
+filename: ./tech/lisp/why_lisp.txt

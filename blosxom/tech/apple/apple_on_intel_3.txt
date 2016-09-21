@@ -35,3 +35,5 @@ the NDA for 'Project Star Trek' expired</a>. Star Trek was a project in
 which a few Apple, Novell, and Intel software engineers got MacOS 7 running
 on PC hardware. I'm not sure what the business story would've been, but 
 it was a nice technical accomplishment nonetheless.
+date: 2005-06-30
+filename: ./tech/apple/apple_on_intel_3.txt

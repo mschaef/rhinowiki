@@ -21,3 +21,5 @@ This is as it should be:<br>
 <br><br>
 
 <i>Now, guess what <a href="http://www.mozilla.org/products/firefox/">Firefox</a> does.</i>
+date: 2005-11-16
+filename: ./tech/general/usehr_i_give_up.txt

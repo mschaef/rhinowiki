@@ -29,3 +29,5 @@ to aggregate the columns together:
 
 So, why the name apropos? Follow this <a 
 href="http://www.lisp.org/HyperSpec/Body/fun_aproposcm_apropos-list.html">link</a>.
+date: 2005-11-04
+filename: ./tech/excel/apropos.txt

@@ -6,3 +6,5 @@ language a few years ago. These comments are
 <a href="http://www.archub.org/arcsug.txt">online</a>, and are very
 interesting reading. Lots of good comments.
 
+date: 2005-08-08
+filename: ./tech/lisp/arc_hub.txt

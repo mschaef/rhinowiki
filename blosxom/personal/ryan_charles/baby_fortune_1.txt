@@ -8,3 +8,5 @@ be posted here occasionally:
 
 <i>"A perfect example of minority rule is a baby in the house."<br><br>-Milwaukee Journal</i>
 
+date: 2006-09-05
+filename: ./personal/ryan_charles/baby_fortune_1.txt

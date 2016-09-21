@@ -39,3 +39,5 @@ which gives us the date number for the last day of the month that we
 are interested in. The call to DAY then returns the number of the day
 within the month, which happens to be the number of days in the month.
 
+date: 2005-11-09
+filename: ./tech/excel/30_days_hath_september.txt

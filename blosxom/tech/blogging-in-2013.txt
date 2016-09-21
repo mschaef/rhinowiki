@@ -65,3 +65,5 @@ bytecode. If you'd like to play with the code,
 
 
 
+date: 2014-03-26
+filename: ./tech/blogging-in-2013.txt

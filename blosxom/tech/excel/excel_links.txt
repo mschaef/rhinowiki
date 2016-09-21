@@ -38,3 +38,5 @@ The last book is particularly interesting: it focuses on the C/C++ API to Micros
 have fallen out of vogue, but it is <a href="http://blogs.msdn.com/excel/archive/2006/01/03/508985.aspx">still
 being maintained</a>, and represents a way to write <b>really fast</b> and secure Excel add-ins.
 
+date: 2006-06-13
+filename: ./tech/excel/excel_links.txt

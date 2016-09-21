@@ -2,3 +2,5 @@ Baby Fortunes, part 6
 
 <i>"Your child will be blessed with a large and loving family."</i>
 
+date: 2007-03-04
+filename: ./personal/ryan_charles/baby_fortune_6.txt

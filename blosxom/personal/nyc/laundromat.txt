@@ -46,3 +46,5 @@ This means that someone was either stupid enough not to notice that customers wo
 end up with $2 of useless change, or was malicious enough to use this as a sleazy way to
 bilk customers out of an extra $2. Not to mention that I get the hassle of trying not to lose
 this stupid card, lest I want to drop another $5 on yet another card.
+date: 2005-03-01
+filename: ./personal/nyc/laundromat.txt

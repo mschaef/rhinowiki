@@ -29,3 +29,5 @@ services and processes to function correctly -- including the Windows Firewall. 
 For bonus points, the service description would also be available from the fault notification dialog box, possibly with 
 hyperlinks to the appropriate developer information on MSDN (which could also be stored locally). The whole key here: trust 
 the user of your product and enable them to use it efficiently. 
+date: 2006-06-27
+filename: ./tech/general/dcom_server_process_launcher.txt

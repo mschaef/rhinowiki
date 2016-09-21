@@ -47,3 +47,5 @@ last phone I've liked as much is my old Nokia 8260 (and the 6160 before that). T
 4900 doesn't even come close. I'm happy enough with this phone to consider buying another
 Sony Ericsson. (The new <a href="http://www.mobiletracker.net/archives/2005/03/01/Sony-Ericsson-W800i">
 W800i</a> looks pretty nice...)
+date: 2005-03-04
+filename: ./tech/products/t637.txt

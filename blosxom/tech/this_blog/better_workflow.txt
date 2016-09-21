@@ -21,3 +21,5 @@ Maybe now, I'll finally get around to writing a little more. <i>(Or, I could
 investigate incorporating <a href="http://daringfireball.net/projects/markdown/">
 Markdown</a>, or the <a href="http://baselinecss.com/">Baseline CSS Framework</a>,
 or....)</i>
+date: 2009-09-12
+filename: ./tech/this_blog/better_workflow.txt

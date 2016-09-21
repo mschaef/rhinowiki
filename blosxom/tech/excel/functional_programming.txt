@@ -15,3 +15,5 @@ As a sidenote, this reminds me a little of how <a href="http://www.ni.com/labvie
 LabView</a> handled subfunction definitions: subfunctions are defined
 using the same visual tools as top-level functions.  It worked, but 'felt'
 a little heavy weight in actual use.
+date: 2005-09-20
+filename: ./tech/excel/functional_programming.txt

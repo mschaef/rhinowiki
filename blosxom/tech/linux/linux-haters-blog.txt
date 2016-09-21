@@ -87,3 +87,5 @@ with the motivation and time to do the work. It is therefore not a
 liabilty to Linux, but an asset that derives its value from the freedom at 
 the core of Free Software. Ironically enough, because of this, the 'Linux 
 Hater' could easily turn out to be one of Linux's best friends.
+date: 2008-08-12
+filename: ./tech/linux/linux-haters-blog.txt

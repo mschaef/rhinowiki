@@ -23,3 +23,5 @@ of <a href="http://en.wikipedia.org/wiki/Christopher_J._Date">C.J. Date</a>'s
 in Depth,</a> ironically enough), and it still
 seems relevant, six months after the initial read. That's always a 
 good sign.
+date: 2006-07-07
+filename: ./tech/general/foxtales_redux.txt

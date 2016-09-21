@@ -25,3 +25,5 @@ in his book, <a href="http://www.amazon.com/exec/obidos/tg/detail/-/0201379376/q
 <br><br>
 
 This is a sad day, indeed.
+date: 2005-02-27
+filename: ./tech/general/jef_raskin.txt

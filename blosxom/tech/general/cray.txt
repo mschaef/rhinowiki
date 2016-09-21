@@ -53,3 +53,5 @@ Reading through them, a couple of things made impressions on me:
 
 Anyway, I have nothing but the utmost respect for the man and his
 accomplishments. R.I.P, Mr. Cray.
+date: 2005-05-17
+filename: ./tech/general/cray.txt

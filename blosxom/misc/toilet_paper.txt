@@ -33,3 +33,5 @@ used.
 Some people think about world peace, some think about curing
 cancer, I apparantly think about this...
 
+date: 2006-06-08
+filename: ./misc/toilet_paper.txt

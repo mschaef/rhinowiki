@@ -39,3 +39,5 @@ online. Here's some more:
 philosophy of undergraduate advising</a>. It's an example to be followed. ;-) </i>
 
 
+date: 2005-03-04
+filename: ./tech/lisp/more_links.txt

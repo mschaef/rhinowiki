@@ -20,3 +20,5 @@ href="http://www.warrenrobinett.com/adventure/index.html">Adventure</a>,
 including the famous, ego-driven <a 
 href="http://en.wikipedia.org/wiki/Adventure_(Atari_2600)#Easter_egg">easter 
 egg</a>.
+date: 2007-06-12
+filename: ./tech/history/rocky_and_adventure.txt

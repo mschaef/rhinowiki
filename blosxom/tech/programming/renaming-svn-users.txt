@@ -86,3 +86,5 @@ you're at all interested in the security of your repository, it
 is best to restore whatever revision property policy was in place
 as soon as possible.
 
+date: 2008-02-11
+filename: ./tech/programming/renaming-svn-users.txt

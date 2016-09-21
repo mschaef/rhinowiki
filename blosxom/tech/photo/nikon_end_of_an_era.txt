@@ -17,3 +17,5 @@ roughly equivalent to 80 times the number of pixels. Large format cameras
 are what <a href="http://www.anseladams.com"> Ansel Adams</a> used and 
 represent the very highest performance film cameras. If there was one area 
 where film was likely to offer unique value over digital, this was it.
+date: 2006-01-13
+filename: ./tech/photo/nikon_end_of_an_era.txt

@@ -60,3 +60,5 @@ summed this up</a> quite nicely:
   Structure is <b>nothing</b> if it is all you got.  Skeletons <b>spook</b>
   people if they try to walk around on their own.  I really wonder why XML does not.
 </i></center>
+date: 2006-06-21
+filename: ./tech/general/whither_xml.txt

@@ -19,3 +19,5 @@ some pictures up <a href="http://www.mschaef.com/albums/ryan_thanksgiving_2006/i
 We hope everybody had a good Thanksgiving holiday and wish everybody a happy holiday
 season!
 
+date: 2006-11-26
+filename: ./personal/ryan_charles/first_thanksgiving.txt

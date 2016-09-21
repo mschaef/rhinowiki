@@ -10,3 +10,5 @@ Related to that is <a href="http://www.norvig.com/luv-slides.ps">this
 deck of slides</a> written by <a href="http://www.nhplace.com/kent/">Kent Pitman</a>
 and <a href="http://www.norvig.com/">Peter Norvig</a>. It's an excellent
 discussion of good programming style in Lisp.
+date: 2005-11-04
+filename: ./tech/programming/tips.txt

@@ -21,3 +21,5 @@ quotes in a CSV file just act as a signal to turn off <b>all</b> special charact
 just handling that signals new rows and cells. Either way, it's more than a little irritating 
 that Excel compatible CSV files with multi-line values have to have two seperate end of line 
 conventions.
+date: 2008-02-01
+filename: ./tech/excel/cr-lf.txt

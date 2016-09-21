@@ -57,3 +57,5 @@ rendering pipeline, I'd expect them to have displays that could compete with Son
 or maybe the 2MP 15" widescreen that Dell makes available on the D810.  OS X could drive
 those displays better than pre-Avalon Windows. Maybe this is a artifact of the suppliers
 Apple is using?
+date: 2005-06-01
+filename: ./tech/apple/apple_pricing.txt

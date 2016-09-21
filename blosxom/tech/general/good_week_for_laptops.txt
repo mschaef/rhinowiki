@@ -42,3 +42,5 @@ machines have been released/announced that look really first rate.
     bargin.
 
 </ul>
+date: 2006-05-24
+filename: ./tech/general/good_week_for_laptops.txt

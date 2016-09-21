@@ -65,3 +65,5 @@ Interesting links and blogs...
 <li><a href="http://rentzsch.com/">rentzsch.com tales from the red shed</a>
 <li><a href="http://www.simplegeek.com/">simplegeek</a>
 </ul>
+date: 2005-07-29
+filename: ./tech/links/0.txt

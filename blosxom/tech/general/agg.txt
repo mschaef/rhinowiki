@@ -15,3 +15,5 @@ All I need now is time...
 <br><br>
 
 <img src="http://www.antigrain.com/demo/graph_test.gif" width="613" height="591">
+date: 2005-05-27
+filename: ./tech/general/agg.txt

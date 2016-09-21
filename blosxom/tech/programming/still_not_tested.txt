@@ -83,3 +83,5 @@ design than the code itself.  While the design I have for user/compiler
 seperation seems to work most of the time, it's not adequate to solve this 
 kind of problem. I'm not yet exactly sure what the solution is, but it 
 won't necessarily involve a missing unit test.
+date: 2008-01-21
+filename: ./tech/programming/still_not_tested.txt

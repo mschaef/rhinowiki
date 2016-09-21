@@ -97,3 +97,5 @@ SOLID, and Atwood's blog post is either useless or harmful. Maybe
 there are some valid points here, but they're obscured by a dogmatism 
 that is more of a distraction than a productive way to think about 
 software design.
+date: 2009-02-12
+filename: ./tech/programming/experience_and_dogma.txt

@@ -29,3 +29,5 @@ Also, Microsoft have a
 Base Article</a> that describes this in more detail, including a way to log in
 from a menu command, if you have the right settings enabled.
 
+date: 2005-07-07
+filename: ./tech/tips/ie_non_anon_ftp.txt

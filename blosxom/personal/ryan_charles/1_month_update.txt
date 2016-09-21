@@ -11,3 +11,5 @@ some smiles!
 
 Happy Birthday Ryan,<br>
 Mom and Dad
+date: 2006-09-04
+filename: ./personal/ryan_charles/1_month_update.txt

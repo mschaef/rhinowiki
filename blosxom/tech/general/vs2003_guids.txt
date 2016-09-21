@@ -27,3 +27,5 @@ why the GUIDs are used.
 {4051A65D-4718-41AE-8C94-6B1906EB4D77} = \
   {4051A65D-4718-41AE-8C94-6B1906EB4D77}
 </ptr>
+date: 2006-03-20
+filename: ./tech/general/vs2003_guids.txt

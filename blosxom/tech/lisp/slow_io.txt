@@ -23,3 +23,5 @@ On the other hand, I hadn't realized that my (ad hoc, slapped together in
 an hour) format function was running quite that slowly. I think it'll end
 up being an interesting optimnization problem sooner or later.
 
+date: 2005-03-02
+filename: ./tech/lisp/slow_io.txt

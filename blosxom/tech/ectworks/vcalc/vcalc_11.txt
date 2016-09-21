@@ -80,3 +80,5 @@ to care about using it. There's a lot to be done between here and there,
 but I've come to believe that open sourcing parts of vCalc and releasing 
 more frequent development builds of the closed source parts will end up 
 being key. We'll see.
+date: 2006-01-03
+filename: ./tech/ectworks/vcalc/vcalc_11.txt

@@ -106,3 +106,5 @@ out why they'd do it, and I have some ideas there too:
     
 
 Anyway, let's see what Jobs says...
+date: 2005-06-06
+filename: ./tech/apple/apple_on_intel.txt

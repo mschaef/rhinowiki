@@ -14,3 +14,5 @@ I've also found, via <a href="http://lambda-the-ultimate.org/">Lambda the Ultima
 a website dedicated to  <a href="http://lambda-the-ultimate.org/node/view/553">Alexander
 Stepanov's papers and code</a>. Stepanov is one of the principals behind the C++
 STL (STepanov and Lee) Standard Template Library.
+date: 2005-03-01
+filename: ./tech/general/m_kaplan.txt

@@ -97,3 +97,5 @@ part of that equation.
 
 I do like the thing, and I wouldn't switch away, but it's far from
 perfect. Let's hope it gets better.
+date: 2009-08-05
+filename: ./tech/apple/ten_months_with_an_iphone.txt

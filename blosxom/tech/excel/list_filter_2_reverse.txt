@@ -84,3 +84,5 @@ A couple sidenotes:
 <li>Excel's SUBTOTAL intrinsic function is also sensitive to AutoFilter settings.
 
 </ul>
+date: 2005-10-03
+filename: ./tech/excel/list_filter_2_reverse.txt

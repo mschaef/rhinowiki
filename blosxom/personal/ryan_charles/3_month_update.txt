@@ -16,3 +16,5 @@ We're also starting to get settled down into something of a more normal routine:
 enrolled Ryan into a local day care, which started last week. It feels very strange to 
 walk into a building with Ryan and leave without him. That said, as odd as it feels, 
 exposing Ryan to more and more varied social situations will ultimately be a good thing.
+date: 2006-10-21
+filename: ./personal/ryan_charles/3_month_update.txt

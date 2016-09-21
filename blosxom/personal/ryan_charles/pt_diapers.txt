@@ -15,3 +15,5 @@ href="http://blogs.msdn.com/michkap/archive/2005/08/23/455240.aspx">I
 can't imagine why</a>, let me take a moment to remind you that <a
 href="http://www.mschaef.com/blog/tech/this_blog/ryans_logistics.txt">you
 have already been warned</a>.</i> 
+date: 2006-08-31
+filename: ./personal/ryan_charles/pt_diapers.txt

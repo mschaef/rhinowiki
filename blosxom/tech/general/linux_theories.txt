@@ -73,3 +73,5 @@ that five years from now, Linux will have decent Exchange integration
 and excellent support for the ATI R300 graphics in my (then) six year
 old laptop.  Too bad the battle for the desktop will have moved on.
 
+date: 2006-07-24
+filename: ./tech/general/linux_theories.txt

@@ -40,3 +40,5 @@ the last dialog box, I got this:
 <img src="http://www.mschaef.com/adobe_too.gif"
      width="509" height="295">
 </center>
+date: 2006-06-27
+filename: ./tech/general/the_even_more_abominable_dialog_box.txt

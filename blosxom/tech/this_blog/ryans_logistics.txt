@@ -24,3 +24,5 @@ here are the good weblog links:
     (<a href="http://www.mschaef.com/blog/tech/index.rss">RSS</a>)
 </ul>
 
+date: 2006-08-17
+filename: ./tech/this_blog/ryans_logistics.txt

@@ -109,3 +109,5 @@ format, some of which take longer than others. If you happened to
 have a Windows message viewer looking at the message stream to
 the Excel window, you'd see a series of window messages requesting
 rendered copies of unrendered formats.
+date: 2006-06-23
+filename: ./tech/excel/what_is_in_your_clipboard.txt

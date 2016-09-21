@@ -21,3 +21,5 @@ Anyway, here's the etymology:
 
 <li><b>Schaeffer</b> - Mike's family name.
 </ul>
+date: 2006-09-04
+filename: ./personal/ryan_charles/rchs.txt

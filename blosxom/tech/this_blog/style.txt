@@ -18,3 +18,5 @@ worth the time...
 More established bloggers, with a better track record of writing interesting
 stuff, might have more leeway.
 
+date: 2005-06-01
+filename: ./tech/this_blog/style.txt

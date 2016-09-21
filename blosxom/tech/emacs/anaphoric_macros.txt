@@ -47,3 +47,5 @@ makes it possible to access the result of the condition. This is
 particularly useful in scenarios where a predicate function returns a
 true value that contains useful information beyond <tt>t</tt> or
 <tt>nil</tt>.
+date: 2012-05-30
+filename: ./tech/emacs/anaphoric_macros.txt

@@ -21,3 +21,5 @@ extra for a laptop with this feature.
 Another way this could be implemented would be to put 3-4 power-only USB
 ports on the laptop's power brick.
 
+date: 2006-06-22
+filename: ./tech/general/usb_power_hub.txt

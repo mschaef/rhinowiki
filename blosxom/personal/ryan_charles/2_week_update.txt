@@ -9,3 +9,5 @@ Yesterday, his weight was 8 pounds 3 ounces. Based on that and his recent
 feeding behavior he's hit one of the initially expected growth spurts.  He 
 also got a clean bill of health from the doctor otherwise.  
 
+date: 2006-08-17
+filename: ./personal/ryan_charles/2_week_update.txt

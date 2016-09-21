@@ -11,3 +11,5 @@ compiler at its core. I wonder why not GCC.
 
 The next question is how well it will be pulled off. In theory it could be
 seamless. It needs to be.
+date: 2005-06-06
+filename: ./tech/apple/apple_on_intel_2.txt

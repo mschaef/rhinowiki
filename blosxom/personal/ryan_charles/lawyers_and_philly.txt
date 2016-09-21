@@ -65,3 +65,5 @@ from the government.
 Sorry for the gripe, but this is an irritating (for me) 
 fact of life in the modern world.
 
+date: 2006-09-09
+filename: ./personal/ryan_charles/lawyers_and_philly.txt

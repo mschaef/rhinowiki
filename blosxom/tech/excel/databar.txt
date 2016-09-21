@@ -124,3 +124,5 @@ plot cells...
 you bought the monochrome, non-graphics, video board, characters like this 
 were as close as you could get to a bar chart.)</i>
 
+date: 2005-10-07
+filename: ./tech/excel/databar.txt

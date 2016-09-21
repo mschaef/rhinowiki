@@ -8,3 +8,5 @@ this matters since all the original staff are gone and the remnants of
 are <a href="http://labs.google.com/papers/index.html">elsewhere</a>,
 but it did make the front page of 
 <a href="http://it.slashdot.org/it/05/08/16/2225215.shtml?tid=130&tid=218">Slashdot</a>.
+date: 2005-08-17
+filename: ./tech/general/rip_1127.txt

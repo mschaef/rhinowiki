@@ -45,3 +45,5 @@ for limited, easily specified work, but I'd do it again in a
 heartbeat.
 
 
+date: 2006-07-24
+filename: ./tech/general/rent_a_coder.txt

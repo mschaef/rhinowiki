@@ -41,3 +41,5 @@ even going into descriptions of how problems were set up on the machine. Another
 highlight of the book for me (so far) has been a description of Konrad Zuse's
 relay-based Z3, down to the level of a system architectural diagram, schematics of
 a few key circuits, and coverage of its microprogramming (!). 
+date: 2005-09-07
+filename: ./tech/history/dd_ec.txt

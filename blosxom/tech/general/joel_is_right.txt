@@ -116,3 +116,5 @@ Now, speaking to Jon's particular issues
 	your programming will ultimately suffer for not knowing it.	
 </p>
 
+date: 2005-02-16
+filename: ./tech/general/joel_is_right.txt

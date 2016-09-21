@@ -15,3 +15,5 @@ Like Noisemaker, vCalc is shareware available through
 <a href="http://www.icegiant.com/vcalc.shtml">IceGiant</a>.
 <p><p>
 
+date: 2005-02-08
+filename: ./tech/ectworks/vcalc/vcalc.txt

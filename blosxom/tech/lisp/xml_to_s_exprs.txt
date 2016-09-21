@@ -44,3 +44,5 @@ It's a subtle design point, but this'll probably end up in vCalc in the XML
 support... I've had XML for vCalc on the back-burner for a while now, but
 due to some real work obligations, I might have to make it a higher
 priority.
+date: 2005-06-30
+filename: ./tech/lisp/xml_to_s_exprs.txt

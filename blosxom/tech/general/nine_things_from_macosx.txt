@@ -9,3 +9,5 @@ introduced Word 6.0, and simple default views make sense for the simple reason
 that users should have to explicitly ask for more complex or confusing 
 functionality).</i>
 
+date: 2005-08-08
+filename: ./tech/general/nine_things_from_macosx.txt

@@ -14,3 +14,5 @@ Since ClearType
 <a href="http://www.microsoft.com/typography/ClearTypeFAQ.mspx">depends on the unique 
 properties of LCD's</a>, it won't look as good on a CRT. (I still think it 
 looks better than normal, though).
+date: 2005-06-03
+filename: ./tech/general/vctext_2.txt

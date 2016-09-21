@@ -21,3 +21,5 @@ working), but I don't know if it'll end up more or less frustrating than 15-16
 years from now when he's asking for a new sports car or extended curfew.
 
 
+date: 2006-08-27
+filename: ./personal/ryan_charles/ken_thompsons_baby.txt

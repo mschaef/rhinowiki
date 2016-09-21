@@ -14,3 +14,5 @@ A correction and another blog.
     href="http://www.autoblog.com/">Autoblog</a>, a 'professional' blog
     covering automotive news. It's updated fairly often too.
 </list>
+date: 2008-02-14
+filename: ./tech/general/correction_and_blog.txt

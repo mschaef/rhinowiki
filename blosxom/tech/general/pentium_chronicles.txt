@@ -28,3 +28,5 @@ back memories of the first years of my career.
 The best thing about both of these books is that they are both cheap and short. You
 can probably read them both for <$50 and 10-20 hours of time, all of which would be
 well spent.
+date: 2006-01-05
+filename: ./tech/general/pentium_chronicles.txt

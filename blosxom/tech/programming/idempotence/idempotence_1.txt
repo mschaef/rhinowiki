@@ -43,3 +43,5 @@ of automated logic.
 <br><br>
 
 Of course, this is pretty commonplace. More is to come...
+date: 2005-02-22
+filename: ./tech/programming/idempotence/idempotence_1.txt

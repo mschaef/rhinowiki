@@ -84,3 +84,5 @@ Based on this, you don't have to wait for Excel 12 to get a lot of these feature
 to wait for Excel 12 if you want Excel to do it for you automatically. My suggestion would be to
 learn how to use conditional formatting formulas, but I tend to be  <i>"here's how to fish"</i>
 kind of guy more than a <i>"here's a fish"</i> kind of guy.
+date: 2005-10-11
+filename: ./tech/excel/excel_12_format_rules.txt

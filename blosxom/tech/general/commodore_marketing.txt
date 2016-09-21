@@ -11,3 +11,5 @@ funny enough to share here:
 </ul>
 
 I have no idea what the attribution should be for these.
+date: 2005-06-30
+filename: ./tech/general/commodore_marketing.txt

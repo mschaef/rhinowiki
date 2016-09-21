@@ -37,3 +37,5 @@ href="http://www.mschaef.com/blog/tech/this_blog/blosxom.txt">two years
 ago</a>: ssh and a tty-based text editor. This is difficult for both of 
 us, so we've decided to move the Ryan-related content to <a 
 href="http://ryan-charles.blogspot.com/">another blog</a>.
+date: 2007-02-14
+filename: ./personal/ryan_charles/valentines_day.txt

@@ -57,3 +57,5 @@ to in a year or so.
 
 
 
+date: 2005-07-27
+filename: ./tech/apple/apple_ibook_refresh.txt

@@ -168,3 +168,5 @@ something like the iPhone, and it's hard to get all that excited about
 spending five times more money for a phone with no e-mail integration,
 the same lousy EDGE network, and even less opportunities for outside
 software. 
+date: 2007-06-19
+filename: ./tech/products/c2125.txt

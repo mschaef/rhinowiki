@@ -6,3 +6,5 @@ site</a>, I've slightly tweaked the layout of the blog. The sidebar is now
 one color all the way down, and some of the <tt>&lt;pre&gt;</tt> text in 
 some older posts is now formatted to fit smaller lines. 
 
+date: 2006-06-06
+filename: ./tech/this_blog/style_2.txt

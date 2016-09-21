@@ -8,3 +8,5 @@ It's been full of useful tips and tricks, I particularly like part 2,
 the Issue</a>. That's a technique that's worked well for me in the multithreaded
 systems I've worked on. Of course, if you're writing SQL Server, etc. I'm sure
 you can't take nearly as simple an approach.
+date: 2005-02-22
+filename: ./tech/general/osterman_concurrency.txt

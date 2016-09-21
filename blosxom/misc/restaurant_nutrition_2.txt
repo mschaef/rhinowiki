@@ -9,3 +9,5 @@ Some place like <a href="http://www.hardees.com">Hardee's</a> might be reluctant
 label on, it'd be much harder to delude yourself about what you are eating.
 
 
+date: 2006-06-16
+filename: ./misc/restaurant_nutrition_2.txt

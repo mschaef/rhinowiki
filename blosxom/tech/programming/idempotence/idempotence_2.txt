@@ -124,3 +124,5 @@ cs and potentially duplicate it.
 <br><Br>
 
 Next up are a few more examples of idempotence, as well as a look into some of the pitfalls.
+date: 2005-03-01
+filename: ./tech/programming/idempotence/idempotence_2.txt
