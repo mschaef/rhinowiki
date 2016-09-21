@@ -1,0 +1,3 @@
+#!/usr/local/bin/bash
+
+ touch -t202001011200 foot.html foot.txt  tail.html tail.txt

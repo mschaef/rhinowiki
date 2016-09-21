@@ -1,0 +1,10 @@
+Bell Labs group 1127 has been disbanded...
+
+Group 1127, the group at Bell Labs that originally developed Unix,
+<a href="http://www.unixreview.com/documents/s=9846/ur0508l/ur0508l.html">
+has been disbanded in a reorganization</a>. I'm not exactly sure why
+this matters since all the original staff are gone and the remnants of
+<a href="http://www.cs.bell-labs.com/who/rob/utah2000.pdf">systems research</a> 
+are <a href="http://labs.google.com/papers/index.html">elsewhere</a>,
+but it did make the front page of 
+<a href="http://it.slashdot.org/it/05/08/16/2225215.shtml?tid=130&tid=218">Slashdot</a>.

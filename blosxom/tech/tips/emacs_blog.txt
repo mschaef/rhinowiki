@@ -1,0 +1,4 @@
+An Emacs Blog
+
+I just started reading this blog, but it already looks useful: <a 
+href="http://www.emacsblog.org/">m-x all-things-emacs</a>.

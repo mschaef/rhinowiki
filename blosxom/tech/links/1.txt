@@ -1,0 +1,82 @@
+New Computer... Links from the old...
+
+Tomorrow, my employer is replacing my three year old <a 
+href="http://www.dell.com/downloads/us/products/latit/d400_spec.pdf">Dell 
+D400</a> with a nice new <a 
+href="http://h10010.www1.hp.com/wwpc/us/en/sm/WF06a/321957-321957-64295-321838-306995-1847110.html">Compaq 
+nc2400</a>. I have to admit that I'm a bit apprehensive about the switch; My 
+D400 works quite well and shows few signs of decay. But, I also remember 
+feeling the same way about the D400. Maybe the Compaq will be as good as the 
+<a href="http://oldcomputers.net/compaqi.html">last Compaq I regularly 
+used</a> and be another nice suprise. Anyway, as part of clearing out the old 
+machine, here are a few links I've found that I'd like to preserve.  No 
+promises on content, but you might find at least one of them to be 
+interesting if you read this blog.
+
+<ul>
+<li><a href="http://www.nicholasgcarr.com/articles/matter.html"><b>Nicholas 
+Carr - IT Doesn't Matter</b></a> - Probably false, from what I've heard about 
+it.
+
+<li><a href="http://www.folklore.org/index.py"><b>Folklore.org - Macintosh 
+Stories</b></a> - Wonderful web site dedicated to stories from the creation of 
+the Macintosh. If you're up for that, you might also be up for <a 
+href="http://apple2history.org/">this</a>, a detailed history of the old Apple 
+][ machines.
+
+
+<li><a href="http://philip.greenspun.com/ancient-history/webmail/"><b>Design 
+and Implementation of a Web-based Email System</b></a>
+
+<li><a 
+href="http://www.oracle.com/technology/documentation/index.html"><b>Oracle 
+Documentation Home Page</b></a> - <a href="http://www.oracle.com">Oracle</a>'s 
+website <a 
+href="http://www.mschaef.com/blog/tech/general/oracle_and_their_website.txt">sucks</a>, 
+so here is the link to their documentation that's not as obvious as it should 
+be.
+
+<li><a href="http://news.ycombinator.com/"><b>Y Combinator Startup 
+News</b></a> - Elitist <a href="http://www.reddit.com">Reddit</a>.
+
+<li><a href="http://blog.ruhlman.com/"><b>Michael Ruhlman's Blog</b></a> - 
+Good for foodies. This is the guy that went to culinary school to learn enough 
+about cooking to write about chefs.
+
+<li><a 
+href="http://www.sysco.com/products/productpage_search.asp?productID=329"><b>SmartServe 
+Chicken</b></a> - The opposite of the last link, but you've probably eaten 
+this crap if you live in the western world.
+
+<li><a href="http://www.jagweb.com/jagworld/v12-engine/index.html"><b>Jaguar 
+V12 Engine</b></a> - A nice history of an apparantly pretty troublesome, but 
+'sexy', engine.
+
+<li><a href="http://www.liegroups.org/"><b>Atlas of Lie Groups and 
+Representations</b></a> - I have no idea what this is, but it seems important. 
+:-)
+
+<li><a href="http://www.lysator.liu.se/c/pikestyle.html"><b>Rob Pike's Notes 
+on Programming in C</b></a>
+<li><a href="http://www.gnu.org/gnu/rms-lisp.html"><b>My Lisp Experiences and 
+the Development of Gnu Emacs</b></a> - By Richard Stallman, of course...
+<li><a href="http://tiny-tools.sourceforge.net/emacs-code-body.html"><b>Emacs 
+Lisp Coding Thoughts</b></a>
+<li><a href="http://www.fordsix.com/index.php"><b>Ford Six Performance</b></a> 
+- Ford dropped this engine in favor of a 4.2 Liter V6, but this was the entry 
+level truck engine for years. I remember very clearly looking at new 4.9 liter 
+F-150's with my dad back in 1991.
+
+<li><a 
+href="http://www.donhopkins.com/drupal/node/109?dupe=with_honor"><b>Come 
+Celebrate the Joy of Programming with the World's Most Unbreaucratic 
+Computers</b></a> - Lisp Machine Stuff...
+<li><a href="http://www.bitsavers.org/"><b>Bitsavers</b></a> - This is 
+probably the most important link on the list, aside from the next one. A huge 
+archive of old computer documentation and software. If you're a computer geek, 
+and you care about where you came from, you should click this link and spend 
+the next couple weeks reading.
+<li><a 
+href="http://justus.anglican.org/resources/bcp/formatted_1979.htm"><b>1979 
+Episcopal Book of Common Prayer</b></a>
+</ul>

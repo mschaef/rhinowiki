@@ -1,0 +1,67 @@
+Interesting links and blogs...
+
+<b>Non-Blogs</b>
+
+<ul>
+<li><a href="http://citeseer.ist.psu.edu/aronsson95comparison.html">A Comparison Between Erlang and C++ for Implementation of Telecom Applications</a>
+<li><a href="http://web.mit.edu/kerberos/www/dialogue.html">Designing an Authentication System a Dialogue in Four Scenes</a>
+<li><a href="http://frontierkernel.sourceforge.net/">Frontier Kernel</a>
+<li><a href="http://www.graphicshardware.org/previous/">Graphics Hardware Archives</a>
+<li><a href="http://www.alphageeksinc.com/cgi-bin/lispnyc.cgi?ErLisp">LispNYC ErLisp</a>
+<li><a href="http://clsdemo.caltech.edu/14/02/FeynmanLosAlamos.htm">Los Alamos From Below Reminiscences 1943-1945, by Richard Feynman</a>
+<li><a href="http://www.andybudd.com/@media2005/">Making the Jump to tableless design</a>
+<li><a href="http://kantz.com/jason/writing/8-puzzle.htm">Optimizing Search on an 8 Puzzle</a>
+<li><a href="http://www.tbray.org/atom/RSS-and-Atom">RSS 2.0 and Atom 1.0, Compared</a>
+<li><a href="http://www.sysinternals.com/Information/NativeApi.html">Sysinternals Freeware - Inside the Native API</a>
+<li><a href="http://www.knosof.co.uk/cbook/cbook.html">The New C Standard</a>
+<li><a href="http://www.mang.canterbury.ac.nz/people/jfraffen/spreadsheets/index.html">The New Guidelines for Writing Spreadsheets</a>
+<li><a href="http://www.cs.nyu.edu/shasha/papers/jagtalk.html">Time Series in Finance</a>
+<li><a href="http://www.faqs.org/faqs/computer/system/cray/faq/">Cray Supercomputer FAQ</a>
+<li><a href="ftp://ftp.scsh.net/pub/scsh/contrib/fps/doc/fps.html">Functional PostScript</a>
+<li><a href="http://www.jstatsoft.org/">Journal of Statistical Software</a>
+<li><a href="http://www.metropla.net/links/">Metro Planet - Subway travel information</a>
+<li><a href="http://www.0x1.org/d/stuff/newton/vm/">NewtonScript Byte Code Specification</a>
+<li><a href="http://www.numerical-recipes.com/">Numerical Recipes Home Page</a>
+<li><a href="http://www.natbat.co.uk/self/papers.php">Papers about Self and OO Programming</a>
+<li><a href="http://members.optushome.com.au/puyo/libfov.html">Puyo's Page - libfov</a>
+<li><a href="http://wsmith.best.vwh.net/Self-intro.html">SELF and the Origins of NewtonScript</a>
+<li><a href="http://www.fourmilab.ch/autofile/www/autofile.html">The Autodesk File</a>
+<li><a href="http://www.eggheadcafe.com/articles/20030114.asp">Undocumented C# Types and Keywords</a>
+<li><a href="http://www.seanm.ca/nt-software-eng.html">Windows A Software Engineering Odyssey</a>
+<li><a href="http://www.thegalleryofoldiron.com/2044.HTM">The Gallery of Old Iron</a>
+<li><a href="http://www.fakeisthenewreal.org/subway/index.html">world subways</a>
+</ul>
+
+<b>Blogs</b>
+
+<ul>
+<li><a href="http://blogs.msdn.com/brada/">Brad Abrams</a>
+<li><a href="http://airplanepilot.blogspot.com/">Cockpit Conversation</a>
+<li><a href="http://www.dicks-blog.com/">Daily Dose of Excel</a>
+<li><a href="http://blogs.msdn.com/daryllmc/default.aspx">Daryll McDade - The High School Guy</a>
+<li><a href="http://www.edwardtufte.com/bboard/q-and-a?topic_id=1">Edward Tufte Ask E.T. forum</a>
+<li><a href="http://www.exploits.com/blog/">Exorcyst's Padded Cell</a>
+<li><a href="http://weblogs.asp.net/ericlippert">Fabulous Adventures In Coding</a>
+<li><a href="http://lambda-the-ultimate.org/">Lambda the Ultimate  Programming Languages Weblog</a>
+<li><a href="http://www.megginson.com/blogs/lahso/">Land and Hold Short</a>
+<li><a href="http://blogs.msdn.com/devenkamp/archive/2005/01/07/LinuxAintFree.aspx">Linux Is No Longer Free</a>
+<li><a href="http://weblogs.asp.net/jmstall/">Mike Stall's .NET Debugging Blog</a>
+<li><a href="http://minimsft.blogspot.com/">Mini-Microsoft</a>
+<li><a href="http://weblogs.mozillazine.org/">MozillaZine Weblogs</a>
+<li><a href="http://planet.gnome.org/">Planet GNOME</a>
+<li><a href="http://planet.lisp.org/">Planet Lisp</a>
+<li><a href="http://www.megginson.com/blogs/quoderat/">Quoderat</a>
+<li><a href="http://rob.crabapples.net/">Rob Fahrni, at the core</a>
+<li><a href="http://blogs.msdn.com/sqlclr/default.aspx">SQL Server 2005 CLR Integration</a>
+<li><a href="http://www.jroller.com/page/slava/">Slava Pestov's Weblog</a>
+<li><a href="http://keithp.com/blog">Stochastic Keithp</a>
+<li><a href="http://weblogs.mozillazine.org/hyatt/">Surfin' Safari</a>
+<li><a href="http://www.blogofdeath.com/">The Blog of Death</a>
+<li><a href="http://blogs.msdn.com/matt_pietrek/">Under The Hood - Matt Pietrek</a>
+<li><a href="http://wadler.blogspot.com/">Wadler's Blog</a>
+<li><a href="http://msmvps.com/shelluser/">Windows Shell-User</a>
+<li><a href="http://blogs.sun.com/fintanr">fintanr's weblog</a>
+<li><a href="http://weblogs.asp.net/jeffdav/">jeffdav's WebLog</a>
+<li><a href="http://rentzsch.com/">rentzsch.com tales from the red shed</a>
+<li><a href="http://www.simplegeek.com/">simplegeek</a>
+</ul>

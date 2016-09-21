@@ -1,0 +1,49 @@
+Sony Ericsson T-637
+
+A few months ago, my wife and I recently switched from a 
+Sanyo 4700 and a 4900 on <a href="http://www.sprintpcs.com/">Sprint PCS</a> to a pair of 
+<a href="http://www.sonyericsson.com/t637/index.html">Sony Ericsson T-637's</a>
+on <a href="http://www.cingular.com/index">bCingular Wireless</a>. Overall, the
+switch has been an improvement, but there are still a few nagging issues:
+
+<br><br>
+
+<list>
+
+<li>Cingular's selection of Java games is much sparser and more expensive than Sprint's.
+
+<li>There's no "Phone Ringing" Ringtone on the phone, just a bunch of generic and/or
+     unrecognizable music files.
+
+<li>There are buttons on the side of the phone that activate the web browser and camera.
+    These are pretty easy to hit by accident.
+
+<li>Sanyos and Nokias have this problem too, but the Sony doesn't really handle the case of
+    multiple directory entries with the same phone number. When called by someone
+    at a number that for which I have multiple entries, I'd really like to see a list of
+    all of the entries containing that number. (This would help handle the case of
+    two people each with cell phones and with one home number.)
+
+<li>The incoming call logs are by number, not by call. This makes it difficult to 
+    tell when you've missed multiple calls from the same number.
+
+<li>The incoming call logs rely on automatic horizontal scrolling to reveal information
+    like time of call and number of calls missed. This means that you have to select
+    a log entry and sit on it for a few seconds while the phone scrolls the information
+    you want into view. I'd much rather have some kind of details/summary view toggle
+    button on the side of the phone. Of the <b>four</b> side mounted buttons, surely
+    one could be for this.
+
+<li>There's a music editor built in that lets you compose custom ring tones. However,
+    it only lets you work with a fixed set of clips, so it loses its appeal very quickly.
+  
+
+</list>
+
+<br><br>
+
+I guess that looks like a lot of complaining, but otherwise the phone is very nice. The
+last phone I've liked as much is my old Nokia 8260 (and the 6160 before that). The Sanyo
+4900 doesn't even come close. I'm happy enough with this phone to consider buying another
+Sony Ericsson. (The new <a href="http://www.mobiletracker.net/archives/2005/03/01/Sony-Ericsson-W800i">
+W800i</a> looks pretty nice...)
