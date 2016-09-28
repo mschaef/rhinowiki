@@ -1,11 +1,14 @@
 (ns rhinowiki.data
   (:use rhinowiki.utils)
-  (:require [markdown.core :as markdown]))
+  (:require [clojure.tools.logging :as log]
+            [markdown.core :as markdown]))
 
 (defn file-base-name [ file ]
   (let [ file-name (.getName file) ]
     (if-let [ extension-delim-pos (.indexOf file-name ".") ]
-      (.substring file-name 0 extension-delim-pos)
+      (if (>= extension-delim-pos 0)
+        (.substring file-name 0 extension-delim-pos)
+        file-name)
       file-name)))
 
 (defn- data-files []

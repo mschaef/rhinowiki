@@ -4,15 +4,23 @@ h1 {
 
 
 body {
-    width: 64em;
+    width: 48em;
     text-align: left;
     margin: 0 auto;
 
     margin-top: 2em;
+
+    line-height: 1.5;
 }
 
-A:hover {
-    background: #e0e0e0;
+code {
+    line-height: 1;
+}
+
+blockquote {
+    font-size: 90%;
+    margin-right: 4em;
+    font-style: italic;
 }
 
 A:visited {
@@ -22,20 +30,42 @@ A:visited {
 A:link {
     color: black;
     text-decoration: none;
+    background: #f0f0f0;
 }
+
+A:hover {
+    background: #d0d0d0;
+}
+
 
 .title {
     font-weight: bold;
-    font-size: 150%;
+    font-size: 166%;
 }
 
-code {
+pre code {
     margin-left: 4em;
     margin-right: 4em;
 }
 
 .article {
     margin-top: 1.5em;
+}
+
+.article h1 {
+    font-size: 150%;
+}
+
+.article h2 {
+    font-size: 130%;
+}
+
+.article h3 {
+    font-size: 110%;
+}
+
+.article li:not(:last-child) {
+    margin-bottom: 0.5em;
 }
 
 /* highlight.js - Rainbow style

@@ -63,13 +63,13 @@
     (site-page (:title article-info) (article-block article-info))))
 
 (defn recent-articles-page []
-  (page blog-title
-        (map (fn [ article-info ]
-               [:div
-                (article article-info)
-                [:a { :href (str "/" (:name article-info))}
-                 "Permalink"]])
-             (take 10 (data/recent-articles)))))
+  (site-page blog-title
+             (map (fn [ article-info ]
+                    [:div
+                     (article-block article-info)
+                     [:a { :href (str "/" (:name article-info))}
+                      "Permalink"]])
+                  (take 100 (data/recent-articles)))))
 
 (defroutes all-routes
   (GET "/" []
