@@ -31,7 +31,6 @@
 (defn resource [ path ]
   (str "/" (get-version) "/" path))
 
-
 (def blog-title "Mike Schaeffer's Weblog")
 
 (defn site-page [ page-title body ]

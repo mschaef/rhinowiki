@@ -3,6 +3,15 @@
   (:require [clojure.tools.logging :as log]
             [markdown.core :as markdown]))
 
+(def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
+
+(defn maybe-parse-date [ text ]
+  (and text
+       (try
+         (.parse df-metadata text)
+         (catch Exception ex
+           nil))))
+
 (defn file-base-name [ file ]
   (let [ file-name (.getName file) ]
     (if-let [ extension-delim-pos (.indexOf file-name ".") ]
@@ -19,7 +28,9 @@
            {:name file-name
             :title title
             :content-html (:html parsed)
-            :date (java.util.Date. (.lastModified data-file))}))
+            :date (or
+                   (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
+                   (java.util.Date. (.lastModified data-file)))}))
        (filter #(.isFile %)
                (file-seq (java.io.File. "data/")))))
 
@@ -29,4 +40,4 @@
              (data-files))))
 
 (defn recent-articles []
-  (data-files))
+  (sort-by :date (data-files)))
