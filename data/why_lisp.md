@@ -2,7 +2,6 @@ title: Why Lisp?
 date: 2009-04-16
 filename: ./tech/lisp/why_lisp.txt
 
-
 I recently was asked why I like Lisp. For me, it boils down to
 the fact that Lisp makes it easy to control when your code is
 evaluated. Most languages only let you evaluate code at
@@ -19,8 +18,6 @@ lambda syntax, <tt>yield return</tt> etc.) could be added to Java
 by 'ordinary developers' if Java somehow had these things I like
 so much about Lisp.
 
-<br><br>
-
-<i>But it doesn't...</i>
+*But it doesn't...*
 
 

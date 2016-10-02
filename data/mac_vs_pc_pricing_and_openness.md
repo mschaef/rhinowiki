@@ -2,7 +2,6 @@ title: Macintosh vs. PC Pricing, and missing the point.
 date: 2008-08-18
 filename: ./tech/apple/mac_vs_pc_pricing_and_openness.txt
 
-
 Harry McCracken just wrote <a 
 href="http://technologizer.com/2008/08/14/are-macs-more-expensive-lets-do-the-math-once-and-for-all/"> 
 a bit</a> comparing the price of PC's to Macintosh's. Like most of these 
@@ -15,28 +14,24 @@ excluding configurations that Apple does not offer. Just for the sake of
 a more full comparison, what does a MacBook cost with these 
 configurations?
 
-<ul>
-<li>A TrackPoint.
-<li>A numeric keypad.
-<li>Two internal batteries.
-<li>Two internal mouse buttons.
-<li>A swappable drive bay.
-<li>A docking station.
-<li>A calibrated, high-gamut display and a digitizer.
-<li>A display smaller than 13" or bigger than 17".
-<li>No keyboard.
-<li>A convertable tablet configuration.
-<li>Embedded on a PXI card.
-<liThe absolute highest performance.
-<li>The absolute minimum cost.
-</ul>
+* A TrackPoint.
+* A numeric keypad.
+* Two internal batteries.
+* Two internal mouse buttons.
+* A swappable drive bay.
+* A docking station.
+* A calibrated, high-gamut display and a digitizer.
+* A display smaller than 13" or bigger than 17".
+* No keyboard.
+* A convertable tablet configuration.
+* Embedded on a PXI card.
+* The absolute highest performance.
+* The absolute minimum cost.
 
 Of course, none of these configurations are available from Apple. If you
 need or want one of these options, you can't get it at any price from 
 Apple. Similar comparisons can be made in the server and desktop PC 
 spaces. 
-
-<br><br>
 
 This is an unsuprising result. When you enlarge the playing field beyond 
 Apple's relatively limited reach, it becomes even more apparant that 
@@ -46,8 +41,6 @@ desire, or brand to fare well in such a comparison: There are just too
 many market segments they don't address. Addressing all of these 
 segments would leave them with a confusing product line, a highly taxed 
 engineering group, and a muddled brand image.
-
-<br><br>
 
 Part of the value of the PC platform is that it not subject to the 
 limitations of being confined to one highly image-sensitive company. 

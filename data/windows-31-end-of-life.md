@@ -2,7 +2,6 @@ title: The End of 16-bit Windows
 date: 2008-11-06
 filename: ./tech/history/windows-31-end-of-life.txt
 
-
 In an era in which customers are almost begging Microsoft not to
 discontinue Windows XP, I was suprised to see <a
 href="http://arstechnica.com/news.ars/post/20081105-microsoft-puts-windows-3-11-for-workgroups-out-to-pasture.html">a
@@ -13,8 +12,6 @@ the major US-market versions of Windows without native Win32 support
 out of the box. It was also one of a series of Windows releases in the
 early 90's that turned Windows from 'the library you need to run
 Excel' into a legitimate platform for general purpose computing.
-
-<br><br>
 
 From it's introduction in 1985 until the release of Windows 3.0 in 1990, Windows was almost 
 entirely composed of the same basic core: DOS for file access and system startup, and a 
@@ -28,8 +25,6 @@ computer with a special program that let it pretend its extra memory worked like
 board. Needless to say, memory was tight, difficult to use, and dangerous to share it 
 between multiple programs.
 
-<br><br>
-
 The solution to this memory problem was initially to be OS/2. OS/2 was the operating system 
 part of IBM's vast (and doomed) PS/2 program to recapture the PC space back from clone 
 vendors. Like DOS, it was done in partnership with Microsoft, but IBM took a much more 
@@ -40,11 +35,9 @@ added memory protection between processes that made multi-tasking more reliable.
 mode also widened the physical address space of the CPU from 20-bits to 24-bits, making it 
 possible to directly address 16MB of memory without resorting to tricks like LIM/EMS 
 paging. This was all good, but it was tempered by the fact that OS/2 was expensive to run 
-and didn't run DOS programs very well, thanks to its choice of 80286 protected mode over 
-80386. The only programs that could actually use the benefits of protected mode under OS/2 
+and didn't run DOS programs very well, thanks to its choice of 80286 protected mode over 80386.
+The only programs that could actually use the benefits of protected mode under OS/2 
 were OS/2-specific software that nobody had.
-
-<br><br>
 
 By the time 1988 rolled around, PC's with the capability of addressing more than 1MB of 
 memory had been around since 1984, and there still wasn't a viable mainstream operating 
@@ -57,8 +50,6 @@ idea ultimately resulted in Windows 3.0, released in 1990 to heady acclaim. Wind
 also included the V86 multitasker from the older Windows/386 product. This meant Windows 
 3.0 could do things OS/2 could not do, like run multiple DOS programs at the same time and 
 run them in graphical windows on the desktop.
-
-<br><br>
 
 Windows 3.0 ended up being a runaway sales success, and after its release, the rest of the 
 dominos fell fairly quickly. Microsoft's partnership with IBM effectively ended, with IBM 

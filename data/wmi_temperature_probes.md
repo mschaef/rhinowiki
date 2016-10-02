@@ -2,14 +2,13 @@ title: WMI and temperature probes...
 date: 2006-01-27
 filename: ./tech/win32/wmi_temperature_probes.txt
 
-I've spent a little more time spelunking around Win32's support for power 
-and thermal management hardware. It seems like it should be possible to 
-use Windows API calls to determine the presence of hardware temperature 
-sensors and sample their current readings. As it turns out, with <a 
-href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wmisdk/wmi/wmi_reference.asp">Windows 
+I've spent a little more time spelunking around Win32's support for
+power and thermal management hardware. It seems like it should be
+possible to use Windows API calls to determine the presence of
+hardware temperature sensors and sample their current readings. As it
+turns out, with <a
+href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wmisdk/wmi/wmi_reference.asp">Windows
 Management Instrumentation (WMI)</a>, half of this is possible.
-
-<br><br>
 
 Quoting <a 
 href="http://msdn.microsoft.com/library/en-us/wmisdk/wmi/about_wmi.asp?frame=true">MSDN</a>, 
@@ -23,8 +22,6 @@ With DCOM, it's possible to use this over the network to discover the same stuff
 machine. I'm guessing the intent is that the administrator of a server farm can use WMI services to 
 aggregate statistics on her charges.
 
-<br><br>
-
 Reading the WMI documentation, one of the classes of information WMI makes available is <a 
 href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wmisdk/wmi/win32_temperatureprobe.asp">Win32_TemperatureProbe</a>, 
 , which "represents the properties of a temperature sensor (electronic thermometer)." Had I read 
@@ -36,9 +33,7 @@ href="http://www.4guysfromrolla.com/webtech/082802-1.shtml">tutorial on WMI</a> 
 href="http://www.4guysfromrolla.com/">4 Guys From Rolla</a> website. From that, it was pretty easy 
 to piece together this little piece of code that dumps data from arbitrary WMI classes:
 
-
-<pre class="syntax">
-
+```basic
 wscript.echo "Temperature, version 0.1"
 
 sub ShowServices(vClass)
@@ -68,7 +63,7 @@ sub ShowServices(vClass)
 end sub
 
 ShowServices "Win32_TemperatureProbe"
-</pre>
+```
 
 Dump that script into a .vbs file, run it with cscript, and it'll write out the
 state of the objects of the specified class.  Since Windows doesn't report

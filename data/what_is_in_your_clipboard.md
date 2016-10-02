@@ -2,7 +2,6 @@ title: What's in *your* clipboard...
 date: 2006-06-23
 filename: ./tech/excel/what_is_in_your_clipboard.txt
 
-
 The clipboard is one of the oldest and most often used data exchange
 mechanisms in Microsoft Windows.  It's been around since Windows 1.0
 and basically all applications use it to support operations like copy,
@@ -18,8 +17,6 @@ and pasting data; this is why you can copy a spreadsheet from
 super-smart Excel, paste it into super-dumb Notepad, and still get
 reasonable results.
 
-<br><br>
-
 In the process of adding better clipboard support to vCalc, I wrote a
 small tool for dumping clipboard contents to a console window. This
 tool, <a href="http://www.mschaef.com/cbdump.zip">cbdump</a>, runs
@@ -29,7 +26,7 @@ hexadecimal format, so you can see the actual data, unaltered by
 applications. To show what it looks like, here's sample output after
 copying a small Excel table to the clipboard:
 
-<pre class="syntax">
+```text
 c009: "DataObject"  (4 bytes)
 000e: CF_ENHMETAFILE  (0 bytes)
 0003: CF_METAFILEPICT  (16 bytes)
@@ -63,7 +60,7 @@ c013: "Ole Private Data"  (792 bytes)
 0008: CF_DIB  (57368 bytes)
 0011: CF_DIBV5  (57452 bytes)
 150642 bytes
-</pre>
+```
 
 The leftmost column is the integer ID of the clipboard format. This is
 the ID used by Windows to identify the format used by a particular
@@ -79,8 +76,6 @@ and "Biff8". This allows applications like Excel to communicate rich,
 specialized data to applications that support it (Excel itself being
 a good example).
 
-<br><br>
-
 A couple paragraphs ago, I used the word 'negotiate' when referring to
 the way that two applications use the clipboard to exchange data. As
 currently presented, that negotiation looks a lot like the source
@@ -93,8 +88,6 @@ formats will basically be the same as before, the difference is in the
 way the list appears. You'll notice that the list scrolls past
 unevenly, jerking along with some formats taking longer to list than
 others.
-
-<br><br>
 
 The reason for the uneven scrolling is that Windows does not force an
 application to always provide data in every clipboard format it

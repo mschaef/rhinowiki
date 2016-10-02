@@ -14,6 +14,8 @@
             [hiccup.page :as page]
             [rhinowiki.data :as data]))
 
+(def blog-title "Mike Schaeffer's Weblog")
+(def recent-post-limit 10)
 
 (defn wrap-request-logging [ app ]
   (fn [req]
@@ -30,8 +32,6 @@
 
 (defn resource [ path ]
   (str "/" (get-version) "/" path))
-
-(def blog-title "Mike Schaeffer's Weblog")
 
 (defn site-page [ page-title body ]
   (hiccup/html
@@ -68,7 +68,7 @@
                      (article-block article-info)
                      [:a { :href (str "/" (:name article-info))}
                       "Permalink"]])
-                  (take 100 (data/recent-articles)))))
+                  (take recent-post-limit (data/recent-articles)))))
 
 (defroutes all-routes
   (GET "/" []

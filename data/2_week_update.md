@@ -1,6 +1,6 @@
 title: Ryan After Two Weeks
 filename: ./personal/ryan_charles/2_week_update.txt
-
+date: 2006-08-17
 
 Ryan turned two weeks old the other day. In honor of the occasion we've put a 
 few more pictures online in <a 
@@ -10,5 +10,3 @@ weight immediately after birth and has been steadily gaining weight since.
 Yesterday, his weight was 8 pounds 3 ounces. Based on that and his recent 
 feeding behavior he's hit one of the initially expected growth spurts.  He 
 also got a clean bill of health from the doctor otherwise.  
-
-date: 2006-08-17

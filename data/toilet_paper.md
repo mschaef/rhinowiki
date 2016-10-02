@@ -2,7 +2,6 @@ title: Toilet paper protocol
 date: 2006-06-08
 filename: ./misc/toilet_paper.txt
 
-
 I have a small proposal to combat the problem of public toilet
 stalls without toilet paper. If you notice that a stall is missing
 toilet paper, take a reasonable amount from an adjacent stall and
@@ -13,8 +12,6 @@ without noticing, it provides a source of backup paper that can
 be replenished after use. Either way, it avoids the case of 
 somebody using a stall, needing toilet paper, and then finding
 themselves without.
-
-<br><br>
 
 Of course, this does not handle the case when all of the stalls
 in a restroom have run out. It also doesn't handle the similar
@@ -31,8 +28,5 @@ of paper could now be made significantly smaller than it was
 in the first version of the protocol, when it was able to be
 used.
 
-<br><br>
-
 Some people think about world peace, some think about curing
 cancer, I apparantly think about this...
-

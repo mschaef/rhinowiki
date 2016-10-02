@@ -40,4 +40,4 @@
              (data-files))))
 
 (defn recent-articles []
-  (sort-by :date (data-files)))
+  (reverse (sort-by :date (data-files))))

@@ -11,8 +11,6 @@ happen at the least opportune moment and have a range of <i>over a
 foot</i>.  I expect that this applies equally to either gender of
 child.  Enough said.
 
-<br><Br>
-
 <i>If this post offends you, and <a
 href="http://blogs.msdn.com/michkap/archive/2005/08/23/455240.aspx">I
 can't imagine why</a>, let me take a moment to remind you that <a

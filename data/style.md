@@ -3,21 +3,20 @@ date: 2005-06-01
 filename: ./tech/this_blog/style.txt
 
 
-Should blog posts be written with the <a href="http://www.freep.com/jobspage/academy/writing.htm">
-essential content at the beginning</a> and less interesting details at the end?
-Or is <a href="http://www.mschaef.com/cgi-bin/blosxom.cgi/2005/06/01#apple_pricing">putting
+Should blog posts be written with the <a
+href="http://www.freep.com/jobspage/academy/writing.htm"> essential
+content at the beginning</a> and less interesting details at the end?
+Or is <a
+href="http://www.mschaef.com/cgi-bin/blosxom.cgi/2005/06/01#apple_pricing">putting
 the punchline at the end</a> acceptable?
 
-<br><br>
+Since people <a href="http://www.useit.com/alertbox/9710a.html">tend
+not to read online</a>, and blogs are often read in <a
+href="http://scoble.weblogs.com/">huge volumes</a> via an <a
+href="http://www.sharpreader.com/">aggregator</a>, my hunch is that
+the title (and maybe the first paragraph) have to convince people your
+article is worth the time...
 
-Since people <a href="http://www.useit.com/alertbox/9710a.html">tend not to
-read online</a>, and blogs are  often read in <a href="http://scoble.weblogs.com/">huge
-volumes</a> via an <a href="http://www.sharpreader.com/">aggregator</a>, my hunch is 
-that the title (and maybe the first paragraph) have to convince people your article is
-worth the time...
-
-<br><br>
-
-More established bloggers, with a better track record of writing interesting
-stuff, might have more leeway.
+More established bloggers, with a better track record of writing
+interesting stuff, might have more leeway.
 
