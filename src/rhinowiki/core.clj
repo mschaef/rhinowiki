@@ -58,7 +58,7 @@
    (:content-html article-info)])
 
 (defn article-page [ article-name ]
-  (when-let [ article-info  ((data/articles-by-name) article-name) ]
+  (when-let [ article-info (data/article-by-name article-name) ]
     (site-page (:title article-info) (article-block article-info))))
 
 (defn recent-articles-page []

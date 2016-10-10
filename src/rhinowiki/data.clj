@@ -13,31 +13,29 @@
            nil))))
 
 (defn file-base-name [ file ]
-  (let [ file-name (.getName file) ]
-    (if-let [ extension-delim-pos (.indexOf file-name ".") ]
-      (if (>= extension-delim-pos 0)
-        (.substring file-name 0 extension-delim-pos)
-        file-name)
-      file-name)))
+  (.getName file))
+
+(defn- load-data-file [ data-file ]
+  (let [parsed (markdown/md-to-html-string-with-meta (slurp data-file))
+        file-name (file-base-name data-file) 
+        title (first (get-in parsed [:metadata :title] [ file-name ]))]
+    {:name file-name
+     :title title
+     :content-html (:html parsed)
+     :date (or
+            (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
+            (java.util.Date. (.lastModified data-file)))}))
 
 (defn- data-files []
-  (map (fn [ data-file ]
-         (let [parsed (markdown/md-to-html-string-with-meta (slurp data-file))
-               file-name (file-base-name data-file) 
-               title (first (get-in parsed [:metadata :title] [ file-name ]))]
-           {:name file-name
-            :title title
-            :content-html (:html parsed)
-            :date (or
-                   (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
-                   (java.util.Date. (.lastModified data-file)))}))
+  (map load-data-file
        (filter #(.isFile %)
                (file-seq (java.io.File. "data/")))))
 
-(defn articles-by-name []
-  (into {}
-        (map (fn [ file-info ] [(:name file-info) file-info])
-             (data-files))))
+(defn article-by-name [ name ]
+  (let [ file (java.io.File. (str "data/" name)) ]
+    (log/info file (.isFile file))
+    (and (.isFile file)
+         (load-data-file file))))
 
 (defn recent-articles []
   (reverse (sort-by :date (data-files))))
