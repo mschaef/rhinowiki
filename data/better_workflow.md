@@ -10,7 +10,7 @@ a better workflow for this blog:
   
 * <s>I'm managing site history using <a href="http://www.git-scm.com/"><tt>git</tt>
   </a>.</s> This was a nice idea, but <tt>git</tt> and 
-  <a href="http://www.blosxom.com/"><tt>blosxom</tt></tt> have a fundamental difference
+  <a href="http://www.blosxom.com/"><tt>blosxom</tt></a> have a fundamental difference
   of opinion on the importance of file datestamps. <tt>blosxom</tt> relies on datestamps
   to assign dates to posts and <tt>git</tt> deliberately updates datestamps to work with
   build systems. There are ways to reconcile the two, but it's not worth the time right now.

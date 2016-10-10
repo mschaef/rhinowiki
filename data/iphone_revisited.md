@@ -81,8 +81,6 @@ has a touch screen, a modern web browser, and a fully stocked app
 store. Unless Apple sues Android into submission, it has lost these
 things as competitive differentiators. 
 
-<br><br>
-
 The second thing that's changed for me in the last couple years is
 more personal. As much as I like the iPhone, I can't shake the feeling
 that it isn't a net improvement to my overall standard of living. Amy

@@ -32,12 +32,12 @@ object. At a vCalc REPL, this looks like so (The fact that both
 symbols are printed with `##0` implies that they have the same
 identity.):
 
-<pre class="syntax">
-user&gt; (intern! "test-symbol")
-<b>; ##0 = test-symbol</b>
-user&gt; (intern! "test-symbol")
-<b>; ##0 = test-symbol</b>
-</pre>
+```scheme
+user> (intern! "test-symbol")
+; ##0 = test-symbol
+user> (intern! "test-symbol")
+; ##0 = test-symbol
+```
 
 This design has several properties that have historially been useful
 when implementing a Lisp. First, by sharing the internal
