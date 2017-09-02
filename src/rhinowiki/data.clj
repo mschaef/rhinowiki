@@ -3,6 +3,8 @@
   (:require [clojure.tools.logging :as log]
             [markdown.core :as markdown]))
 
+(def article-root "data/")
+
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 
 (defn maybe-parse-date [ text ]
@@ -12,12 +14,9 @@
          (catch Exception ex
            nil))))
 
-(defn file-base-name [ file ]
-  (.getName file))
-
 (defn- load-data-file [ data-file ]
   (let [parsed (markdown/md-to-html-string-with-meta (slurp data-file))
-        file-name (file-base-name data-file) 
+        file-name (.getName data-file) 
         title (first (get-in parsed [:metadata :title] [ file-name ]))]
     {:name file-name
      :title title
@@ -29,10 +28,10 @@
 (defn- data-files []
   (map load-data-file
        (filter #(.isFile %)
-               (file-seq (java.io.File. "data/")))))
+               (file-seq (java.io.File. article-root)))))
 
 (defn article-by-name [ name ]
-  (let [ file (java.io.File. (str "data/" name)) ]
+  (let [ file (java.io.File. (str article-root name)) ]
     (log/info file (.isFile file))
     (and (.isFile file)
          (load-data-file file))))

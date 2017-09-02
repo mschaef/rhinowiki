@@ -17,18 +17,7 @@
 (def blog-title "Mike Schaeffer's Weblog")
 (def recent-post-limit 10)
 
-(defn wrap-request-logging [ app ]
-  (fn [req]
-    (log/debug 'REQUEST (:request-method req) (:uri req))
-    (let [resp (app req)]
-      (log/trace 'RESPONSE (:status resp))
-      resp)))
-
-(defn wrap-show-response [ app label ]
-  (fn [req]
-    (let [resp (app req)]
-      (log/trace label (dissoc resp :body))
-      resp)))
+;;;; HTML Renderer
 
 (defn resource [ path ]
   (str "/" (get-version) "/" path))
@@ -45,7 +34,9 @@
      [:div.header
       [:a {:href "/"}
        [:h1 blog-title]]]
-     body]]))
+     body
+     [:div.footer
+      "Copyright (C) 2017 - Mike Schaeffer"]]]))
 
 (def date-format (java.text.SimpleDateFormat. "MMMM d, y"))
 
@@ -81,6 +72,21 @@
   (route/resources "/")
   
   (route/not-found "Resource Not Found"))
+
+;;;; Handler Stack
+
+(defn wrap-request-logging [ app ]
+  (fn [req]
+    (log/debug 'REQUEST (:request-method req) (:uri req))
+    (let [resp (app req)]
+      (log/trace 'RESPONSE (:status resp))
+      resp)))
+
+(defn wrap-show-response [ app label ]
+  (fn [req]
+    (let [resp (app req)]
+      (log/trace label (dissoc resp :body))
+      resp)))
 
 (def handler (-> all-routes
                  (wrap-content-type)
