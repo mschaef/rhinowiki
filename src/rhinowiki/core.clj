@@ -70,6 +70,10 @@
   
   (route/resources  (str "/" (get-version)))
   (route/resources "/")
+
+  (POST "/invalidate" []
+    (data/invalidate-cache)
+    "invalidated")
   
   (route/not-found "Resource Not Found"))
 
