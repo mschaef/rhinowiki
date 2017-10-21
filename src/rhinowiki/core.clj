@@ -112,3 +112,24 @@
   (log/info "Starting Rhinowiki" (get-version))
   (start-webserver (config-property "http.port" 8080))
   (log/info "end run."))
+
+
+(defn dump-git-markdowns []
+  (let [repo (.build (.setWorkTree (org.eclipse.jgit.storage.file.FileRepositoryBuilder.) (java.io.File. ".")))
+        head (.getRef repo "refs/heads/master")]
+    (with-open [walk (org.eclipse.jgit.revwalk.RevWalk. repo)]
+      (let [commit (.parseCommit walk (.getObjectId head))
+            tree (.parseTree walk (.getId (.getTree commit)))]
+        (with-open [tree-walk (org.eclipse.jgit.treewalk.TreeWalk. repo)]
+          (.addTree tree-walk tree)
+          (.setRecursive tree-walk true)
+          (while (.next tree-walk)
+            (when (.endsWith (.getPathString tree-walk) ".md")
+              (println ">>> " (.getPathString tree-walk))
+              (let [object-id (.getObjectId tree-walk 0)
+                    loader (.open repo object-id)]
+                (.copyTo loader System/out)))))))))
+
+
+
+

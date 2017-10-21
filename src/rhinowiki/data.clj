@@ -39,6 +39,8 @@
     (swap! file-cache (fn [ current-file-cache ]
                         (load-data-files)))))
 
+;;; External API
+
 (defn invalidate-cache []
   (log/info "Invalidating cache")
   (swap! file-cache (fn [ current-file-cache ] nil)))

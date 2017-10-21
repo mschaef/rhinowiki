@@ -12,6 +12,7 @@
                  [ch.qos.logback/logback-classic "1.1.7"]
                  [ring/ring-jetty-adapter "1.5.0"]
                  [slester/ring-browser-caching "0.1.1"]
+                 [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
                  [markdown-clj "0.9.89"]
