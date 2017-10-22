@@ -13,10 +13,47 @@
             [compojure.route :as route]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
-            [rhinowiki.data :as data]))
+            [rhinowiki.data :as data]
+            [markdown.core :as markdown]))
 
 (def blog-title "Mike Schaeffer's Weblog")
 (def recent-post-limit 10)
+(def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
+
+(defn maybe-parse-date [ text ]
+  (and text
+       (try
+         (.parse df-metadata text)
+         (catch Exception ex
+           nil))))
+
+(defn- parse-data-file [ raw ]
+  (let [parsed (markdown/md-to-html-string-with-meta (:content-raw raw))]
+    (merge raw
+           {:content-html (:html parsed)
+            :title (first (get-in parsed [:metadata :title] [ (:name raw)]))
+            :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
+                      (:file-date raw))})))
+
+(def file-cache (atom nil))
+
+(defn data-files []
+  (if-let [files @file-cache]
+    files
+    (swap! file-cache (fn [ current-file-cache ]
+                        (map parse-data-file (data/load-data-files))))))
+
+(defn invalidate-cache []
+  (log/info "Invalidating cache")
+  (swap! file-cache (fn [ current-file-cache ] nil)))
+
+(defn article-by-name [ name ]
+  (log/info "Fetching article by name" name)
+  (first (filter #(= name (:name %)) (data-files))))
+
+(defn recent-articles []
+  (log/info "Fetching recent articles")
+  (reverse (sort-by :date (data-files))))
 
 ;;;; HTML Renderer
 
@@ -50,7 +87,7 @@
    (:content-html article-info)])
 
 (defn article-page [ article-name ]
-  (when-let [ article-info (data/article-by-name article-name) ]
+  (when-let [ article-info (article-by-name article-name) ]
     (site-page (:title article-info) (article-block article-info))))
 
 (defn recent-articles-page []
@@ -60,7 +97,7 @@
                      (article-block article-info)
                      [:a { :href (str "/" (:name article-info))}
                       "Permalink"]])
-                  (take recent-post-limit (data/recent-articles)))))
+                  (take recent-post-limit (recent-articles)))))
 
 (defroutes all-routes
   (GET "/" []
@@ -73,7 +110,7 @@
   (route/resources "/")
 
   (POST "/invalidate" []
-    (data/invalidate-cache)
+    (invalidate-cache)
     "invalidated")
   
   (route/not-found "Resource Not Found"))
