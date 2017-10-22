@@ -2,7 +2,7 @@
   (:use rhinowiki.utils)
   (:require [clojure.tools.logging :as log]
             [markdown.core :as markdown]))
-
+ 
 (def article-root "data/")
 
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
@@ -14,16 +14,19 @@
          (catch Exception ex
            nil))))
 
+(defn- load-raw-data-file [ data-file ]
+  {:name (.getName data-file) 
+   :content-raw (slurp data-file)
+   :file-date (java.util.Date. (.lastModified data-file))})
+
 (defn- load-data-file [ data-file ]
-  (let [parsed (markdown/md-to-html-string-with-meta (slurp data-file))
-        file-name (.getName data-file) 
-        title (first (get-in parsed [:metadata :title] [ file-name ]))]
-    {:name file-name
-     :title title
-     :content-html (:html parsed)
-     :date (or
-            (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
-            (java.util.Date. (.lastModified data-file)))}))
+  (let [raw (load-raw-data-file data-file)
+        parsed (markdown/md-to-html-string-with-meta (:content-raw raw))]
+    (merge raw
+           {:content-html (:html parsed)
+            :title (first (get-in parsed [:metadata :title] [ (:name raw)]))
+            :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
+                      (:file-date raw))})))
 
 (defn- load-data-files []
   (log/info "Loading data files.")
