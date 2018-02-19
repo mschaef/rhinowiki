@@ -14,6 +14,7 @@
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [rhinowiki.data :as data]
+            [rhinowiki.git :as git]
             [markdown.core :as markdown]))
 
 (def blog-title "Mike Schaeffer's Weblog")
@@ -41,7 +42,7 @@
   (if-let [files @file-cache]
     files
     (swap! file-cache (fn [ current-file-cache ]
-                        (map parse-data-file (data/load-data-files))))))
+                        (map parse-data-file (git/load-data-files))))))
 
 (defn invalidate-cache []
   (log/info "Invalidating cache")

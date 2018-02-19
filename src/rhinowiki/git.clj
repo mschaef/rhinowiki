@@ -41,8 +41,3 @@
 (defn load-data-files []
   (doall (git-markdowns (git-file-repo ".") "refs/heads/master" "data/")))
 
-(defn dump-git-markdowns []
-  (doseq [item (load-data-files)]
-    (println ">>> " (:path-string item) (:name item))
-    ;;(println item)
-    ))
