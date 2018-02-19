@@ -4,7 +4,8 @@
         rhinowiki.utils
         rhinowiki.git
         [ring.middleware not-modified content-type browser-caching])  
-  (:require [clojure.tools.logging :as log]            
+  (:require [clojure.tools.logging :as log]
+            [clojure.data.xml :as xml]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]
@@ -17,9 +18,15 @@
             [rhinowiki.git :as git]
             [markdown.core :as markdown]))
 
+;;(def base-url "http://www.mschaef.com")
+(def base-url "http://localhost:8080")
 (def blog-title "Mike Schaeffer's Weblog")
+(def copyright-message "Copyright (C) 2017 - Mike Schaeffer")
+
+
 (def recent-post-limit 10)
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
+(def df-atom-iso8601 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssZ"))
 
 (defn maybe-parse-date [ text ]
   (and text
@@ -52,9 +59,13 @@
   (log/info "Fetching article by name" name)
   (first (filter #(= name (:name %)) (data-files))))
 
+(defn all-articles []
+  (log/info "Fetching all articles")
+  (reverse (sort-by :date (data-files))))
+
 (defn recent-articles []
   (log/info "Fetching recent articles")
-  (reverse (sort-by :date (data-files))))
+  (take recent-post-limit (all-articles)))
 
 ;;;; HTML Renderer
 
@@ -75,7 +86,7 @@
        [:h1 blog-title]]]
      body
      [:div.footer
-      "Copyright (C) 2017 - Mike Schaeffer"]]]))
+      copyright-message]]]))
 
 (def date-format (java.text.SimpleDateFormat. "MMMM d, y"))
 
@@ -91,18 +102,46 @@
   (when-let [ article-info (article-by-name article-name) ]
     (site-page (:title article-info) (article-block article-info))))
 
-(defn recent-articles-page []
+(defn article-permalink [ article ]
+     (str base-url "/" (:name article)))
+
+(defn articles-page [ articles ]
   (site-page blog-title
              (map (fn [ article-info ]
                     [:div
                      (article-block article-info)
-                     [:a { :href (str "/" (:name article-info))}
+                     [:a { :href (article-permalink article-info)}
                       "Permalink"]])
-                  (take recent-post-limit (recent-articles)))))
+                  articles)))
+
+
+;; id as uuid v5
+
+(defn atom-entry [ article ]
+  (xml/element "entry" {}
+               (xml/element "title" {} (:title article))
+               (xml/element "updated" {} (.format  df-atom-iso8601 (:date article)))
+               (xml/element "link" {:href (article-permalink article)})               
+               (xml/element "description" {} "<description>")))
+
+(defn atom-feed [ articles ]
+  (xml/indent-str
+   (xml/element "feed"  {}
+                (xml/element "title" {} blog-title)
+                (xml/element "link" {:href base-url})
+                (xml/element "link" {:rel "self" :href (str base-url "/feed")} )
+                (xml/element "id" {} "id") ;; todo
+
+                (map atom-entry articles))))
 
 (defroutes all-routes
   (GET "/" []
-    (recent-articles-page))
+    (articles-page (recent-articles)))
+
+  (GET "/feed" []
+    (-> (atom-feed (recent-articles))
+        (ring-response/response)
+        (ring-response/header "Content-Type" "text/atom+xml")))
   
   (GET "/:article-name" { params :params }
     (article-page (:article-name params)))
