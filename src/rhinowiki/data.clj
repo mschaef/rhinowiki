@@ -15,5 +15,4 @@
   (map load-raw-data-file
        (filter #(.isFile %)
                (file-seq (java.io.File. article-root)))))
-
  
