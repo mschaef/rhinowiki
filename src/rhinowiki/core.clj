@@ -123,7 +123,7 @@
                (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
                (xml/element "author" {} (xml/element "name" {} blog-author))
                (xml/element "link" {:href (article-permalink article)})               
-               (xml/element "summary" {} "<description>")))
+               (xml/element "content" {:type "html"} (xml/cdata (:content-html article)))))
 
 (defn atom-feed [ articles ]
   (xml/indent-str
