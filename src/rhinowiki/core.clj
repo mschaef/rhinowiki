@@ -23,7 +23,7 @@
            :blog-author "Mike Schaeffer"
            :blog-title "Mike Schaeffer's Weblog"
            :copyright-message "Copyright (C) 2017 - Mike Schaeffer"
-           :blog-id #uuid "bf820223-4be5-495a-817e-c674271e43d2"} )
+           :blog-id #uuid "bf820223-4be5-495a-817e-c674271e43d2"})
 
 (def recent-post-limit 10)
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
@@ -74,7 +74,7 @@
 (defn resource [ path ]
   (str "/" (get-version) "/" path))
 
-(defn site-page [ page-title body ]
+(defn site-page [ blog page-title body ]
   (hiccup/html
    [:html
     [:head
@@ -98,33 +98,34 @@
     (.format df-article-header (:date article))]
    (:content-html article)])
 
-(defn article-page [ article-name ]
+(defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name article-name) ]
-    (site-page (:title article-info) (article-block article-info))))
+    (site-page blog (:title article-info) (article-block article-info))))
 
-(defn article-permalink [ article ]
+(defn article-permalink [ blog article ]
      (str (:base-url blog) "/" (:name article)))
 
-(defn articles-page [ articles ]
-  (site-page (:blog-title blog)
+(defn articles-page [ blog articles ]
+  (site-page blog
+             (:blog-title blog)
              (map (fn [ article-info ]
                     [:div
                      (article-block article-info)
-                     [:a { :href (article-permalink article-info)}
+                     [:a { :href (article-permalink blog article-info)}
                       "Permalink"]])
                   articles)))
 
 
-(defn atom-entry [ article ]
+(defn atom-entry [ blog article ]
   (xml/element "entry" {}
                (xml/element "title" {} (:title article))
                (xml/element "id" {} (str "urn:uuid:" (:id article)))
                (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
                (xml/element "author" {} (xml/element "name" {} (:blog-author blog)))
-               (xml/element "link" {:href (article-permalink article)})               
+               (xml/element "link" {:href (article-permalink blog article)})               
                (xml/element "content" {:type "html"} (xml/cdata (:content-html article)))))
 
-(defn atom-feed [ articles ]
+(defn atom-feed [ blog articles ]
   (xml/indent-str
    (xml/element "feed" {:xmlns "http://www.w3.org/2005/Atom"}
                 (xml/element "title" {} (:blog-title blog))
@@ -133,28 +134,29 @@
                 (xml/element "updated" {} (.format df-atom-rfc3339 (:date (first articles))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
 
-                (map atom-entry articles))))
+                (map #(atom-entry blog %) articles))))
 
-(defroutes all-routes
-  (GET "/" []
-    (articles-page (recent-articles)))
+(defn blog-routes [ blog ]
+  (routes
+   (GET "/" []
+     (articles-page blog (recent-articles)))
 
-  (GET "/feed" []
-    (-> (atom-feed (recent-articles))
-        (ring-response/response)
-        (ring-response/header "Content-Type" "text/atom+xml")))
+   (GET "/feed" []
+     (-> (atom-feed blog (recent-articles))
+         (ring-response/response)
+         (ring-response/header "Content-Type" "text/atom+xml")))
   
-  (GET "/:article-name" { params :params }
-    (article-page (:article-name params)))
-  
-  (route/resources  (str "/" (get-version)))
-  (route/resources "/")
+   (GET "/:article-name" { params :params }
+     (article-page blog (:article-name params)))
+   
+   (route/resources (str "/" (get-version)))
+   (route/resources "/")
 
-  (POST "/invalidate" []
-    (invalidate-cache)
-    "invalidated")
+   (POST "/invalidate" []
+     (invalidate-cache)
+     "invalidated") 
   
-  (route/not-found "Resource Not Found"))
+   (route/not-found "Resource Not Found")))
 
 ;;;; Handler Stack
 
@@ -171,7 +173,7 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
-(def handler (-> all-routes
+(def handler (-> (blog-routes blog)
                  (wrap-content-type)
                  (wrap-browser-caching {"text/javascript" 360000
                                         "text/css" 360000})
