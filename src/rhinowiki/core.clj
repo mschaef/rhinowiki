@@ -4,14 +4,11 @@
         rhinowiki.utils
         [ring.middleware not-modified content-type browser-caching])  
   (:require [clojure.tools.logging :as log]
-            [ring.adapter.jetty :as jetty]
-            [ring.middleware.file-info :as ring-file-info]
-            [ring.middleware.resource :as ring-resource]
-            [ring.util.response :as ring-response]
-            [compojure.handler :as handler]
             [compojure.route :as route]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
+            [ring.util.response :as ring-response]            
+            [rhinowiki.webserver :as webserver]
             [rhinowiki.blog :as blog]
             [rhinowiki.atom :as atom]
             [rhinowiki.data :as data]
@@ -26,8 +23,6 @@
            :load-fn #(git/load-data-files)})
 
 (def df-article-header (java.text.SimpleDateFormat. "MMMM d, y"))
-
-;;;; HTML Renderer
 
 (defn resource [ path ]
   (str "/" (get-version) "/" path))
@@ -93,40 +88,10 @@
   
    (route/not-found "Resource Not Found")))
 
-;;;; Handler Stack
-
-(defn wrap-request-logging [ app ]
-  (fn [req]
-    (log/debug 'REQUEST (:request-method req) (:uri req))
-    (let [resp (app req)]
-      (log/trace 'RESPONSE (:status resp))
-      resp)))
-
-(defn wrap-show-response [ app label ]
-  (fn [req]
-    (let [resp (app req)]
-      (log/trace label (dissoc resp :body))
-      resp)))
-
-(def handler (-> (blog-routes (blog/blog-init blog))
-                 (wrap-content-type)
-                 (wrap-browser-caching {"text/javascript" 360000
-                                        "text/css" 360000})
-                 (wrap-request-logging)
-                 (handler/site)))
-    
-(defn start-webserver [ http-port ]
-  (log/info "Starting Webserver on port" http-port)
-  (let [server (jetty/run-jetty handler { :port http-port :join? false })]
-    (add-shutdown-hook
-     (fn []
-       (log/info "Shutting down webserver")
-       (.stop server)))
-    (.join server)))
-
 (defn -main   [& args]
   (log/info "Starting Rhinowiki" (get-version))
-  (start-webserver (config-property "http.port" 8080))
+  (webserver/start (config-property "http.port" 8080)
+                   (blog-routes (blog/blog-init blog)))
   (log/info "end run."))
 
 
