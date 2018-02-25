@@ -2,7 +2,6 @@
   (:gen-class)
   (:use compojure.core
         rhinowiki.utils
-        rhinowiki.git
         [ring.middleware not-modified content-type browser-caching])  
   (:require [clojure.tools.logging :as log]
             [ring.adapter.jetty :as jetty]
