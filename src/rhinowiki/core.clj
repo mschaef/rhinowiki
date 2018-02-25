@@ -20,13 +20,14 @@
 
 ;;(def base-url "http://www.mschaef.com")
 (def base-url "http://localhost:8080")
+(def blog-author "Mike Schaeffer")
 (def blog-title "Mike Schaeffer's Weblog")
 (def copyright-message "Copyright (C) 2017 - Mike Schaeffer")
-
+(def blog-id #uuid "bf820223-4be5-495a-817e-c674271e43d2")
 
 (def recent-post-limit 10)
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
-(def df-atom-iso8601 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssZ"))
+(def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 
 (defn maybe-parse-date [ text ]
   (and text
@@ -115,23 +116,23 @@
                   articles)))
 
 
-;; id as uuid v5
-
 (defn atom-entry [ article ]
   (xml/element "entry" {}
                (xml/element "title" {} (:title article))
                (xml/element "id" {} (str "urn:uuid:" (:id article)))
-               (xml/element "updated" {} (.format df-atom-iso8601 (:date article)))
+               (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
+               (xml/element "author" {} (xml/element "name" {} blog-author))
                (xml/element "link" {:href (article-permalink article)})               
-               (xml/element "description" {} "<description>")))
+               (xml/element "summary" {} "<description>")))
 
 (defn atom-feed [ articles ]
   (xml/indent-str
-   (xml/element "feed"  {}
+   (xml/element "feed" {:xmlns "http://www.w3.org/2005/Atom"}
                 (xml/element "title" {} blog-title)
                 (xml/element "link" {:href base-url})
                 (xml/element "link" {:rel "self" :href (str base-url "/feed")} )
-                (xml/element "id" {} "id") ;; todo
+                (xml/element "updated" {} (.format df-atom-rfc3339 (:date (first articles))))
+                (xml/element "id" {} (str "urn:uuid:" blog-id))
 
                 (map atom-entry articles))))
 
