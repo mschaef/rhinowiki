@@ -9,6 +9,9 @@
             [ring.middleware.resource :as ring-resource]
             [compojure.handler :as handler]))
 
+(defn resource-path [ path ]
+  (str "/" (get-version) "/" path))
+
 (defn- wrap-request-logging [ app ]
   (fn [req]
     (log/debug 'REQUEST (:request-method req) (:uri req))
