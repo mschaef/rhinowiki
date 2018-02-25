@@ -5,7 +5,6 @@
         rhinowiki.git
         [ring.middleware not-modified content-type browser-caching])  
   (:require [clojure.tools.logging :as log]
-            [clojure.data.xml :as xml]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]
@@ -14,12 +13,10 @@
             [compojure.route :as route]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
-            [clj-uuid :as uuid]
+            [rhinowiki.blog :as blog]
+            [rhinowiki.atom :as atom]
             [rhinowiki.data :as data]
-            [rhinowiki.git :as git]
-            [markdown.core :as markdown]))
-
-(def blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2")
+            [rhinowiki.git :as git]))
 
 ;;(def base-url "http://www.mschaef.com")
 (def blog {:base-url "http://localhost:8080"
@@ -29,55 +26,7 @@
            
            :load-fn #(git/load-data-files)})
 
-(defn blog-init [ blog ]
-  (merge blog
-         {:file-cache (atom nil)
-          :blog-id (uuid/v5 blog-namespace (map blog [:base-url :blog-author :blog-title]))}))
-
-(def recent-post-limit 10)
-(def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
-(def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 (def df-article-header (java.text.SimpleDateFormat. "MMMM d, y"))
-
-(defn maybe-parse-date [ text ]
-  (and text
-       (try
-         (.parse df-metadata text)
-         (catch Exception ex
-           nil))))
-
-(defn- parse-data-file [ raw ]
-  (let [parsed (markdown/md-to-html-string-with-meta (:content-raw raw))]
-    (merge raw
-           {:content-html (:html parsed)
-            :title (first (get-in parsed [:metadata :title] [ (:name raw)]))
-            :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
-                      (:file-date raw))})))
-
-(defn process-data-files [ data-files ]
-  (let [ ordered (reverse (sort-by :date (map parse-data-file data-files))) ]
-    {:ordered ordered
-     :by-name (into {} (map (fn [ file ]
-                              [(:name file) file])
-                            ordered ))}))
-
-(defn data-files [ blog ]
-  (if-let [files @(:file-cache blog)]
-    files
-    (swap! (:file-cache blog) (fn [ current-file-cache ]
-                                (process-data-files (git/load-data-files))))))
-
-(defn invalidate-cache [ blog ]
-  (log/info "Invalidating cache")
-  (swap! (:file-cache blog) (fn [ current-file-cache ] nil)))
-
-(defn article-by-name [ blog name ]
-  (log/info "Fetching article by name" name)
-  (get-in (data-files blog) [ :by-name name ]))
-
-(defn recent-articles [ blog ]
-  (log/info "Fetching recent articles")
-  (take recent-post-limit (:ordered (data-files blog))))
 
 ;;;; HTML Renderer
 
@@ -109,11 +58,8 @@
    (:content-html article)])
 
 (defn article-page [ blog article-name ]
-  (when-let [ article-info (article-by-name blog article-name) ]
+  (when-let [ article-info (blog/article-by-name blog article-name) ]
     (site-page blog (:title article-info) (article-block article-info))))
-
-(defn article-permalink [ blog article ]
-     (str (:base-url blog) "/" (:name article)))
 
 (defn articles-page [ blog articles ]
   (site-page blog
@@ -121,38 +67,18 @@
              (map (fn [ article-info ]
                     [:div
                      (article-block article-info)
-                     [:a { :href (article-permalink blog article-info)}
+                     [:a { :href (blog/article-permalink blog article-info)}
                       "Permalink"]])
                   articles)))
 
 
-(defn atom-entry [ blog article ]
-  (xml/element "entry" {}
-               (xml/element "title" {} (:title article))
-               (xml/element "id" {} (str "urn:uuid:" (:id article)))
-               (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
-               (xml/element "author" {} (xml/element "name" {} (:blog-author blog)))
-               (xml/element "link" {:href (article-permalink blog article)})               
-               (xml/element "content" {:type "html"} (xml/cdata (:content-html article)))))
-
-(defn atom-feed [ blog articles ]
-  (xml/indent-str
-   (xml/element "feed" {:xmlns "http://www.w3.org/2005/Atom"}
-                (xml/element "title" {} (:blog-title blog))
-                (xml/element "link" {:href (:base-url blog)})
-                (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed")} )
-                (xml/element "updated" {} (.format df-atom-rfc3339 (:date (first articles))))
-                (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
-
-                (map #(atom-entry blog %) articles))))
-
 (defn blog-routes [ blog ]
   (routes
    (GET "/" []
-     (articles-page blog (recent-articles blog)))
+     (articles-page blog (blog/recent-articles blog)))
 
    (GET "/feed" []
-     (-> (atom-feed blog (recent-articles blog))
+     (-> (atom/blog-feed blog (blog/recent-articles blog))
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   
@@ -163,7 +89,7 @@
    (route/resources "/")
 
    (POST "/invalidate" []
-     (invalidate-cache blog)
+     (blog/invalidate-cache blog)
      "invalidated") 
   
    (route/not-found "Resource Not Found")))
@@ -183,7 +109,7 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
-(def handler (-> (blog-routes (blog-init blog))
+(def handler (-> (blog-routes (blog/blog-init blog))
                  (wrap-content-type)
                  (wrap-browser-caching {"text/javascript" 360000
                                         "text/css" 360000})
