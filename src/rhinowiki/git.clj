@@ -1,12 +1,20 @@
 (ns rhinowiki.git
-  (:use rhinowiki.utils))
+  (:use rhinowiki.utils)
+  (:require [clj-uuid :as uuid]))
+
+(def git-hash-namespace #uuid "705adc91-9f5a-40d9-8960-d356dfe73402")
+
+(defn git-object-uuid [ object-id ]
+  (uuid/v5 git-hash-namespace
+           (org.eclipse.jgit.lib.ObjectId/toString object-id)))
 
 (defn tree-walk-seq [ tree-walk ]
   (if-let [next (.next tree-walk)]
     (let [path-string (.getPathString tree-walk)]
       (cons {:path-string path-string
              :name (.getName (java.io.File. path-string))
-             :object-id (.getObjectId tree-walk 0)}
+             :git-object-id (.getObjectId tree-walk 0)
+             :id (git-object-uuid (.getObjectId tree-walk 0))}
             (lazy-seq (tree-walk-seq tree-walk))))
     ()))
 
@@ -29,7 +37,7 @@
           (doall (tree-walk-seq tree-walk)))))))
 
 (defn git-markdowns [ repo ref-name article-root ]
-  (map #(merge % {:content-raw (git-object-string repo (:object-id %))})
+  (map #(merge % {:content-raw (git-object-string repo (:git-object-id %))})
        (filter #(and
                  (.startsWith (:path-string %) article-root)
                  (.endsWith (:path-string %) ".md"))

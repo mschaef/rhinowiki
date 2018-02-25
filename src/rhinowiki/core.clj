@@ -120,7 +120,8 @@
 (defn atom-entry [ article ]
   (xml/element "entry" {}
                (xml/element "title" {} (:title article))
-               (xml/element "updated" {} (.format  df-atom-iso8601 (:date article)))
+               (xml/element "id" {} (str "urn:uuid:" (:id article)))
+               (xml/element "updated" {} (.format df-atom-iso8601 (:date article)))
                (xml/element "link" {:href (article-permalink article)})               
                (xml/element "description" {} "<description>")))
 

@@ -14,6 +14,7 @@
                  [slester/ring-browser-caching "0.1.1"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
                  [org.clojure/data.xml "0.0.8"]
+                 [danlentz/clj-uuid "0.1.7"]
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
                  [markdown-clj "0.9.89"]
