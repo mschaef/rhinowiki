@@ -12,7 +12,7 @@
            :blog-title "Mike Schaeffer's Weblog"
            :copyright-message "Copyright (C) 2017 - Mike Schaeffer"
            
-           :load-fn #(git/load-data-files)})
+           :load-fn #(git/load-data-files :data-root "data/")})
 
 (defn -main   [& args]
   (log/info "Starting Rhinowiki" (get-version))

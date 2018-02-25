@@ -46,6 +46,9 @@
 (defn git-file-repo [ root ]
   (.build (.setWorkTree (org.eclipse.jgit.storage.file.FileRepositoryBuilder.) (java.io.File. root))))
 
-(defn load-data-files []
-  (doall (git-markdowns (git-file-repo ".") "refs/heads/master" "data/")))
+(defn load-data-files [ & {:keys [ repo-path ref-name article-root]
+                           :or {repo-path "."
+                                ref-name "refs/heads/master"
+                                article-root ""}}]
+  (doall (git-markdowns (git-file-repo repo-path) ref-name article-root )))
 
