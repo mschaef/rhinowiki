@@ -14,16 +14,25 @@
             [compojure.route :as route]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
+            [clj-uuid :as uuid]
             [rhinowiki.data :as data]
             [rhinowiki.git :as git]
             [markdown.core :as markdown]))
+
+(def blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2")
 
 ;;(def base-url "http://www.mschaef.com")
 (def blog {:base-url "http://localhost:8080"
            :blog-author "Mike Schaeffer"
            :blog-title "Mike Schaeffer's Weblog"
            :copyright-message "Copyright (C) 2017 - Mike Schaeffer"
-           :blog-id #uuid "bf820223-4be5-495a-817e-c674271e43d2"})
+           
+           :load-fn #(git/load-data-files)})
+
+(defn blog-init [ blog ]
+  (merge blog
+         {:file-cache (atom nil)
+          :blog-id (uuid/v5 blog-namespace (map blog [:base-url :blog-author :blog-title]))}))
 
 (def recent-post-limit 10)
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
@@ -45,8 +54,6 @@
             :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
                       (:file-date raw))})))
 
-(def file-cache (atom nil))
-
 (defn process-data-files [ data-files ]
   (let [ ordered (reverse (sort-by :date (map parse-data-file data-files))) ]
     {:ordered ordered
@@ -54,23 +61,23 @@
                               [(:name file) file])
                             ordered ))}))
 
-(defn data-files []
-  (if-let [files @file-cache]
+(defn data-files [ blog ]
+  (if-let [files @(:file-cache blog)]
     files
-    (swap! file-cache (fn [ current-file-cache ]
-                        (process-data-files (git/load-data-files))))))
+    (swap! (:file-cache blog) (fn [ current-file-cache ]
+                                (process-data-files (git/load-data-files))))))
 
-(defn invalidate-cache []
+(defn invalidate-cache [ blog ]
   (log/info "Invalidating cache")
-  (swap! file-cache (fn [ current-file-cache ] nil)))
+  (swap! (:file-cache blog) (fn [ current-file-cache ] nil)))
 
-(defn article-by-name [ name ]
+(defn article-by-name [ blog name ]
   (log/info "Fetching article by name" name)
-  (get-in (data-files) [ :by-name name ]))
+  (get-in (data-files blog) [ :by-name name ]))
 
-(defn recent-articles []
+(defn recent-articles [ blog ]
   (log/info "Fetching recent articles")
-  (take recent-post-limit (:ordered (data-files))))
+  (take recent-post-limit (:ordered (data-files blog))))
 
 ;;;; HTML Renderer
 
@@ -102,7 +109,7 @@
    (:content-html article)])
 
 (defn article-page [ blog article-name ]
-  (when-let [ article-info (article-by-name article-name) ]
+  (when-let [ article-info (article-by-name blog article-name) ]
     (site-page blog (:title article-info) (article-block article-info))))
 
 (defn article-permalink [ blog article ]
@@ -142,10 +149,10 @@
 (defn blog-routes [ blog ]
   (routes
    (GET "/" []
-     (articles-page blog (recent-articles)))
+     (articles-page blog (recent-articles blog)))
 
    (GET "/feed" []
-     (-> (atom-feed blog (recent-articles))
+     (-> (atom-feed blog (recent-articles blog))
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   
@@ -156,7 +163,7 @@
    (route/resources "/")
 
    (POST "/invalidate" []
-     (invalidate-cache)
+     (invalidate-cache blog)
      "invalidated") 
   
    (route/not-found "Resource Not Found")))
@@ -176,7 +183,7 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
-(def handler (-> (blog-routes blog)
+(def handler (-> (blog-routes (blog-init blog))
                  (wrap-content-type)
                  (wrap-browser-caching {"text/javascript" 360000
                                         "text/css" 360000})
