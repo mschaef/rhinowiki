@@ -4,7 +4,6 @@
         rhinowiki.utils
         [ring.middleware not-modified content-type browser-caching])  
   (:require [clojure.tools.logging :as log]
-            [compojure.route :as route]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [ring.util.response :as ring-response]            
@@ -79,14 +78,9 @@
    (GET "/:article-name" { params :params }
      (article-page blog (:article-name params)))
    
-   (route/resources (str "/" (get-version)))
-   (route/resources "/")
-
    (POST "/invalidate" []
      (blog/invalidate-cache blog)
-     "invalidated") 
-  
-   (route/not-found "Resource Not Found")))
+     "invalidated")))
 
 (defn -main   [& args]
   (log/info "Starting Rhinowiki" (get-version))

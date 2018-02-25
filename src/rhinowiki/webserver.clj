@@ -1,11 +1,12 @@
 (ns rhinowiki.webserver
-  (:use rhinowiki.utils
+  (:use compojure.core
+        rhinowiki.utils
         [ring.middleware not-modified content-type browser-caching])
   (:require [clojure.tools.logging :as log]
+            [compojure.route :as route]            
             [ring.adapter.jetty :as jetty]
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]
-            [ring.util.response :as ring-response]
             [compojure.handler :as handler]))
 
 (defn- wrap-request-logging [ app ]
@@ -21,8 +22,12 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
-(defn- handler [ routes ]
-  (-> routes
+(defn- handler [ app-routes ]
+  (-> (routes
+       app-routes
+       (route/resources (str "/" (get-version)))
+       (route/resources "/")
+       (route/not-found "Resource Not Found"))
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})
