@@ -28,6 +28,7 @@
 (def recent-post-limit 10)
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 (def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
+(def df-article-header (java.text.SimpleDateFormat. "MMMM d, y"))
 
 (defn maybe-parse-date [ text ]
   (and text
@@ -89,15 +90,13 @@
      [:div.footer
       copyright-message]]]))
 
-(def date-format (java.text.SimpleDateFormat. "MMMM d, y"))
-
-(defn article-block [ article-info ]
+(defn article-block [ article ]
   [:div.article
    [:div.title
-    (:title article-info)]
+    (:title article)]
    [:div.date
-    (.format date-format (:date article-info))]
-   (:content-html article-info)])
+    (.format df-article-header (:date article))]
+   (:content-html article)])
 
 (defn article-page [ article-name ]
   (when-let [ article-info (article-by-name article-name) ]
