@@ -47,11 +47,18 @@
 
 (def file-cache (atom nil))
 
+(defn process-data-files [ data-files ]
+  (let [ ordered (reverse (sort-by :date (map parse-data-file data-files))) ]
+    {:ordered ordered
+     :by-name (into {} (map (fn [ file ]
+                              [(:name file) file])
+                            ordered ))}))
+
 (defn data-files []
   (if-let [files @file-cache]
     files
     (swap! file-cache (fn [ current-file-cache ]
-                        (map parse-data-file (git/load-data-files))))))
+                        (process-data-files (git/load-data-files))))))
 
 (defn invalidate-cache []
   (log/info "Invalidating cache")
@@ -59,15 +66,11 @@
 
 (defn article-by-name [ name ]
   (log/info "Fetching article by name" name)
-  (first (filter #(= name (:name %)) (data-files))))
-
-(defn all-articles []
-  (log/info "Fetching all articles")
-  (reverse (sort-by :date (data-files))))
+  (get-in (data-files) [ :by-name name ]))
 
 (defn recent-articles []
   (log/info "Fetching recent articles")
-  (take recent-post-limit (all-articles)))
+  (take recent-post-limit (:ordered (data-files))))
 
 ;;;; HTML Renderer
 
