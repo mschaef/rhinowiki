@@ -122,7 +122,8 @@
                 (xml/element "title" {} (:blog-title blog))
                 (xml/element "link" {:href (:base-url blog)})
                 (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed")} )
-                (xml/element "updated" {} (.format df-atom-rfc3339 (:date (first articles))))
+                (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
+                                                                       (java.util.Date.))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
 
                 (map #(atom-article-entry blog %) articles))))
