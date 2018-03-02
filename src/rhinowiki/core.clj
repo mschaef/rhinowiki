@@ -4,6 +4,7 @@
   (:require [clojure.tools.logging :as log]
             [rhinowiki.blog :as blog]
             [rhinowiki.git :as git]
+            [rhinowiki.file :as file]
             [rhinowiki.webserver :as webserver]))
 
 ;;(def base-url "http://www.mschaef.com")
@@ -12,7 +13,9 @@
            :blog-title "Mike Schaeffer's Weblog"
            :copyright-message "Copyright (C) 2017 - Mike Schaeffer"
            
-           :load-fn #(git/load-data-files :data-root "data/")})
+           ;:load-fn #(git/load-data-files :data-root "data/")
+           :load-fn #(file/load-data-files :article-root "data/")
+           })
 
 (defn -main   [& args]
   (log/info "Starting Rhinowiki" (get-version))

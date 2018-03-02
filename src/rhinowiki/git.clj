@@ -1,6 +1,7 @@
 (ns rhinowiki.git
   (:use rhinowiki.utils)
-  (:require [clj-uuid :as uuid]))
+  (:require [clojure.tools.logging :as log]
+            [clj-uuid :as uuid]))
 
 (def git-hash-namespace #uuid "705adc91-9f5a-40d9-8960-d356dfe73402")
 
@@ -50,5 +51,6 @@
                            :or {repo-path "."
                                 ref-name "refs/heads/master"
                                 article-root ""}}]
+  (log/info "Loading data files.")
   (doall (git-markdowns (git-file-repo repo-path) ref-name article-root )))
 
