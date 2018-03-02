@@ -11,11 +11,10 @@
 (def blog {:base-url "http://localhost:8080"
            :blog-author "Mike Schaeffer"
            :blog-title "Mike Schaeffer's Weblog"
-           :copyright-message "Copyright (C) 2017 - Mike Schaeffer"
+           :copyright-message "Copyright (C) 2018 - Mike Schaeffer"
            
            ;:load-fn #(git/load-data-files :data-root "data/")
-           :load-fn #(file/load-data-files :article-root "data/")
-           })
+           :load-fn #(file/load-data-files :article-root "data/")})
 
 (defn -main   [& args]
   (log/info "Starting Rhinowiki" (get-version))
