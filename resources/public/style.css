@@ -1,7 +1,7 @@
 h1 {
     margin-bottom: 0px;
+    font-weight: normal;
 }
-
 
 body {
     text-align: left;
@@ -9,6 +9,9 @@ body {
     margin-top: 2em;
 
     line-height: 1.5;
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
 }
 
 @media only screen and (min-width: 800px) {
@@ -18,14 +21,14 @@ body {
     }
 }
 
-code {
-    line-height: 1;
-}
-
 blockquote {
     font-size: 90%;
     margin-right: 4em;
     font-style: italic;
+}
+
+A {
+    border-bottom: 1px solid #c0c0c0;
 }
 
 A:visited {
@@ -35,46 +38,62 @@ A:visited {
 A:link {
     color: black;
     text-decoration: none;
-    background: #f0f0f0;
 }
 
 A:hover {
-    background: #d0d0d0;
+    background: #f0f0f0;
 }
 
 .title {
-    font-weight: bold;
-    font-size: 166%;
+    font-size: 120%;
 }
+
+code {
+    line-height: 1;
+    font-family: "Consolas", "Courier New", monospace;
+//    font-size: 90%;
+}
+
 
 pre code {
     margin-left: 4em;
     margin-right: 4em;
 }
 
+.articles .date {
+    display: none;
+}
+
 .date {
-    font-weight: bold;
     color: #404040;
 }
 
 .article {
     margin-top: 0.5em;
+    margin-bottom: 2.5em;
 }
 
 .article h1 {
     font-size: 150%;
+    font-weight: normal;
 }
 
 .article h2 {
     font-size: 130%;
+    font-weight: normal;
 }
 
 .article h3 {
     font-size: 110%;
+    font-weight: normal;    
 }
 
 .article li:not(:last-child) {
     margin-bottom: 0.5em;
+}
+
+p:first-child {
+    margin-top: 0.16em;
 }
 
 .footer {

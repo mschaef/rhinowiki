@@ -83,27 +83,25 @@
      [:div.footer
       (:copyright-message blog)]]]))
 
-(defn article-block [ article ]
+(defn article-block [ blog article ]
   [:div.article
    [:div.title
-    (:title article)]
+    [:a { :href (article-permalink blog article)}
+     (:title article)]]
+   [:div.article-content
+    (:content-html article)]
    [:div.date
-    (.format df-article-header (:date article))]
-   (:content-html article)])
+    (.format df-article-header (:date article))]])
 
 (defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
-    (site-page blog (:title article-info) (article-block article-info))))
+    (site-page blog (:title article-info) (article-block blog article-info))))
 
 (defn articles-page [ blog articles ]
   (site-page blog
              (:blog-title blog)
-             (map (fn [ article-info ]
-                    [:div
-                     (article-block article-info)
-                     [:a { :href (article-permalink blog article-info)}
-                      "Permalink"]])
-                  articles)))
+             [:div.articles
+              (map #(article-block blog %) articles)]))
 
 ;;;; Atom Feed
 
