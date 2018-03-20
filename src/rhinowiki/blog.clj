@@ -62,7 +62,7 @@
   (take recent-post-limit (:ordered (data-files blog))))
 
 (defn article-permalink [ blog article ]
-     (str (:base-url blog) "/" (:name article)))
+     (str (:base-url blog) "/article/" (:name article)))
 
 ;;;; Web Site
 (def df-article-header (java.text.SimpleDateFormat. "MMMM d, y"))
@@ -81,7 +81,9 @@
        [:h1 (:blog-title blog)]]]
      body
      [:div.footer
-      (:copyright-message blog)]]]))
+      (:copyright-message blog)
+      [:span.item
+       [:a {:href "/feed/atom"} "[atom]"]]]]]))
 
 (defn article-block [ blog article ]
   [:div.article
@@ -120,7 +122,8 @@
                 (xml/element "title" {} (:blog-title blog))
                 (xml/element "link" {:href (:base-url blog)})
                 (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed")} )
-                (xml/element "updated" {} (.format df-atom-rfc3339 (:date (first articles))))
+                (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
+                                                                       (java.util.Date.))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
 
                 (map #(atom-article-entry blog %) articles))))
@@ -132,12 +135,12 @@
    (GET "/" []
      (articles-page blog (recent-articles blog)))
 
-   (GET "/feed" []
+   (GET "/feed/atom" []
      (-> (atom-blog-feed blog (recent-articles blog))
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   
-   (GET "/:article-name" { params :params }
+   (GET "/article/:article-name" { params :params }
      (article-page blog (:article-name params)))
    
    (POST "/invalidate" []
