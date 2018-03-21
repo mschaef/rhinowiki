@@ -1,5 +1,6 @@
 (ns rhinowiki.blog
-  (:use compojure.core)
+  (:use compojure.core
+        rhinowiki.utils)
   (:require [clojure.tools.logging :as log]
             [clj-uuid :as uuid]
             [markdown.core :as markdown]
@@ -57,9 +58,9 @@
   (log/info "Fetching article by name" name)
   (get-in (data-files blog) [ :by-name name ]))
 
-(defn recent-articles [ blog ]
+(defn recent-articles [ blog start ]
   (log/info "Fetching recent articles")
-  (take recent-post-limit (:ordered (data-files blog))))
+  (take recent-post-limit (drop (or start 0) (:ordered (data-files blog)))))
 
 (defn article-permalink [ blog article ]
      (str (:base-url blog) "/article/" (:name article)))
@@ -101,11 +102,13 @@
                (:title article-info)
                [:div (article-block blog article-info)])))
 
-(defn articles-page [ blog articles ]
+(defn articles-page [ blog start ]
   (site-page blog
              (:blog-title blog)
              [:div.articles
-              (map #(article-block blog %) articles)]))
+              (map #(article-block blog %) (recent-articles blog start))
+              [:a {:href (str "/?start=" (+ start recent-post-limit))}
+               "Next"]]))
 
 ;;;; Atom Feed
 
@@ -134,8 +137,8 @@
 
 (defn blog-routes [ blog ]
   (routes
-   (GET "/" []
-     (articles-page blog (recent-articles blog)))
+   (GET "/" [ start ]
+     (articles-page blog (or (parsable-integer? start) 0)))
 
    (GET "/feed/atom" []
      (-> (atom-blog-feed blog (recent-articles blog))
