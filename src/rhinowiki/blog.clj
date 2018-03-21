@@ -97,7 +97,9 @@
 
 (defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
-    (site-page blog (:title article-info) (article-block blog article-info))))
+    (site-page blog
+               (:title article-info)
+               [:div (article-block blog article-info)])))
 
 (defn articles-page [ blog articles ]
   (site-page blog
