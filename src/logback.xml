@@ -6,7 +6,7 @@
     </encoder>
   </appender>
 
-  <logger name="rhinowiki" level="DEBUG"/>
+  <logger name="rhinowiki" level="INFO"/>
 
   <root level="INFO">
     <appender-ref ref="CONSOLE"/>

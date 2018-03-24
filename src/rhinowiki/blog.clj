@@ -59,11 +59,11 @@
   (swap! (:file-cache blog) (fn [ current-file-cache ] nil)))
 
 (defn article-by-name [ blog name ]
-  (log/info "Fetching article by name" name)
+  (log/debug "Fetching article by name" name)
   (get-in (data-files blog) [ :by-name name ]))
 
 (defn blog-articles [ blog ]
-  (log/info "Fetching recent articles")
+  (log/debug "Fetching recent articles")
   (:ordered (data-files blog)))
 
 (defn article-permalink [ blog article ]
