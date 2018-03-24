@@ -63,6 +63,11 @@ pre code {
     display: none;
 }
 
+.articles .feed-navigation {
+    font-style: italic;
+    text-align: right;
+}
+
 .date {
     color: #404040;
 }

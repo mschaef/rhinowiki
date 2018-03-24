@@ -107,8 +107,9 @@
              (:blog-title blog)
              [:div.articles
               (map #(article-block blog %) (recent-articles blog start))
-              [:a {:href (str "/?start=" (+ start recent-post-limit))}
-               "Next"]]))
+              [:div.feed-navigation
+               [:a {:href (str "/?start=" (+ start recent-post-limit))}
+                "Older Articles..."]]]))
 
 ;;;; Atom Feed
 
