@@ -108,14 +108,16 @@
                [:div (article-block blog article-info)])))
 
 (defn articles-page [ blog start ]
-  (site-page blog
-             (:blog-title blog)
-             [:div.articles
-              (map #(article-block blog %) (take recent-post-limit
-                                                 (drop (or start 0) (blog-articles blog))))
-              [:div.feed-navigation
-               [:a {:href (str "/?start=" (+ start recent-post-limit))}
-                "Older Articles..."]]]))
+  (let [ display-articles  (take recent-post-limit
+                                 (drop (or start 0) (blog-articles blog)))]
+    (site-page blog
+               (:blog-title blog)
+               [:div.articles
+                (map #(article-block blog %) display-articles)
+                [:div.feed-navigation
+                 (unless (< (count display-articles) recent-post-limit)
+                   [:a {:href (str "/?start=" (+ start recent-post-limit))}
+                      "Older Articles..."])]])))
 
 (defn contents-block [ blog article ]
   [:div
@@ -124,16 +126,18 @@
     (:title article)]])
 
 (defn contents-page [ blog start ]
-  (site-page blog
-             (:blog-title blog)
-             [:div.contents
-              [:div.subtitle
-               "Table of Contents"]
-              (map #(contents-block blog %) (take contents-post-limit
-                                                 (drop (or start 0) (blog-articles blog))))
-              [:div.feed-navigation
-               [:a {:href (str "/contents?start=" (+ start contents-post-limit))}
-                "Older Articles..."]]]))
+  (let [ display-articles  (take contents-post-limit
+                                 (drop (or start 0) (blog-articles blog)))]
+    (site-page blog
+               (:blog-title blog)
+               [:div.contents
+                [:div.subtitle
+                 "Table of Contents"]
+                (map #(contents-block blog %) display-articles)
+                [:div.feed-navigation
+                 (unless (< (count display-articles) contents-post-limit)
+                    [:a {:href (str "/contents?start=" (+ start contents-post-limit))}
+                      "Older Articles..."])]])))
 
 ;;;; Atom Feed
 
