@@ -12,6 +12,10 @@
 
 (def recent-post-limit 10)
 
+(def feed-post-limit 20)
+
+(def contents-post-limit 100)
+
 (def blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2")
 
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
@@ -58,9 +62,9 @@
   (log/info "Fetching article by name" name)
   (get-in (data-files blog) [ :by-name name ]))
 
-(defn recent-articles [ blog start ]
+(defn blog-articles [ blog ]
   (log/info "Fetching recent articles")
-  (take recent-post-limit (drop (or start 0) (:ordered (data-files blog)))))
+  (:ordered (data-files blog)))
 
 (defn article-permalink [ blog article ]
      (str (:base-url blog) "/article/" (:name article)))
@@ -84,7 +88,8 @@
      [:div.footer
       (:copyright-message blog)
       [:span.item
-       [:a {:href "/feed/atom"} "[atom]"]]]]]))
+       [:a {:href "/feed/atom"} "[atom]"]
+       [:a {:href "/contents"} "[contents]"]]]]]))
 
 (defn article-block [ blog article ]
   [:div.article
@@ -106,9 +111,28 @@
   (site-page blog
              (:blog-title blog)
              [:div.articles
-              (map #(article-block blog %) (recent-articles blog start))
+              (map #(article-block blog %) (take recent-post-limit
+                                                 (drop (or start 0) (blog-articles blog))))
               [:div.feed-navigation
                [:a {:href (str "/?start=" (+ start recent-post-limit))}
+                "Older Articles..."]]]))
+
+(defn contents-block [ blog article ]
+  [:div
+   [:a
+    {:href (article-permalink blog article)}
+    (:title article)]])
+
+(defn contents-page [ blog start ]
+  (site-page blog
+             (:blog-title blog)
+             [:div.contents
+              [:div.subtitle
+               "Table of Contents"]
+              (map #(contents-block blog %) (take contents-post-limit
+                                                 (drop (or start 0) (blog-articles blog))))
+              [:div.feed-navigation
+               [:a {:href (str "/contents?start=" (+ start contents-post-limit))}
                 "Older Articles..."]]]))
 
 ;;;; Atom Feed
@@ -141,8 +165,11 @@
    (GET "/" [ start ]
      (articles-page blog (or (parsable-integer? start) 0)))
 
+   (GET "/contents" [ start ]
+     (contents-page blog (or (parsable-integer? start) 0)))
+   
    (GET "/feed/atom" []
-     (-> (atom-blog-feed blog (recent-articles blog))
+     (-> (atom-blog-feed blog (take feed-post-limit (blog-articles blog)))
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   

@@ -59,13 +59,19 @@ pre code {
     margin-right: 4em;
 }
 
+.feed-navigation {
+    font-style: italic;
+    margin-top: 1em;
+}
+
 .articles .date {
     display: none;
 }
 
-.articles .feed-navigation {
-    font-style: italic;
-    text-align: right;
+.contents .subtitle {
+    font-size: 130%;
+    font-weight: bold;
+    margin-bottom: 0.5em;
 }
 
 .date {
