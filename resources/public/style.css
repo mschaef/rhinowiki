@@ -74,6 +74,18 @@ pre code {
     margin-bottom: 0.5em;
 }
 
+.contents .header {
+    font-weight: bold;
+}
+
+.contents .block:not(:first-child) {
+    margin-top: 1em;
+}
+
+.contents .articles {
+    margin-left: 1em;
+}
+
 .date {
     color: #404040;
 }

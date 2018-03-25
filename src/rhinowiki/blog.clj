@@ -21,6 +21,10 @@
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 (def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 
+(def df-articles-header (java.text.SimpleDateFormat. "MMMM dd, yyyy"))
+
+(def df-contents-header (java.text.SimpleDateFormat. "MMMM yyyy"))
+
 (defn blog-init [ blog ]
   (merge blog
          {:file-cache (atom nil)
@@ -107,9 +111,11 @@
                (:title article-info)
                [:div (article-block blog article-info)])))
 
+(defn blog-display-articles [ blog start limit ]
+  (take limit (drop (or start 0) (blog-articles blog))))
+
 (defn articles-page [ blog start ]
-  (let [ display-articles  (take recent-post-limit
-                                 (drop (or start 0) (blog-articles blog)))]
+  (let [ display-articles (blog-display-articles blog start recent-post-limit) ]
     (site-page blog
                (:blog-title blog)
                [:div.articles
@@ -125,15 +131,30 @@
     {:href (article-permalink blog article)}
     (:title article)]])
 
+(defn group-by-date-header [ articles ]
+  (partition-by :date-header
+                (map #(assoc % :date-header (.format df-contents-header (:date %)))
+                     articles)))
+
 (defn contents-page [ blog start ]
-  (let [ display-articles  (take contents-post-limit
-                                 (drop (or start 0) (blog-articles blog)))]
+  (let [display-articles (blog-display-articles blog start contents-post-limit)
+        display-article-blocks (group-by-date-header display-articles)]
     (site-page blog
                (:blog-title blog)
                [:div.contents
-                [:div.subtitle
-                 "Table of Contents"]
-                (map #(contents-block blog %) display-articles)
+                [:div.subtitle "Table of Contents"]
+                [:div.blocks
+                 (map (fn [ block ]
+                        [:div.block
+                         [:div.header
+                          (:date-header (first block))]
+                         [:div.articles
+                          (map (fn [ article ]
+                                 [:div.entry
+                                  [:a { :href (article-permalink blog article)} 
+                                   (:title article)]])
+                               block)]])
+                      display-article-blocks)]
                 [:div.feed-navigation
                  (unless (< (count display-articles) contents-post-limit)
                     [:a {:href (str "/contents?start=" (+ start contents-post-limit))}
