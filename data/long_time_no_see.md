@@ -5,7 +5,6 @@ filename: ./personal/long_time_no_see.txt
 It seems that it's been a while since I've posted: about four months. 
 That's longer then I meant, but isn't that always the case?
 
-
 In the four months since I've not been posting, Ryan has crawled, learn to 
 walk, learned to talk a little, and learned to respond to simple 
 questions. Personally speaking, I've worked a bit on vCalc, not to mention 

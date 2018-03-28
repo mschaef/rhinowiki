@@ -13,20 +13,20 @@ expressions make Emacs work a lot like Visual Studio in this regard.
 ```lisp
 (global-set-key [(shift f5)] 'compile)
 (global-set-key [f12] 'next-error)
-```lisp
+```
 
 After these forms are evaluated, pressing Shift-F5 invokes the
-<tt>compile</tt> command, which asks for a command to be run in an
-inferior shell, typically <tt>make</tt>, <tt>ant</tt>, or some other
+`compile` command, which asks for a command to be run in an
+inferior shell, typically `make`, `ant`, or some other
 build utility. The catch is that it runs the command in the directory
 of the current buffer, which implies that the build script can be
 found in the same directory as the current source file. For a Java
 project with a per-package directory hierarchy, this is often not
 true. There are probably a bunch of ways to fix this, but I've solved
-it with a Windows NT batch file, <tt>ant-up.bat</tt>, that repeatedly
-searches up the directory hierarchy for <tt>build.xml</tt>. I just
-compile with <tt>ant-up</tt>, rather than a direct invocation of
-<tt>ant</tt>. This is not the most elegant solution, I'm sure, but it
+it with a Windows NT batch file, `ant-up.bat`, that repeatedly
+searches up the directory hierarchy for `build.xml`. I just
+compile with `ant-up`, rather than a direct invocation of
+`ant`. This is not the most elegant solution, I'm sure, but it
 took about five minutes to implement and works well.
 
 ```
@@ -68,5 +68,3 @@ exit /b 1
 
 exit /b 0
 ```
-
-
