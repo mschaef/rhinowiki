@@ -93,7 +93,7 @@ If you want to get a little fancier, conditional formatting works on plot cells.
 </center>
 
 
-1] <i>(The original PC didn't have stanard graphics, it was an option. If 
+1] <i>(The original PC didn't have standard graphics, it was an option. If 
 you bought the monochrome, non-graphics, video board, characters like this 
 were as close as you could get to a bar chart.)</i>
 

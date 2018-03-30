@@ -54,7 +54,7 @@ approaches for current versions of Excel:
 
 * Cells that have the bottom n values OR cells that are the bottom n
   percent of a selected range. - <b>Use a formula: `=RANK(A1,
-  <i>range</i>)&lt;ROWS(<i>range</i>)-<i>n</i>`.</b>
+  range)<ROWS(range)-<i>n</i>`.</b>
 
 * Cells that are above average, below average, equal to or above
   average, equal to or below average, 1 standard deviation above, 1
@@ -62,25 +62,25 @@ approaches for current versions of Excel:
   deviations below, 3 standard deviations above, 3 standard deviations
   below a selected range. - <b> This type of thing can be solved using
   a particular form of formula:
-  `=A1&lt;(AVERAGE(<i>range</i>)-<i>n</i>*STDEV(<i>range</i>))` or
-  `=A1&gt;(AVERAGE(<i>range</i>)+<i>n</i>*STDEV(<i>range</i>))`. For
+  `=A1<(AVERAGE(ange)-n*STDEV(range))` or
+  `=A1>(AVERAGE(ange)+n*STDEV(range))`. For
   large ranges, it probably makes sense to move the computation of
   AVERAGE and STDEV into a cell, and have the conditional format
   reference (with an absolute reference) that cell.</b>
 
 * Cells that are duplicate values or, conversely, cells that are
-  unique values. - <b>Use a formula: `=COUNTIF(<i>range</i>, A1)=1` or
-  `=COUNTIF(<i>range</i>, A1)&gt;1`. Ensure that the range you use in
+  unique values. - <b>Use a formula: `=COUNTIF(range, A1)=1` or
+  `=COUNTIF(range, A1)>1`. Ensure that the range you use in
   the formula has an absolute address. If your range is sorted on the
   'key' field, you can use this style of formula:
-  `=A1&lt;&gt;A2`. This can be much, much faster, particularly for
+  `=A1<>A2`. This can be much, much faster, particularly for
   large tables. (<i>For the Comp. Sci. types it's O(N), rather than
-  O(N^2), once you have sorted data.</i>)</b>
+  O(N^2 ), once you have sorted data.</i>)</b>
 
 * Based on comparisons between two columns in tables.  For example,
   highlight values where values in the .Actual Sales. column are less
   than in the .Sales Target. column. - <b>Use a conditional format
-  formula: `=A1&lt;B1`. Apply it to the entire column you want shaded,
+  formula: `=A1<B1`. Apply it to the entire column you want shaded,
   and Excel will evaluate the seperately for each cell.  The cell
   references in the format formula are relative to the current cell in
   the selected range. The current cell is the cell in the range that

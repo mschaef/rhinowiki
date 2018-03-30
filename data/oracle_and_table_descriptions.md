@@ -35,7 +35,7 @@ common@XE> desc COMMON.SAMPLE_TABLE;
  FOO                           NOT NULL VARCHAR2(18)
  BAR                                    DATE
  BAZ                                    TIMESTAMP(6)
-```text
+```
 
 For some reason, the syntax of Oracle's description of the table's
 definition is entirely different than the syntax of the DDL used to
