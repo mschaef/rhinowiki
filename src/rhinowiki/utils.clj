@@ -28,3 +28,10 @@
   (.addShutdownHook (Runtime/getRuntime)
                     (Thread. (fn []
                                (shutdown-fn)))))
+
+(defn binary-slurp
+  [^java.io.File file]
+  (let [result (byte-array (.length file))]
+    (with-open [in (java.io.DataInputStream. (clojure.java.io/input-stream file))]
+      (.readFully in result))
+    result))

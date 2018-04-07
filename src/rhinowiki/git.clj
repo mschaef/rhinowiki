@@ -13,7 +13,7 @@
   (if-let [next (.next tree-walk)]
     (let [path-string (.getPathString tree-walk)]
       (cons {:path-string path-string
-             :name (.getName (java.io.File. path-string))
+             :article-name (.getName (java.io.File. path-string))
              :git-object-id (.getObjectId tree-walk 0)
              :id (git-object-uuid (.getObjectId tree-walk 0))}
             (lazy-seq (tree-walk-seq tree-walk))))
@@ -38,11 +38,11 @@
           (doall (tree-walk-seq tree-walk)))))))
 
 (defn git-markdowns [ repo ref-name article-root ]
-  (map #(merge % {:content-raw (git-object-string repo (:git-object-id %))})
+  (map #(merge % {:content-text (git-object-string repo (:git-object-id %))})
        (filter #(and
                  (.startsWith (:path-string %) article-root)
                  (.endsWith (:path-string %) ".md"))
-               (git-items repo ref-name)))  )
+               (git-items repo ref-name))))
 
 (defn git-file-repo [ root ]
   (.build (.setWorkTree (org.eclipse.jgit.storage.file.FileRepositoryBuilder.) (java.io.File. root))))

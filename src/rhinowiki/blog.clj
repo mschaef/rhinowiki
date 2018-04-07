@@ -38,10 +38,10 @@
            nil))))
 
 (defn- parse-data-file [ raw ]
-  (let [parsed (markdown/md-to-html-string-with-meta (:content-raw raw))]
+  (let [parsed (markdown/md-to-html-string-with-meta (:content-text raw))]
     (merge raw
            {:content-html (:html parsed)
-            :title (first (get-in parsed [:metadata :title] [ (:name raw)]))
+            :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
             :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
                       (:file-date raw))})))
 
@@ -49,7 +49,7 @@
   (let [ ordered (reverse (sort-by :date (map parse-data-file data-files))) ]
     {:ordered ordered
      :by-name (into {} (map (fn [ file ]
-                              [(:name file) file])
+                              [(:article-name file) file])
                             ordered ))}))
 
 (defn data-files [ blog ]
@@ -71,7 +71,7 @@
   (:ordered (data-files blog)))
 
 (defn article-permalink [ blog article ]
-     (str (:base-url blog) "/article/" (:name article)))
+     (str (:base-url blog) "/article/" (:article-name article) "/"))
 
 ;;;; Web Site
 (def df-article-header (java.text.SimpleDateFormat. "MMMM d, y"))
@@ -198,7 +198,7 @@
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   
-   (GET "/article/:article-name" { params :params }
+   (GET "/article/:article-name/" { params :params }
      (article-page blog (:article-name params)))
    
    (POST "/invalidate" []
