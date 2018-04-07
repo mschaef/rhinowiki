@@ -7,8 +7,16 @@
             [rhinowiki.file :as file]
             [rhinowiki.webserver :as webserver]))
 
-;;(def base-url "http://www.mschaef.com")
-(def blog {:base-url "http://localhost:8080"
+(def blog {:blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
+           :recent-post-limit 10
+           :feed-post-limit 20
+           :contents-post-limit 100           
+           
+           :df-articles-header (java.text.SimpleDateFormat. "MMMM dd, yyyy")
+           :df-contents-header (java.text.SimpleDateFormat. "MMMM yyyy")
+           :df-article-header (java.text.SimpleDateFormat. "MMMM d, y")
+           
+           :base-url "http://localhost:8080"
            :blog-author "Mike Schaeffer"
            :blog-title "Mike Schaeffer's Weblog"
            :copyright-message "Copyright (C) 2018 - Mike Schaeffer"

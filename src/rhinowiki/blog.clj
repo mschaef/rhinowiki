@@ -10,25 +10,13 @@
             [ring.util.response :as ring-response]            
             [rhinowiki.webserver :as webserver]))
 
-(def recent-post-limit 10)
-
-(def feed-post-limit 20)
-
-(def contents-post-limit 100)
-
-(def blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2")
-
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 (def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
-
-(def df-articles-header (java.text.SimpleDateFormat. "MMMM dd, yyyy"))
-
-(def df-contents-header (java.text.SimpleDateFormat. "MMMM yyyy"))
 
 (defn blog-init [ blog ]
   (merge blog
          {:file-cache (atom nil)
-          :blog-id (uuid/v5 blog-namespace (map blog [:base-url :blog-author :blog-title]))}))
+          :blog-id (uuid/v5 (:blog-namespace blog) (map blog [:base-url :blog-author :blog-title]))}))
 
 (defn maybe-parse-date [ text ]
   (and text
@@ -74,7 +62,6 @@
      (str (:base-url blog) "/article/" (:article-name article) "/"))
 
 ;;;; Web Site
-(def df-article-header (java.text.SimpleDateFormat. "MMMM d, y"))
 
 (defn site-page [ blog page-title body ]
   (hiccup/html
@@ -103,7 +90,7 @@
    [:div.article-content
     (:content-html article)]
    [:div.date
-    (.format df-article-header (:date article))]])
+    (.format (:df-article-header blog) (:date article))]])
 
 (defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
@@ -115,14 +102,14 @@
   (take limit (drop (or start 0) (blog-articles blog))))
 
 (defn articles-page [ blog start ]
-  (let [ display-articles (blog-display-articles blog start recent-post-limit) ]
+  (let [ display-articles (blog-display-articles blog start (:recent-post-limit blog)) ]
     (site-page blog
                (:blog-title blog)
                [:div.articles
                 (map #(article-block blog %) display-articles)
                 [:div.feed-navigation
-                 (unless (< (count display-articles) recent-post-limit)
-                   [:a {:href (str "/?start=" (+ start recent-post-limit))}
+                 (unless (< (count display-articles) (:recent-post-limit blog))
+                   [:a {:href (str "/?start=" (+ start (:recent-post-limit blog)))}
                       "Older Articles..."])]])))
 
 (defn contents-block [ blog article ]
@@ -131,14 +118,14 @@
     {:href (article-permalink blog article)}
     (:title article)]])
 
-(defn group-by-date-header [ articles ]
+(defn group-by-date-header [ blog articles ]
   (partition-by :date-header
-                (map #(assoc % :date-header (.format df-contents-header (:date %)))
+                (map #(assoc % :date-header (.format (:df-contents-header blog) (:date %)))
                      articles)))
 
 (defn contents-page [ blog start ]
-  (let [display-articles (blog-display-articles blog start contents-post-limit)
-        display-article-blocks (group-by-date-header display-articles)]
+  (let [display-articles (blog-display-articles blog start (:contents-post-limit blog))
+        display-article-blocks (group-by-date-header blog display-articles)]
     (site-page blog
                (:blog-title blog)
                [:div.contents
@@ -156,8 +143,8 @@
                                block)]])
                       display-article-blocks)]
                 [:div.feed-navigation
-                 (unless (< (count display-articles) contents-post-limit)
-                    [:a {:href (str "/contents?start=" (+ start contents-post-limit))}
+                 (unless (< (count display-articles) (:contents-post-limit blog))
+                    [:a {:href (str "/contents?start=" (+ start (:contents-post-limit blog)))}
                       "Older Articles..."])]])))
 
 ;;;; Atom Feed
@@ -194,7 +181,7 @@
      (contents-page blog (or (parsable-integer? start) 0)))
    
    (GET "/feed/atom" []
-     (-> (atom-blog-feed blog (take feed-post-limit (blog-articles blog)))
+     (-> (atom-blog-feed blog (take (:feed-post-limit blog) (blog-articles blog)))
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   
