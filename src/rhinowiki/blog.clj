@@ -25,13 +25,29 @@
          (catch Exception ex
            nil))))
 
+(defn- strip-ending [ file-name ending ]
+  (and (.endsWith file-name ending)
+       (.substring file-name 0 (- (.length file-name) (.length ending)))))
+
+(defn- file-name-article-name [ file-name ]
+  (or (strip-ending file-name "/index.md")
+      (strip-ending file-name ".md")))
+
+(defn- find-file-article [ data-file ]
+  (log/error "find-file-article" (:file-name data-file))
+  (if-let [ article-name (file-name-article-name (:file-name data-file))]
+    (merge data-file {:article-name article-name
+                      :content-text (String. (:content-raw data-file) "UTF-8")})
+    data-file))
+
 (defn- parse-data-file [ raw ]
-  (let [parsed (markdown/md-to-html-string-with-meta (:content-text raw))]
-    (merge raw
-           {:content-html (:html parsed)
-            :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
-            :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
-                      (:file-date raw))})))
+  (let [ raw (find-file-article raw)]
+    (let [parsed (markdown/md-to-html-string-with-meta (:content-text raw))]
+      (merge raw
+             {:content-html (:html parsed)
+              :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
+              :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
+                        (:file-date raw))}))))
 
 (defn process-data-files [ data-files ]
   (let [ ordered (reverse (sort-by :date (map parse-data-file data-files))) ]

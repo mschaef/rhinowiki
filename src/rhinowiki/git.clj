@@ -12,16 +12,15 @@
 (defn tree-walk-seq [ tree-walk ]
   (if-let [next (.next tree-walk)]
     (let [path-string (.getPathString tree-walk)]
-      (cons {:path-string path-string
-             :article-name (.getName (java.io.File. path-string))
+      (cons {:file-name path-string
              :git-object-id (.getObjectId tree-walk 0)
              :id (git-object-uuid (.getObjectId tree-walk 0))}
             (lazy-seq (tree-walk-seq tree-walk))))
     ()))
 
-(defn git-object-string [ repo object-id ]
+(defn git-object-bytes [ repo object-id ]
   (let [loader (.open repo object-id)]
-    (String. (.getBytes loader) "UTF-8")))
+    (.getBytes loader)))
 
 (defn recursive-tree-walk [ repo tree ]
   (let [tree-walk (org.eclipse.jgit.treewalk.TreeWalk. repo)]
@@ -38,10 +37,9 @@
           (doall (tree-walk-seq tree-walk)))))))
 
 (defn git-markdowns [ repo ref-name article-root ]
-  (map #(merge % {:content-text (git-object-string repo (:git-object-id %))})
-       (filter #(and
-                 (.startsWith (:path-string %) article-root)
-                 (.endsWith (:path-string %) ".md"))
+  (map #(merge % {:content-raw (git-object-bytes repo (:git-object-id %))
+                  :file-name (.substring (:file-name %) (.length article-root))})
+       (filter #(.startsWith (:file-name %) article-root)
                (git-items repo ref-name))))
 
 (defn git-file-repo [ root ]
@@ -50,7 +48,7 @@
 (defn load-data-files [ & {:keys [ repo-path ref-name article-root]
                            :or {repo-path "."
                                 ref-name "refs/heads/master"
-                                article-root ""}}]
+                                article-root "data/"}}]
   (log/info "Loading data files.")
   (doall (git-markdowns (git-file-repo repo-path) ref-name article-root )))
 
