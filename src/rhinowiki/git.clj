@@ -23,10 +23,9 @@
     (.getBytes loader)))
 
 (defn recursive-tree-walk [ repo tree ]
-  (let [tree-walk (org.eclipse.jgit.treewalk.TreeWalk. repo)]
-    (.addTree tree-walk tree)
-    (.setRecursive tree-walk true)
-    tree-walk))
+  (doto (org.eclipse.jgit.treewalk.TreeWalk. repo)
+    (.addTree tree)
+    (.setRecursive true)))
 
 (defn git-items [ repo ref-name ]
   (let [head (.getRef repo ref-name)]
@@ -36,19 +35,20 @@
         (with-open [tree-walk (recursive-tree-walk repo tree)]
           (doall (tree-walk-seq tree-walk)))))))
 
-(defn git-markdowns [ repo ref-name article-root ]
+(defn git-data-files [ repo ref-name article-root ]
   (map #(merge % {:content-raw (git-object-bytes repo (:git-object-id %))
                   :file-name (.substring (:file-name %) (.length article-root))})
        (filter #(.startsWith (:file-name %) article-root)
                (git-items repo ref-name))))
 
 (defn git-file-repo [ root ]
-  (.build (.setWorkTree (org.eclipse.jgit.storage.file.FileRepositoryBuilder.) (java.io.File. root))))
+  (.build (doto (org.eclipse.jgit.storage.file.FileRepositoryBuilder.)
+            (.setWorkTree (java.io.File. root)))))
 
 (defn load-data-files [ & {:keys [ repo-path ref-name article-root]
                            :or {repo-path "."
                                 ref-name "refs/heads/master"
                                 article-root "data/"}}]
   (log/info "Loading data files.")
-  (doall (git-markdowns (git-file-repo repo-path) ref-name article-root )))
+  (doall (git-data-files (git-file-repo repo-path) ref-name article-root )))
 
