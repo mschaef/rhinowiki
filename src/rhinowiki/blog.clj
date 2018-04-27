@@ -18,13 +18,6 @@
          {:file-cache (atom nil)
           :blog-id (uuid/v5 (:blog-namespace blog) (map blog [:base-url :blog-author :blog-title]))}))
 
-(defn maybe-parse-date [ text ]
-  (and text
-       (try
-         (.parse df-metadata text)
-         (catch Exception ex
-           nil))))
-
 (defn- strip-ending [ file-name ending ]
   (and (.endsWith file-name ending)
        (.substring file-name 0 (- (.length file-name) (.length ending)))))
@@ -34,27 +27,32 @@
       (strip-ending file-name ".md")))
 
 (defn- find-file-article [ data-file ]
-  (log/error "find-file-article" (:file-name data-file))
   (if-let [ article-name (file-name-article-name (:file-name data-file))]
     (merge data-file {:article-name article-name
                       :content-text (String. (:content-raw data-file) "UTF-8")})
     data-file))
 
-(defn- parse-data-file [ raw ]
-  (let [ raw (find-file-article raw)]
-    (let [parsed (markdown/md-to-html-string-with-meta (:content-text raw))]
-      (merge raw
-             {:content-html (:html parsed)
-              :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
-              :date (or (maybe-parse-date (first (get-in parsed [ :metadata :date ])))
-                        (:file-date raw))}))))
+(defn maybe-parse-metadata-date [ text ]
+  (and text
+       (try
+         (.parse df-metadata text)
+         (catch Exception ex
+           nil))))
 
-(defn process-data-files [ data-files ]
-  (let [ ordered (reverse (sort-by :date (map parse-data-file data-files))) ]
+(defn- parse-article-file [ raw ]
+   (let [parsed (markdown/md-to-html-string-with-meta (:content-text raw))]
+    (merge raw
+           {:content-html (:html parsed)
+            :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
+            :date (or (maybe-parse-metadata-date (first (get-in parsed [ :metadata :date ])))
+                      (:file-date raw))})))
+
+(defn process-data-files [ all-data-files ]
+  (let [articles (map parse-article-file (filter :article-name (map find-file-article all-data-files)))
+        ordered (reverse (sort-by :date (filter :date articles))) ]
     {:ordered ordered
-     :by-name (into {} (map (fn [ file ]
-                              [(:article-name file) file])
-                            ordered ))}))
+     :files-by-name (to-map :file-name all-data-files)
+     :articles-by-name (to-map :article-name articles)}))
 
 (defn data-files [ blog ]
   (if-let [files @(:file-cache blog)]
@@ -66,16 +64,20 @@
   (log/info "Invalidating cache")
   (swap! (:file-cache blog) (fn [ current-file-cache ] nil)))
 
+(defn file-by-name [ blog name ]
+  (log/debug "Fetching file by name" name)
+  (get-in (data-files blog) [ :files-by-name name ]))
+
 (defn article-by-name [ blog name ]
   (log/debug "Fetching article by name" name)
-  (get-in (data-files blog) [ :by-name name ]))
+  (get-in (data-files blog) [ :articles-by-name name ]))
 
 (defn blog-articles [ blog ]
   (log/debug "Fetching recent articles")
   (:ordered (data-files blog)))
 
 (defn article-permalink [ blog article ]
-     (str (:base-url blog) "/article/" (:article-name article) "/"))
+  (str (:base-url blog) "/" (:article-name article)))
 
 ;;;; Web Site
 
@@ -113,6 +115,10 @@
     (site-page blog
                (:title article-info)
                [:div (article-block blog article-info)])))
+
+(defn file-response [ blog file-name ]
+  (when-let [ file-info (file-by-name blog file-name) ]
+    (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
 (defn blog-display-articles [ blog start limit ]
   (take limit (drop (or start 0) (blog-articles blog))))
@@ -201,10 +207,13 @@
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   
-   (GET "/article/:article-name/" { params :params }
-     (article-page blog (:article-name params)))
-   
    (POST "/invalidate" []
-     (invalidate-cache blog)
-     "invalidated")))
+      (invalidate-cache blog)
+      "invalidated")
+
+   (GET "/*" { params :params }
+     (article-page blog (:* params)))
+   
+   (GET "/*" { params :params }
+     (file-response blog (:* params)))))
 

@@ -14,6 +14,11 @@
    (catch Exception ex
      false)))
 
+(defn to-map [ key-fn values ]
+  (into {} (map (fn [ file ]
+                  [(key-fn file) file])
+                values )))
+
 (defn config-property 
   ( [ name ] (config-property name nil))
   ( [ name default ]
