@@ -3,14 +3,15 @@
         rhinowiki.utils)
   (:require [clojure.tools.logging :as log]
             [clj-uuid :as uuid]
-            [markdown.core :as markdown]
+            [markdown.core :as md]
+            [markdown.transformers :as mdt]
             [clojure.data.xml :as xml]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [ring.util.response :as ring-response]            
-            [rhinowiki.webserver :as webserver]))
+            [rhinowiki.webserver :as webserver]
+            [rhinowiki.parser :as parser]))
 
-(def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 (def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 
 (defn blog-init [ blog ]
@@ -32,24 +33,13 @@
                       :content-text (String. (:content-raw data-file) "UTF-8")})
     data-file))
 
-(defn maybe-parse-metadata-date [ text ]
-  (and text
-       (try
-         (.parse df-metadata text)
-         (catch Exception ex
-           nil))))
-
-(defn- parse-article-file [ raw ]
-   (let [parsed (markdown/md-to-html-string-with-meta (:content-text raw))]
-    (merge raw
-           {:content-html (:html parsed)
-            :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
-            :date (or (maybe-parse-metadata-date (first (get-in parsed [ :metadata :date ])))
-                      (:file-date raw))})))
+(defn parse-article [ raw ]
+  (merge raw (parser/parse-article-file (:file-name raw) (:content-text raw))))
 
 (defn process-data-files [ all-data-files ]
-  (let [articles (map parse-article-file (filter :article-name (map find-file-article all-data-files)))
+  (let [articles (map parse-article (filter :article-name (map find-file-article all-data-files)))
         ordered (reverse (sort-by :date (filter :date articles))) ]
+    (log/error :fa (first articles))
     {:ordered ordered
      :files-by-name (to-map :file-name all-data-files)
      :articles-by-name (to-map :article-name articles)}))
