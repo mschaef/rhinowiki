@@ -2,34 +2,34 @@
   (:gen-class)
   (:use rhinowiki.utils)  
   (:require [clojure.tools.logging :as log]
+            [cprop.core :as cprop]
             [rhinowiki.blog :as blog]
             [rhinowiki.git :as git]
             [rhinowiki.file :as file]
             [rhinowiki.webserver :as webserver]))
 
-(def blog {:blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
-           :recent-post-limit 10
-           :feed-post-limit 20
-           :contents-post-limit 100           
-           
-           :df-articles-header (java.text.SimpleDateFormat. "MMMM dd, yyyy")
-           :df-contents-header (java.text.SimpleDateFormat. "MMMM yyyy")
-           :df-article-header (java.text.SimpleDateFormat. "MMMM d, y")
-           
-           :base-url "http://localhost:8080"
-           :blog-author "Mike Schaeffer"
-           :blog-title "Mike Schaeffer's Weblog"
-           :copyright-message "Copyright (C) 2018 - Mike Schaeffer"
-           
-           :load-fn #(git/load-data-files :repo-path "/Users/mschaef/personal/mschaef-blog.git"
-                                          :article-root "")
-           ;:load-fn #(file/load-data-files :article-root "data/")
-           })
+(defn parse-date-format [ df ]
+  (java.text.SimpleDateFormat. df))
+
+(defn resolve-load-fn [ config ]
+  (let [{data-files :data-files} config]
+    #(apply (case (:source data-files)
+              :git git/load-data-files
+              :file file/load-data-files
+              (throw (RuntimeException. "Invalid data file source in config")))
+            (apply concat data-files))))
+
+(defn load-config []
+  (let [config (-> (cprop/load-config)
+                   (update :date-format #(vmap parse-date-format %)))]
+    (assoc config :load-fn (resolve-load-fn config))))
 
 (defn -main [& args]
   (log/info "Starting Rhinowiki" (get-version))
-  (webserver/start (config-property "http.port" 8080)
-                   (blog/blog-routes (blog/blog-init blog)))
-  (log/info "end run."))
+  (let [config (load-config)]
+    (log/info "config" config)
+    (webserver/start (:http-port config)
+                     (blog/blog-routes (blog/blog-init config)))
+    (log/info "end run.")))
 
 

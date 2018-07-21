@@ -98,7 +98,7 @@
    [:div.article-content
     (:content-html article)]
    [:div.date
-    (.format (:df-article-header blog) (:date article))]])
+    (.format (:article-header (:date-format blog)) (:date article))]])
 
 (defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
@@ -132,7 +132,7 @@
 
 (defn group-by-date-header [ blog articles ]
   (partition-by :date-header
-                (map #(assoc % :date-header (.format (:df-contents-header blog) (:date %)))
+                (map #(assoc % :date-header (.format (:contents-header (:date-format blog)) (:date %)))
                      articles)))
 
 (defn contents-page [ blog start ]

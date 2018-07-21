@@ -14,6 +14,9 @@
    (catch Exception ex
      false)))
 
+(defn vmap [f coll]
+  (into {} (for [[k v] coll] [k (f v)])))
+
 (defn to-map [ key-fn values ]
   (into {} (map (fn [ file ]
                   [(key-fn file) file])

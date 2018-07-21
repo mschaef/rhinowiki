@@ -1,0 +1,16 @@
+{:blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
+ :recent-post-limit 10
+ :feed-post-limit 20
+ :contents-post-limit 100           
+
+ :date-format {:articles-header "MMMM dd, yyyy"
+               :contents-header "MMMM yyyy"
+               :article-header "MMMM d, y"}
+           
+ :base-url "http://localhost:8080"
+ :blog-author "Mike Schaeffer"
+ :blog-title "Mike Schaeffer's Weblog"
+ :copyright-message "Copyright (C) 2018 - Mike Schaeffer"
+
+ :data-files {:source :git
+              :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}}
