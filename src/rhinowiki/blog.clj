@@ -179,7 +179,6 @@
                 (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
                                                                        (java.util.Date.))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
-
                 (map #(atom-article-entry blog %) articles))))
 
 ;;;; Blog Routing

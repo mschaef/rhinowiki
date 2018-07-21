@@ -21,11 +21,12 @@
            :blog-title "Mike Schaeffer's Weblog"
            :copyright-message "Copyright (C) 2018 - Mike Schaeffer"
            
-           :load-fn #(git/load-data-files :data-root "data/")
+           :load-fn #(git/load-data-files :repo-path "/Users/mschaef/personal/mschaef-blog.git"
+                                          :article-root "")
            ;:load-fn #(file/load-data-files :article-root "data/")
            })
 
-(defn -main   [& args]
+(defn -main [& args]
   (log/info "Starting Rhinowiki" (get-version))
   (webserver/start (config-property "http.port" 8080)
                    (blog/blog-routes (blog/blog-init blog)))

@@ -41,14 +41,22 @@
        (filter #(.startsWith (:file-name %) article-root)
                (git-items repo ref-name))))
 
+(defn git-file-bare-repo [ root ]
+  (.build (doto (org.eclipse.jgit.storage.file.FileRepositoryBuilder.)
+            (.setBare)
+            (.setGitDir (java.io.File. root)))))
+
 (defn git-file-repo [ root ]
   (.build (doto (org.eclipse.jgit.storage.file.FileRepositoryBuilder.)
-            (.setWorkTree (java.io.File. root)))))
+            (.setWorkDir (java.io.File. root)))))
 
-(defn load-data-files [ & {:keys [ repo-path ref-name article-root]
+(defn load-data-files [ & {:keys [ repo-path ref-name article-root ]
                            :or {repo-path "."
                                 ref-name "refs/heads/master"
-                                article-root "data/"}}]
+                                article-root ""}}]
   (log/info "Loading data files.")
-  (doall (git-data-files (git-file-repo repo-path) ref-name article-root )))
+  (doall (git-data-files (if (.endsWith repo-path ".git")
+                           (git-file-bare-repo repo-path)
+                           (git-file-repo repo-path))
+                         ref-name article-root)))
 
