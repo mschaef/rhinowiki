@@ -39,7 +39,6 @@
 (defn process-data-files [ all-data-files ]
   (let [articles (map parse-article (filter :article-name (map find-file-article all-data-files)))
         ordered (reverse (sort-by :date (filter :date articles))) ]
-    (log/error :fa (first articles))
     {:ordered ordered
      :files-by-name (to-map :file-name all-data-files)
      :articles-by-name (to-map :article-name articles)}))
