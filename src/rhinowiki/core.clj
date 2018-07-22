@@ -20,7 +20,7 @@
             (apply concat data-files))))
 
 (defn load-config []
-  (let [config (-> (cprop/load-config)
+  (let [config (-> (cprop/load-config :resource "config.edn")
                    (update :date-format #(vmap parse-date-format %)))]
     (assoc config :load-fn (resolve-load-fn config))))
 

@@ -26,7 +26,6 @@
   :main ^:skip-aot rhinowiki.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
-
   
   :jar-name "rhinowiki.jar"
   :uberjar-name "rhinowiki-standalone.jar")

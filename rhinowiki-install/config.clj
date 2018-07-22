@@ -1,1 +1,0 @@
-;; Rhinowik Configuration File

@@ -1,4 +1,5 @@
-{:blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
+{:http-port 8080
+ :blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
  :recent-post-limit 10
  :feed-post-limit 20
  :contents-post-limit 100           
