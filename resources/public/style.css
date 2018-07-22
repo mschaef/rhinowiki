@@ -1,25 +1,50 @@
-
 body {
-    text-align: left;
+    margin: 1em;
 
-    margin-top: 0em;
-
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 12pt;
     line-height: 1.5;
-
-    font-family: Verdana, "Bitstream Vera Sans", sans-serif;
-    font-size: 11px;
+    text-align: left;
 }
 
-@media only screen and (min-width: 800px) {
+pre {
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+}
+
+code {
+    line-height: 1;
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+}
+
+pre code {
+    font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 1024px) {
     body {
-        width: 640px;
         margin: 0 auto;
+        width: 800px;
+    }
+
+    pre {
+        margin-left: 4em;
+        margin-right: 6em;        
+    }
+
+    blockquote {
+        margin-right: 6em;
+    }
+}
+
+@media only screen and (min-device-width : 480px) {
+    pre code {
+        font-size: 0.9rem;
     }
 }
 
 blockquote {
-    font-size: 10px;
-    margin-right: 4em;
+    font-size: 0.9rem;
     font-style: italic;
 }
 
@@ -41,17 +66,8 @@ A:hover {
 }
 
 .title {
-    font-size: 16px;
-}
-
-code {
-    line-height: 1;
-    font-family: "Consolas", "Courier New", monospace;
-}
-
-pre code {
-    margin-left: 4em;
-    margin-right: 4em;
+    font-size: 1.25rem;
+    font-weight: bold;
 }
 
 .feed-navigation {
@@ -64,7 +80,7 @@ pre code {
 }
 
 .contents .subtitle {
-    font-size: 130%;
+    font-size: 1.125rem;
     font-weight: bold;
     margin-bottom: 0.5em;
 }
@@ -88,6 +104,7 @@ pre code {
 .article {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+    font-size: 0.9rem;
 }
 
 .article:not(:first-child) {
@@ -95,17 +112,17 @@ pre code {
 }
 
 .article h1 {
-    font-size: 130%;
+    font-size: 1.25rem;
     font-weight: normal;
 }
 
 .article h2 {
-    font-size: 120%;
+    font-size: 1.125rem;
     font-weight: normal;
 }
 
 .article h3 {
-    font-size: 110%;
+    font-size: 1.0675rem;
     font-weight: normal;    
 }
 
@@ -119,7 +136,7 @@ p:first-child {
 
 .footer {
     text-align: center;
-    font-size: 80%;
+    font-size: 0.6rem;
     font-style: italic;
     margin-bottom: 1em;    
 }
