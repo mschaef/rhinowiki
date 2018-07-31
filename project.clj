@@ -26,6 +26,8 @@
   :main ^:skip-aot rhinowiki.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
-  
+
+  :jvm-opts ["-Dconf=local-config.edn"]
+
   :jar-name "rhinowiki.jar"
   :uberjar-name "rhinowiki-standalone.jar")
