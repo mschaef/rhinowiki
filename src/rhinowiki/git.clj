@@ -48,7 +48,7 @@
 
 (defn git-file-repo [ root ]
   (.build (doto (org.eclipse.jgit.storage.file.FileRepositoryBuilder.)
-            (.setWorkDir (java.io.File. root)))))
+            (.setWorkTree (java.io.File. root)))))
 
 (defn load-data-files [ & {:keys [ repo-path ref-name article-root ]
                            :or {repo-path "."
