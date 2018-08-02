@@ -33,7 +33,8 @@
 
 (defn parse-article-file [ file-name raw ]
   (let [parsed (parse-article-text file-name raw)]
-    {:content-html (:html parsed)
-     :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
-     :date (or (maybe-parse-metadata-date (first (get-in parsed [ :metadata :date ])))
-               (:file-date raw))}))
+    (-> {:content-html (:html parsed)
+         :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
+         :date (or (maybe-parse-metadata-date (first (get-in parsed [ :metadata :date ])))
+                   (:file-date raw))
+         :alias (or (get-in parsed [:metadata :alias]) [])})))

@@ -18,9 +18,16 @@
   (into {} (for [[k v] coll] [k (f v)])))
 
 (defn to-map [ key-fn values ]
-  (into {} (map (fn [ file ]
-                  [(key-fn file) file])
+  (into {} (map (fn [ value ]
+                  [(key-fn value) value])
                 values )))
+
+(defn to-map-with-keys [ keys-fn values ]
+  (into {} (mapcat (fn [ value ]
+                     (map (fn [ key ]
+                            [key value])
+                          (keys-fn value)))
+                   values)))
 
 (defn config-property 
   ( [ name ] (config-property name nil))

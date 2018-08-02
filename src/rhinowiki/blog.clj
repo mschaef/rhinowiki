@@ -37,11 +37,14 @@
   (merge raw (parser/parse-article-file (:file-name raw) (:content-text raw))))
 
 (defn process-data-files [ all-data-files ]
-  (let [articles (map parse-article (filter :article-name (map find-file-article all-data-files)))
-        ordered (reverse (sort-by :date (filter :date articles))) ]
-    {:ordered ordered
+  (let [articles (map parse-article (filter :article-name (map find-file-article all-data-files)))]
+    {:ordered (reverse (sort-by :date (filter :date articles))) 
      :files-by-name (to-map :file-name all-data-files)
-     :articles-by-name (to-map :article-name articles)}))
+     :articles-by-name (to-map-with-keys
+                        (fn [ article ]
+                          (cons (:article-name article)
+                                (:alias article)))
+                        articles)}))
 
 (defn data-files [ blog ]
   (if-let [files @(:file-cache blog)]
