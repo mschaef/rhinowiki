@@ -5,14 +5,13 @@
             [clj-uuid :as uuid]
             [markdown.core :as md]
             [markdown.transformers :as mdt]
-            [clojure.data.xml :as xml]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [ring.util.response :as ring-response]            
             [rhinowiki.webserver :as webserver]
-            [rhinowiki.parser :as parser]))
+            [rhinowiki.parser :as parser]
+            [rhinowiki.atom :as atom]))
 
-(def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 
 (defn blog-init [ blog ]
   (merge blog
@@ -33,11 +32,16 @@
                       :content-text (String. (:content-raw data-file) "UTF-8")})
     data-file))
 
-(defn parse-article [ raw ]
-  (merge raw (parser/parse-article-file (:file-name raw) (:content-text raw))))
+(defn article-permalink [ blog article ]
+  (str (:base-url blog) "/" (:article-name article)))
 
-(defn process-data-files [ all-data-files ]
-  (let [articles (map parse-article (filter :article-name (map find-file-article all-data-files)))]
+(defn parse-article [ blog raw ]
+  (-> raw
+      (merge (parser/parse-article-file (:file-name raw) (:content-text raw)))
+      (assoc :permalink (article-permalink blog raw))))
+
+(defn process-data-files [ blog all-data-files ]
+  (let [articles (map #(parse-article blog %) (filter :article-name (map find-file-article all-data-files)))]
     {:ordered (reverse (sort-by :date (filter :date articles))) 
      :files-by-name (to-map :file-name all-data-files)
      :articles-by-name (to-map-with-keys
@@ -50,7 +54,7 @@
   (if-let [files @(:file-cache blog)]
     files
     (swap! (:file-cache blog) (fn [ current-file-cache ]
-                                (process-data-files ((:load-fn blog)))))))
+                                (process-data-files blog ((:load-fn blog)))))))
 
 (defn invalidate-cache [ blog ]
   (log/info "Invalidating cache")
@@ -67,9 +71,6 @@
 (defn blog-articles [ blog ]
   (log/debug "Fetching recent articles")
   (:ordered (data-files blog)))
-
-(defn article-permalink [ blog article ]
-  (str (:base-url blog) "/" (:article-name article)))
 
 ;;;; Web Site
 
@@ -97,7 +98,7 @@
    [:div.date
     (.format (:article-header (:date-format blog)) (:date article))]
    [:div.title
-    [:a { :href (article-permalink blog article)}
+    [:a { :href (:permalink article)}
      (:title article)]]
    [:div.article-content
     (:content-html article)]])
@@ -129,7 +130,7 @@
 (defn contents-block [ blog article ]
   [:div
    [:a
-    {:href (article-permalink blog article)}
+    {:href (:permalink article)}
     (:title article)]])
 
 (defn group-by-date-header [ blog articles ]
@@ -152,7 +153,7 @@
                          [:div.articles
                           (map (fn [ article ]
                                  [:div.entry
-                                  [:a { :href (article-permalink blog article)} 
+                                  [:a { :href (:permalink article)} 
                                    (:title article)]])
                                block)]])
                       display-article-blocks)]
@@ -161,27 +162,6 @@
                     [:a {:href (str "/contents?start=" (+ start (:contents-post-limit blog)))}
                       "Older Articles..."])]])))
 
-;;;; Atom Feed
-
-(defn- atom-article-entry [ blog article ]
-  (xml/element "entry" {}
-               (xml/element "title" {} (:title article))
-               (xml/element "id" {} (str "urn:uuid:" (:id article)))
-               (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
-               (xml/element "author" {} (xml/element "name" {} (:blog-author blog)))
-               (xml/element "link" {:href (article-permalink blog article)})               
-               (xml/element "content" {:type "html"} (xml/cdata (:content-html article)))))
-
-(defn atom-blog-feed [ blog articles ]
-  (xml/indent-str
-   (xml/element "feed" {:xmlns "http://www.w3.org/2005/Atom"}
-                (xml/element "title" {} (:blog-title blog))
-                (xml/element "link" {:href (:base-url blog)})
-                (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed")} )
-                (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
-                                                                       (java.util.Date.))))
-                (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
-                (map #(atom-article-entry blog %) articles))))
 
 ;;;; Blog Routing
 
@@ -194,7 +174,7 @@
      (contents-page blog (or (parsable-integer? start) 0)))
    
    (GET "/feed/atom" []
-     (-> (atom-blog-feed blog (take (:feed-post-limit blog) (blog-articles blog)))
+     (-> (atom/atom-blog-feed blog (take (:feed-post-limit blog) (blog-articles blog)))
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
   
