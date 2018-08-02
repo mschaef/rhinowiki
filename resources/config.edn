@@ -10,8 +10,8 @@
            
  :base-url "http://localhost:8080"
  :blog-author "Mike Schaeffer"
- :blog-title "Mike Schaeffer's Weblog"
- :copyright-message "Copyright (C) 2018 - Mike Schaeffer"
+ :blog-title "Mike Schaeffer's Blog"
+ :copyright-message "Copyright (C) 2004-2018 - Mike Schaeffer"
 
  :data-files {:source :git
               :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}}
