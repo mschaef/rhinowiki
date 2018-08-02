@@ -94,13 +94,13 @@
 
 (defn article-block [ blog article ]
   [:div.article
+   [:div.date
+    (.format (:article-header (:date-format blog)) (:date article))]
    [:div.title
     [:a { :href (article-permalink blog article)}
      (:title article)]]
    [:div.article-content
-    (:content-html article)]
-   [:div.date
-    (.format (:article-header (:date-format blog)) (:date article))]])
+    (:content-html article)]])
 
 (defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
