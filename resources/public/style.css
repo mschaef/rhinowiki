@@ -13,12 +13,9 @@ pre {
 }
 
 code {
-    line-height: 1;
+    line-height: 1.15;
+    font-size: 0.875rem;
     font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
-}
-
-pre code {
-    font-size: 1.5rem;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -37,9 +34,22 @@ pre code {
     }
 }
 
+pre code {
+    font-size: 1.5rem;
+}
+
 @media only screen and (min-device-width : 480px) {
+    .header .links {
+        font-size: 0.75rem;
+        float: right;
+    }
+
+    body .header .links A {
+        font-size: 0.875rem;            
+    }
+    
     pre code {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
 }
 
@@ -113,7 +123,27 @@ A:hover {
     margin-top: 2.5em;
 }
 
+.header {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.header .links {
+    font-size: 1.25rem;
+    padding-top: 0.375em;
+    padding-right: 2em;
+}
+
+.header .links A {
+    font-size: 1.5rem;
+    display: inline;
+    padding: 0.25em;
+    padding-left: 0.75em;
+    color: #a0a0a0;    
+}
+
 .header h1 {
+    display: inline;
     font-size: 1.25rem;
     padding-top: 0.5em;
 }

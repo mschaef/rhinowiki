@@ -1,2 +1,7 @@
 {:data-files {:source :git
-              :repo-path  "../mschaef-blog"}}
+              :repo-path  "../mschaef-blog"}
+ 
+ :header-links [{:label "GitHub" :link "https://github.com/mschaef"}
+                {:label "LinkedIn" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
+                {:label "Twitter"  :link "https://twitter.com/mschaef_ectw"}
+                {:label "Digital Asset" :link "https://www.digitalasset.com/"}]}

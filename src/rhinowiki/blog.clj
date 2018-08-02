@@ -74,6 +74,15 @@
 
 ;;;; Web Site
 
+(defn blog-heading [ blog ]
+  [:div.header
+   [:a {:href "/"}
+    [:h1 (:blog-title blog)]]
+   [:div.links
+    (map (fn [ link ]
+           [:a {:href (:link link)} (:label link)])
+         (:header-links blog))]])
+
 (defn site-page [ blog page-title body ]
   (hiccup/html
    [:html
@@ -83,9 +92,7 @@
      [:script "hljs.initHighlightingOnLoad();"]
      [:title page-title]]
     [:body
-     [:div.header
-      [:a {:href "/"}
-       [:h1 (:blog-title blog)]]]
+     (blog-heading blog)
      body
      [:div.footer
       (:copyright-message blog)
