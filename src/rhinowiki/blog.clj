@@ -82,7 +82,7 @@
    [:div.links
     (map (fn [ link ]
            [:a {:href (:link link)} (:label link)])
-         (:header-links blog))]])
+         (or (:header-links blog) []))]])
 
 (defn site-page [ blog page-title body ]
   (hiccup/html
@@ -179,6 +179,11 @@
 (defn blog-feed-articles [ blog ]
   (take (:feed-post-limit blog) (blog-articles blog)))
 
+(defn blog-rss-response [ blog ]
+  (-> (rss/rss-blog-feed blog (blog-feed-articles blog))
+      (ring-response/response)
+      (ring-response/header "Content-Type" "text/xml")))
+
 (defn blog-routes [ blog ]
   (routes
    (GET "/" [ start ]
@@ -193,10 +198,17 @@
          (ring-response/header "Content-Type" "text/atom+xml")))
 
    (GET "/feed/rss" []
-     (-> (rss/rss-blog-feed blog (blog-feed-articles blog))
-         (ring-response/response)
-         (ring-response/header "Content-Type" "text/xml")))   
-  
+     (blog-rss-response blog))   
+
+   (GET "/blog/index.rss" []
+     (blog-rss-response blog))
+   
+   (GET "/blog/tech/index.rss" []
+     (blog-rss-response blog))
+
+   (GET "/blog/personal/index.rss" []
+     (blog-rss-response blog))
+              
    (POST "/invalidate" []
       (invalidate-cache blog)
       "invalidated")
