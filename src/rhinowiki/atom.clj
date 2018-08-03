@@ -18,7 +18,7 @@
    (xml/element "feed" {:xmlns "http://www.w3.org/2005/Atom"}
                 (xml/element "title" {} (:blog-title blog))
                 (xml/element "link" {:href (:base-url blog)})
-                (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed")} )
+                (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed/atom")} )
                 (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
                                                                        (java.util.Date.))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))

@@ -10,7 +10,8 @@
             [ring.util.response :as ring-response]            
             [rhinowiki.webserver :as webserver]
             [rhinowiki.parser :as parser]
-            [rhinowiki.atom :as atom]))
+            [rhinowiki.atom :as atom]
+            [rhinowiki.rss :as rss]))
 
 
 (defn blog-init [ blog ]
@@ -87,6 +88,8 @@
   (hiccup/html
    [:html
     [:head
+     [:link {:rel "alternate" :type "application/atom+xml" :link (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
+     [:link {:rel "alternate" :type "application/rss+xml" :link (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
      (page/include-css (webserver/resource-path "style.css"))
      (page/include-js (webserver/resource-path "highlight.pack.js"))
      [:script "hljs.initHighlightingOnLoad();"]
@@ -98,6 +101,7 @@
       (:copyright-message blog)
       [:span.item
        [:a {:href "/feed/atom"} "[atom]"]
+       [:a {:href "/feed/rss"} "[rss]"]
        [:a {:href "/contents"} "[contents]"]]]]]))
 
 (defn article-block [ blog article ]
@@ -172,6 +176,9 @@
 
 ;;;; Blog Routing
 
+(defn blog-feed-articles [ blog ]
+  (take (:feed-post-limit blog) (blog-articles blog)))
+
 (defn blog-routes [ blog ]
   (routes
    (GET "/" [ start ]
@@ -181,9 +188,14 @@
      (contents-page blog (or (parsable-integer? start) 0)))
    
    (GET "/feed/atom" []
-     (-> (atom/atom-blog-feed blog (take (:feed-post-limit blog) (blog-articles blog)))
+     (-> (atom/atom-blog-feed blog (blog-feed-articles blog))
          (ring-response/response)
          (ring-response/header "Content-Type" "text/atom+xml")))
+
+   (GET "/feed/rss" []
+     (-> (rss/rss-blog-feed blog (blog-feed-articles blog))
+         (ring-response/response)
+         (ring-response/header "Content-Type" "text/xml")))   
   
    (POST "/invalidate" []
       (invalidate-cache blog)

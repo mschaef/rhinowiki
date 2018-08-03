@@ -11,6 +11,8 @@
  :base-url "http://localhost:8080"
  :blog-author "Mike Schaeffer"
  :blog-title "Mike Schaeffer's Blog"
+ :blog-email "mike@mschaef.com"
+ :blog-language "en-US"
  :copyright-message "Copyright (C) 2004-2018 - Mike Schaeffer"
 
  :data-files {:source :git
