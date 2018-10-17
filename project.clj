@@ -19,7 +19,8 @@
                  [hiccup "1.0.5"]
                  [markdown-clj "1.0.2"]
                  [cprop "0.1.11"]
-                 [org.eclipse.jgit/org.eclipse.jgit "4.4.1.201607150455-r"]]
+                 [org.eclipse.jgit/org.eclipse.jgit "4.4.1.201607150455-r"]
+                 [org.clojars.mikejs/ring-etag-middleware "0.1.0-SNAPSHOT"]]
 
   :ring { :handler rhinowiki.core/handler }
   

@@ -5,8 +5,7 @@
   (:require [clojure.tools.logging :as log]
             [compojure.route :as route]            
             [ring.adapter.jetty :as jetty]
-            [ring.middleware.file-info :as ring-file-info]
-            [ring.middleware.resource :as ring-resource]
+            [ring.middleware.etag :as ring-etag]
             [compojure.handler :as handler]))
 
 (defn resource-path [ path ]
@@ -31,6 +30,7 @@
        (route/resources (str "/" (get-version)))
        (route/resources "/")
        (route/not-found "Resource Not Found"))
+      (ring-etag/wrap-etag)
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})
