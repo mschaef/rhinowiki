@@ -32,25 +32,22 @@ code {
     blockquote {
         margin-right: 6em;
     }
-}
 
-pre code {
-    font-size: 1.5rem;
-}
-
-@media only screen and (min-device-width : 480px) {
     .header .links {
-        font-size: 0.75rem;
         float: right;
     }
+}
 
-    body .header .links A {
-        font-size: 0.875rem;            
-    }
+.header .links {
+    font-size: 0.75rem;
+}
+
+body .header .links A {
+    font-size: 0.875rem;            
+}
     
-    pre code {
-        font-size: 0.75rem;
-    }
+pre code {
+    font-size: 0.75rem;
 }
 
 blockquote {
