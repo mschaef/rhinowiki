@@ -5,7 +5,9 @@
   (:require [clojure.tools.logging :as log]
             [compojure.route :as route]            
             [ring.adapter.jetty :as jetty]
-            [ring.middleware.etag :as ring-etag]
+            [ring.middleware.file-info :as ring-file-info]
+            [ring.middleware.resource :as ring-resource]
+            [co.deps.ring-etag-middleware :as ring-etag]
             [compojure.handler :as handler]))
 
 (defn resource-path [ path ]
@@ -30,12 +32,12 @@
        (route/resources (str "/" (get-version)))
        (route/resources "/")
        (route/not-found "Resource Not Found"))
-      (ring-etag/wrap-etag)
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})
       (wrap-request-logging)
-      (handler/site)))
+      (handler/site)
+      (ring-etag/wrap-file-etag)))
     
 (defn start [ http-port routes ]
   (log/info "Starting Webserver on port" http-port)
