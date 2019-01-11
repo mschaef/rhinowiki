@@ -31,4 +31,13 @@
   :jvm-opts ["-Dconf=local-config.edn"]
 
   :jar-name "rhinowiki.jar"
-  :uberjar-name "rhinowiki-standalone.jar")
+  :uberjar-name "rhinowiki-standalone.jar"
+
+  :release-tasks [["vcs" "assert-committed"]
+                  ["change" "version" "leiningen.release/bump-version" "release"]
+                  ["vcs" "commit"]
+                  ["vcs" "tag" "--no-sign" ]
+                  ["uberjar"]
+                  ["change" "version" "leiningen.release/bump-version"]
+                  ["vcs" "commit"]
+                  ["vcs" "push"]])
