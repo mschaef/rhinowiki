@@ -5,6 +5,12 @@
  :data-files {:source :git
               :repo-path "/home/git/mschaef-blog.git"}
  
-  :header-links [{:label "GitHub" :link "https://github.com/mschaef"}
-                 {:label "LinkedIn" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
-                 {:label "Twitter"  :link "https://twitter.com/mschaef_ectw"}]}
+ :header-links [{:label "GitHub" :link "https://github.com/mschaef"}
+                {:label "LinkedIn" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
+                {:label "Twitter"  :link "https://twitter.com/mschaef_ectw"}
+                {:label "Digital Asset" :link "https://www.digitalasset.com/"}]
+
+ :sponsors {"ksm"
+            {:short-name "ksm"
+             :long-name "KSM Technology Partners"
+             :link "https://www.ksmpartners.com/"}}}
