@@ -95,7 +95,9 @@
      (page/include-css (webserver/resource-path "style.css"))
      (page/include-js (webserver/resource-path "highlight.pack.js"))
      [:script "hljs.initHighlightingOnLoad();"]
-     [:title page-title]]
+     [:title (if page-title
+               (str page-title " - " (:blog-title blog))
+               (:blog-title blog))]]
     [:body
      (blog-heading blog)
      body
@@ -132,7 +134,7 @@
 (defn articles-page [ blog start ]
   (let [ display-articles (blog-display-articles blog start (:recent-post-limit blog)) ]
     (site-page blog
-               (:blog-title blog)
+               nil
                [:div.articles
                 (map #(article-block blog %) display-articles)
                 [:div.feed-navigation
@@ -155,7 +157,7 @@
   (let [display-articles (blog-display-articles blog start (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
     (site-page blog
-               (:blog-title blog)
+               "Table of Contents"
                [:div.contents
                 [:div.subtitle "Table of Contents"]
                 [:div.blocks
