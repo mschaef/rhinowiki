@@ -78,6 +78,12 @@ A:hover {
     background: #d0d0d0;
 }
 
+.article .sponsor {
+    font-size: 0.75rem;
+    margin-top: 0.5em;
+    font-style: italic;
+}
+
 .article .title {
     font-size: 1.625rem;
     font-weight: bold;
@@ -104,6 +110,16 @@ A:hover {
 
 .contents .articles {
     margin-left: 1em;
+}
+
+.contents .entry .sponsor {
+    background: #f0f0f0;
+    margin-left: 0.5em;
+    font-size: 0.75em;
+    text-transform: lowercase;
+    padding: 0.33em;
+    border-radius: 0.5em;
+
 }
 
 .date {

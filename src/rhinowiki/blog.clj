@@ -108,6 +108,14 @@
        [:a {:href "/feed/rss"} "[rss]"]
        [:a {:href "/contents"} "[contents]"]]]]]))
 
+(defn article-sponsor [ blog article ]
+  (get-in blog [ :sponsors (:sponsor article) ]))
+
+(defn article-sponsor-block [ blog article ]
+  (when-let [ sponsor (article-sponsor blog article)]
+    [:div.sponsor
+     "Written with sponsorship by " [:a {:href (:link sponsor) :target "_blank"} (:long-name sponsor) "."]]))
+
 (defn article-block [ blog article ]
   [:div.article
    [:div.date
@@ -116,6 +124,7 @@
     [:a { :href (:permalink article)}
      (:title article)]]
    [:div.article-content
+    (article-sponsor-block blog article)
     (:content-html article)]])
 
 (defn article-page [ blog article-name ]
@@ -153,6 +162,14 @@
                 (map #(assoc % :date-header (.format (:contents-header (:date-format blog)) (:date %)))
                      articles)))
 
+(defn contents-page-article-entry [ blog article ]
+  [:div.entry
+   [:a { :href (:permalink article)} 
+    (:title article)]
+   (when-let [ sponsor (article-sponsor blog article) ]
+     [:span.sponsor
+      "sponsor: " [:a {:href (:link sponsor) :target "_blank"} (:short-name sponsor)]])])
+
 (defn contents-page [ blog start ]
   (let [display-articles (blog-display-articles blog start (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
@@ -166,11 +183,7 @@
                          [:div.header
                           (:date-header (first block))]
                          [:div.articles
-                          (map (fn [ article ]
-                                 [:div.entry
-                                  [:a { :href (:permalink article)} 
-                                   (:title article)]])
-                               block)]])
+                          (map #(contents-page-article-entry blog %) block)]])
                       display-article-blocks)]
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:contents-post-limit blog))

@@ -37,4 +37,5 @@
          :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
          :date (or (maybe-parse-metadata-date (first (get-in parsed [ :metadata :date ])))
                    (:file-date raw))
+         :sponsor (first (or (get-in parsed [:metadata :sponsor]) [ nil ]))
          :alias (or (get-in parsed [:metadata :alias]) [])})))
