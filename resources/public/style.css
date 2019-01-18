@@ -78,6 +78,17 @@ A:hover {
     background: #d0d0d0;
 }
 
+.query {
+    font-style: italic;
+}
+
+.tag {
+    background: #f0f0f0;
+    text-transform: lowercase;
+    padding: 0.25em;
+    border-radius: 0.5em;
+}
+
 .article .sponsor {
     font-size: 0.75rem;
     margin-top: 0.5em;
@@ -85,12 +96,8 @@ A:hover {
 }
 
 .article .tags .tag {
-    background: #f0f0f0;
     margin-left: 0.125em;
     font-size: 0.75em;
-    text-transform: lowercase;
-    padding: 0.25em;
-    border-radius: 0.5em;
 }
 
 .article .title {
@@ -113,8 +120,8 @@ A:hover {
     font-weight: bold;
 }
 
-.contents .block:not(:first-child) {
-    margin-top: 1em;
+.contents .block:not(:last-child) {
+    margin-bottom: 1em;
 }
 
 .contents .articles {
@@ -140,8 +147,8 @@ A:hover {
     font-size: 0.9rem;
 }
 
-.article:not(:first-child) {
-    margin-top: 2.5em;
+.article:not(:last-child) {
+    margin-bottom: 2.5em;
 }
 
 .header {

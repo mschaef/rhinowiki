@@ -167,11 +167,17 @@
     start (article-filter-start-at start)
     limit (article-filter-restrict-count limit)))
 
+(defn tag-query-block [ tag ]
+  (when tag
+    [:div.query
+     "Articles with tag: " [:span.tag tag]]))
+
 (defn articles-page [ blog start tag ]
   (let [display-articles (blog-display-articles blog start tag (:recent-post-limit blog))]
     (site-page blog
                nil
                [:div.articles
+                (tag-query-block tag)
                 (map #(article-block blog %) display-articles)
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:recent-post-limit blog))
@@ -204,6 +210,7 @@
     (site-page blog
                "Table of Contents"
                [:div.contents
+                (tag-query-block tag)                
                 [:div.subtitle "Table of Contents"]
                 [:div.blocks
                  (map (fn [ block ]
