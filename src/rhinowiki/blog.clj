@@ -75,6 +75,11 @@
 
 ;;;; Web Site
 
+(defn url-query [ path params ]
+  (str path (if (> (count params) 0)
+              (str "?" (clojure.string/join "&" (map (fn [ [k v ] ] (str (name k) "=" v)) params)))
+              "")))
+
 (defn blog-heading [ blog ]
   [:div.header
    [:a {:href "/"}
@@ -116,6 +121,15 @@
     [:div.sponsor
      "Written with sponsorship by " [:a {:href (:link sponsor) :target "_blank"} (:long-name sponsor) "."]]))
 
+(defn article-tags [ blog article ]
+  (when (> (count (:tags article)) 0)
+    [:div.tags
+     "Tags:"
+     (map (fn [ tag ]
+            [:span.tag
+             [:a {:href (url-query "/" { :tag tag })} tag]])
+          (sort (:tags article)))]))
+
 (defn article-block [ blog article ]
   [:div.article
    [:div.date
@@ -125,7 +139,8 @@
      (:title article)]]
    [:div.article-content
     (article-sponsor-block blog article)
-    (:content-html article)]])
+    (:content-html article)
+    (article-tags blog article)]])
 
 (defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
@@ -137,18 +152,29 @@
   (when-let [ file-info (file-by-name blog file-name) ]
     (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
-(defn blog-display-articles [ blog start limit ]
-  (take limit (drop (or start 0) (blog-articles blog))))
+(defn article-has-tag? [ article tag ]
+  ((:tags article) tag))
 
-(defn articles-page [ blog start ]
-  (let [ display-articles (blog-display-articles blog start (:recent-post-limit blog)) ]
+(defn filter-by-tag [ articles tag ]
+  (filter #(article-has-tag? % tag) articles))
+
+(defn blog-display-articles [ blog start tag limit ]
+  (let [all-articles (blog-articles blog)
+        articles (if tag
+                   (filter-by-tag all-articles tag)
+                   all-articles)] 
+    (take limit (drop (or start 0) articles))))
+
+(defn articles-page [ blog start tag ]
+  (let [display-articles (blog-display-articles blog start tag (:recent-post-limit blog))]
     (site-page blog
                nil
                [:div.articles
                 (map #(article-block blog %) display-articles)
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:recent-post-limit blog))
-                   [:a {:href (str "/?start=" (+ start (:recent-post-limit blog)))}
+                         [:a {:href (url-query "/" (cond-> { :start (+ start (:recent-post-limit blog)) }
+                                                     tag (assoc :tag tag)))}
                       "Older Articles..."])]])))
 
 (defn contents-block [ blog article ]
@@ -170,8 +196,8 @@
      [:span.sponsor
       "sponsor: " [:a {:href (:link sponsor) :target "_blank"} (:short-name sponsor)]])])
 
-(defn contents-page [ blog start ]
-  (let [display-articles (blog-display-articles blog start (:contents-post-limit blog))
+(defn contents-page [ blog start tag ]
+  (let [display-articles (blog-display-articles blog start tag (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
     (site-page blog
                "Table of Contents"
@@ -187,7 +213,8 @@
                       display-article-blocks)]
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:contents-post-limit blog))
-                    [:a {:href (str "/contents?start=" (+ start (:contents-post-limit blog)))}
+                         [:a {:href (url-query "/contents" (cond-> { :start (+ start (:contents-post-limit blog)) }
+                                                             tag (assoc :tag tag)))}
                       "Older Articles..."])]])))
 
 
@@ -203,11 +230,11 @@
 
 (defn blog-routes [ blog ]
   (routes
-   (GET "/" [ start ]
-     (articles-page blog (or (parsable-integer? start) 0)))
+   (GET "/" [ start tag ]
+     (articles-page blog (or (parsable-integer? start) 0) tag))
 
-   (GET "/contents" [ start ]
-     (contents-page blog (or (parsable-integer? start) 0)))
+   (GET "/contents" [ start tag ]
+     (contents-page blog (or (parsable-integer? start) 0) tag))
    
    (GET "/feed/atom" []
      (-> (atom/atom-blog-feed blog (blog-feed-articles blog))

@@ -84,6 +84,15 @@ A:hover {
     font-style: italic;
 }
 
+.article .tags .tag {
+    background: #f0f0f0;
+    margin-left: 0.125em;
+    font-size: 0.75em;
+    text-transform: lowercase;
+    padding: 0.25em;
+    border-radius: 0.5em;
+}
+
 .article .title {
     font-size: 1.625rem;
     font-weight: bold;
@@ -119,7 +128,6 @@ A:hover {
     text-transform: lowercase;
     padding: 0.33em;
     border-radius: 0.5em;
-
 }
 
 .date {
