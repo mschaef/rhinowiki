@@ -38,7 +38,7 @@
          :date (or (maybe-parse-metadata-date (first (get-in parsed [ :metadata :date ])))
                    (:file-date raw))
          :sponsor (first (or (get-in parsed [:metadata :sponsor]) [ nil ]))
-         :tags (set (clojure.string/split (first (or (get-in parsed [:metadata :tags]) [""])) #"\s+"))
+         :tags (set (remove empty? (clojure.string/split (first (or (get-in parsed [:metadata :tags]) [""])) #"\s+")))
          :alias (or (get-in parsed [:metadata :alias]) [])})))
 
 
