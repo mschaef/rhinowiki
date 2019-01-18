@@ -152,18 +152,20 @@
   (when-let [ file-info (file-by-name blog file-name) ]
     (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
-(defn article-has-tag? [ article tag ]
-  ((:tags article) tag))
+(defn- article-filter-start-at [ articles start ]
+  (drop start articles))
 
-(defn filter-by-tag [ articles tag ]
-  (filter #(article-has-tag? % tag) articles))
+(defn- article-filter-restrict-count [ articles limit ]
+  (take limit articles))
+
+(defn- article-filter-by-tag [ articles tag ]
+  (filter #((:tags %) tag) articles))
 
 (defn blog-display-articles [ blog start tag limit ]
-  (let [all-articles (blog-articles blog)
-        articles (if tag
-                   (filter-by-tag all-articles tag)
-                   all-articles)] 
-    (take limit (drop (or start 0) articles))))
+  (cond-> (blog-articles blog)
+    tag (article-filter-by-tag tag)
+    start (article-filter-start-at start)
+    limit (article-filter-restrict-count limit)))
 
 (defn articles-page [ blog start tag ]
   (let [display-articles (blog-display-articles blog start tag (:recent-post-limit blog))]
