@@ -222,13 +222,18 @@
 
 ;;;; Blog Routing
 
-(defn blog-feed-articles [ blog ]
-  (take (:feed-post-limit blog) (blog-articles blog)))
+(defn blog-feed-articles [ blog tag ]
+  (blog-display-articles blog nil tag  (:feed-post-limit blog)))
 
-(defn blog-rss-response [ blog ]
-  (-> (rss/rss-blog-feed blog (blog-feed-articles blog))
+(defn blog-rss-response [ blog tag ]
+  (-> (rss/rss-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
       (ring-response/header "Content-Type" "text/xml")))
+
+(defn blog-atom-response [ blog tag ]
+  (-> (atom/atom-blog-feed blog (blog-feed-articles blog tag))
+      (ring-response/response)
+      (ring-response/header "Content-Type" "text/atom+xml")))
 
 (defn blog-routes [ blog ]
   (routes
@@ -238,13 +243,11 @@
    (GET "/contents" [ start tag ]
      (contents-page blog (or (parsable-integer? start) 0) tag))
    
-   (GET "/feed/atom" []
-     (-> (atom/atom-blog-feed blog (blog-feed-articles blog))
-         (ring-response/response)
-         (ring-response/header "Content-Type" "text/atom+xml")))
+   (GET "/feed/atom" [ tag ]
+     (blog-atom-response blog tag))
 
-   (GET "/feed/rss" []
-     (blog-rss-response blog))   
+   (GET "/feed/rss" [ tag ]
+     (blog-rss-response blog tag))   
 
    (GET "/blog/index.rss" []
      (blog-rss-response blog))
