@@ -75,6 +75,11 @@
 
 ;;;; Web Site
 
+(defn url-query [ path params ]
+  (str path (if (> (count params) 0)
+              (str "?" (clojure.string/join "&" (map (fn [ [k v ] ] (str (name k) "=" v)) params)))
+              "")))
+
 (defn blog-heading [ blog ]
   [:div.header
    [:a {:href "/"}
@@ -95,7 +100,9 @@
      (page/include-css (webserver/resource-path "style.css"))
      (page/include-js (webserver/resource-path "highlight.pack.js"))
      [:script "hljs.initHighlightingOnLoad();"]
-     [:title page-title]]
+     [:title (if page-title
+               (str page-title " - " (:blog-title blog))
+               (:blog-title blog))]]
     [:body
      (blog-heading blog)
      body
@@ -106,6 +113,23 @@
        [:a {:href "/feed/rss"} "[rss]"]
        [:a {:href "/contents"} "[contents]"]]]]]))
 
+(defn article-sponsor [ blog article ]
+  (get-in blog [ :sponsors (:sponsor article) ]))
+
+(defn article-sponsor-block [ blog article ]
+  (when-let [ sponsor (article-sponsor blog article)]
+    [:div.sponsor
+     "Written with sponsorship by " [:a {:href (:link sponsor) :target "_blank"} (:long-name sponsor) "."]]))
+
+(defn article-tags [ blog article ]
+  (when (> (count (:tags article)) 0)
+    [:div.tags
+     "Tags:"
+     (map (fn [ tag ]
+            [:span.tag
+             [:a {:href (url-query "/" { :tag tag })} tag]])
+          (sort (:tags article)))]))
+
 (defn article-block [ blog article ]
   [:div.article
    [:div.date
@@ -114,7 +138,9 @@
     [:a { :href (:permalink article)}
      (:title article)]]
    [:div.article-content
-    (:content-html article)]])
+    (article-sponsor-block blog article)
+    (:content-html article)
+    (article-tags blog article)]])
 
 (defn article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
@@ -126,18 +152,37 @@
   (when-let [ file-info (file-by-name blog file-name) ]
     (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
-(defn blog-display-articles [ blog start limit ]
-  (take limit (drop (or start 0) (blog-articles blog))))
+(defn- article-filter-start-at [ articles start ]
+  (drop start articles))
 
-(defn articles-page [ blog start ]
-  (let [ display-articles (blog-display-articles blog start (:recent-post-limit blog)) ]
+(defn- article-filter-restrict-count [ articles limit ]
+  (take limit articles))
+
+(defn- article-filter-by-tag [ articles tag ]
+  (filter #((:tags %) tag) articles))
+
+(defn blog-display-articles [ blog start tag limit ]
+  (cond-> (blog-articles blog)
+    tag (article-filter-by-tag tag)
+    start (article-filter-start-at start)
+    limit (article-filter-restrict-count limit)))
+
+(defn tag-query-block [ tag ]
+  (when tag
+    [:div.query
+     "Articles with tag: " [:span.tag tag]]))
+
+(defn articles-page [ blog start tag ]
+  (let [display-articles (blog-display-articles blog start tag (:recent-post-limit blog))]
     (site-page blog
-               (:blog-title blog)
+               nil
                [:div.articles
+                (tag-query-block tag)
                 (map #(article-block blog %) display-articles)
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:recent-post-limit blog))
-                   [:a {:href (str "/?start=" (+ start (:recent-post-limit blog)))}
+                         [:a {:href (url-query "/" (cond-> { :start (+ start (:recent-post-limit blog)) }
+                                                     tag (assoc :tag tag)))}
                       "Older Articles..."])]])))
 
 (defn contents-block [ blog article ]
@@ -151,12 +196,21 @@
                 (map #(assoc % :date-header (.format (:contents-header (:date-format blog)) (:date %)))
                      articles)))
 
-(defn contents-page [ blog start ]
-  (let [display-articles (blog-display-articles blog start (:contents-post-limit blog))
+(defn contents-page-article-entry [ blog article ]
+  [:div.entry
+   [:a { :href (:permalink article)} 
+    (:title article)]
+   (when-let [ sponsor (article-sponsor blog article) ]
+     [:span.sponsor
+      "sponsor: " [:a {:href (:link sponsor) :target "_blank"} (:short-name sponsor)]])])
+
+(defn contents-page [ blog start tag ]
+  (let [display-articles (blog-display-articles blog start tag (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
     (site-page blog
-               (:blog-title blog)
+               "Table of Contents"
                [:div.contents
+                (tag-query-block tag)                
                 [:div.subtitle "Table of Contents"]
                 [:div.blocks
                  (map (fn [ block ]
@@ -164,43 +218,43 @@
                          [:div.header
                           (:date-header (first block))]
                          [:div.articles
-                          (map (fn [ article ]
-                                 [:div.entry
-                                  [:a { :href (:permalink article)} 
-                                   (:title article)]])
-                               block)]])
+                          (map #(contents-page-article-entry blog %) block)]])
                       display-article-blocks)]
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:contents-post-limit blog))
-                    [:a {:href (str "/contents?start=" (+ start (:contents-post-limit blog)))}
+                         [:a {:href (url-query "/contents" (cond-> { :start (+ start (:contents-post-limit blog)) }
+                                                             tag (assoc :tag tag)))}
                       "Older Articles..."])]])))
 
 
 ;;;; Blog Routing
 
-(defn blog-feed-articles [ blog ]
-  (take (:feed-post-limit blog) (blog-articles blog)))
+(defn blog-feed-articles [ blog tag ]
+  (blog-display-articles blog nil tag  (:feed-post-limit blog)))
 
-(defn blog-rss-response [ blog ]
-  (-> (rss/rss-blog-feed blog (blog-feed-articles blog))
+(defn blog-rss-response [ blog tag ]
+  (-> (rss/rss-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
       (ring-response/header "Content-Type" "text/xml")))
 
+(defn blog-atom-response [ blog tag ]
+  (-> (atom/atom-blog-feed blog (blog-feed-articles blog tag))
+      (ring-response/response)
+      (ring-response/header "Content-Type" "text/atom+xml")))
+
 (defn blog-routes [ blog ]
   (routes
-   (GET "/" [ start ]
-     (articles-page blog (or (parsable-integer? start) 0)))
+   (GET "/" [ start tag ]
+     (articles-page blog (or (parsable-integer? start) 0) tag))
 
-   (GET "/contents" [ start ]
-     (contents-page blog (or (parsable-integer? start) 0)))
+   (GET "/contents" [ start tag ]
+     (contents-page blog (or (parsable-integer? start) 0) tag))
    
-   (GET "/feed/atom" []
-     (-> (atom/atom-blog-feed blog (blog-feed-articles blog))
-         (ring-response/response)
-         (ring-response/header "Content-Type" "text/atom+xml")))
+   (GET "/feed/atom" [ tag ]
+     (blog-atom-response blog tag))
 
-   (GET "/feed/rss" []
-     (blog-rss-response blog))   
+   (GET "/feed/rss" [ tag ]
+     (blog-rss-response blog tag))   
 
    (GET "/blog/index.rss" []
      (blog-rss-response blog))
