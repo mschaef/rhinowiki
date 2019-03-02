@@ -5,8 +5,9 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :plugins [[lein-ring "0.9.7"]]
-  
+  :plugins [[lein-ring "0.9.7"]
+            [lein-tar "3.3.0"]]
+
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/tools.logging "0.4.0"]
                  [ch.qos.logback/logback-classic "1.2.3"]
@@ -24,6 +25,11 @@
 
   :ring { :handler rhinowiki.core/handler }
   
+  :tar {:uberjar true
+        :format :tar-gz
+        :output-dir "."
+        :leading-path "rhinowiki-install"}
+  
   :main ^:skip-aot rhinowiki.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
@@ -37,7 +43,7 @@
                   ["change" "version" "leiningen.release/bump-version" "release"]
                   ["vcs" "commit"]
                   ["vcs" "tag" "--no-sign" ]
-                  ["uberjar"]
+                  ["tar"]
                   ["change" "version" "leiningen.release/bump-version"]
                   ["vcs" "commit"]
                   ["vcs" "push"]])

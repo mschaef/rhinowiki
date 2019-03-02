@@ -27,7 +27,7 @@
 (defn -main [& args]
   (log/info "Starting Rhinowiki" (get-version))
   (let [config (load-config)]
-    (log/info "config" config)
+    (log/debug "config" config)
     (webserver/start (:http-port config)
                      (blog/blog-routes (blog/blog-init config)))
     (log/info "end run.")))
