@@ -29,7 +29,7 @@ fi
 # Install jar in /usr/share
 
 install -v --group=root --owner=root --directory /usr/share/rhinowiki
-install -v --group=root --owner=root lib/rhinowiki-standalone.jar /usr/share/rhinowiki
+install -v --group=root --owner=root lib/uberjar/rhinowiki-standalone.jar /usr/share/rhinowiki
 
 # create log directory
 
