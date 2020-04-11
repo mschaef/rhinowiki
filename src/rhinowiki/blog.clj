@@ -5,7 +5,7 @@
             [clj-uuid :as uuid]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
-            [ring.util.response :as ring-response]            
+            [ring.util.response :as ring-response]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.parser :as parser]
             [rhinowiki.atom :as atom]
@@ -41,7 +41,7 @@
 
 (defn process-data-files [ blog all-data-files ]
   (let [articles (map #(parse-article blog %) (filter :article-name (map find-file-article all-data-files)))]
-    {:ordered (reverse (sort-by :date (filter :date articles))) 
+    {:ordered (reverse (sort-by :date (filter :date articles)))
      :files-by-name (to-map :file-name all-data-files)
      :articles-by-name (to-map-with-keys
                         (fn [ article ]
@@ -93,7 +93,7 @@
    [:html
     [:head
      [:meta {:name "viewport"
-             :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]   
+             :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]
      [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
      [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
      (page/include-css (webserver/resource-path "style.css"))
@@ -197,7 +197,7 @@
 
 (defn contents-page-article-entry [ blog article ]
   [:div.entry
-   [:a { :href (:permalink article)} 
+   [:a { :href (:permalink article)}
     (:title article)]
    (when-let [ sponsor (article-sponsor blog article) ]
      [:span.sponsor
@@ -209,7 +209,7 @@
     (site-page blog
                "Table of Contents"
                [:div.contents
-                (tag-query-block tag)                
+                (tag-query-block tag)
                 [:div.subtitle "Table of Contents"]
                 [:div.blocks
                  (map (fn [ block ]
@@ -232,6 +232,7 @@
   (blog-display-articles blog nil tag  (:feed-post-limit blog)))
 
 (defn blog-rss-response [ blog tag ]
+  (println (str "RSS response" tag))
   (-> (rss/rss-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
       (ring-response/header "Content-Type" "text/xml")))
@@ -248,29 +249,28 @@
 
    (GET "/contents" [ start tag ]
      (contents-page blog (or (parsable-integer? start) 0) tag))
-   
+
    (GET "/feed/atom" [ tag ]
      (blog-atom-response blog tag))
 
    (GET "/feed/rss" [ tag ]
-     (blog-rss-response blog tag))   
+     (blog-rss-response blog tag))
 
    (GET "/blog/index.rss" []
-     (blog-rss-response blog))
-   
+     (ring-response/redirect "/feed/rss" :moved-permanently))
+
    (GET "/blog/tech/index.rss" []
-     (blog-rss-response blog))
+     (ring-response/redirect "/feed/rss?tag=tech" :moved-permanently))
 
    (GET "/blog/personal/index.rss" []
-     (blog-rss-response blog))
-              
+     (ring-response/redirect "/feed/rss?tag=personal" :moved-permanently))
+
    (POST "/invalidate" []
       (invalidate-cache blog)
       "invalidated")
 
    (GET "/*" { params :params }
      (article-page blog (:* params)))
-   
+
    (GET "/*" { params :params }
      (file-response blog (:* params)))))
-
