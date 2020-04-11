@@ -3,8 +3,6 @@
         rhinowiki.utils)
   (:require [clojure.tools.logging :as log]
             [clj-uuid :as uuid]
-            [markdown.core :as md]
-            [markdown.transformers :as mdt]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [ring.util.response :as ring-response]            
@@ -54,8 +52,9 @@
 (defn data-files [ blog ]
   (if-let [files @(:file-cache blog)]
     files
-    (swap! (:file-cache blog) (fn [ current-file-cache ]
-                                (process-data-files blog ((:load-fn blog)))))))
+    (swap! (:file-cache blog)
+           (fn [ current-file-cache ]
+             (process-data-files blog ((:load-fn blog)))))))
 
 (defn invalidate-cache [ blog ]
   (log/info "Invalidating cache")
@@ -139,7 +138,7 @@
      (:title article)]]
    [:div.article-content
     (article-sponsor-block blog article)
-    (:content-html article)
+    (parser/article-content-html article)
     (article-tags blog article)]])
 
 (defn article-page [ blog article-name ]

@@ -7,20 +7,20 @@
 
   :plugins [[lein-ring "0.9.7"]]
   
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/tools.logging "0.4.0"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [org.clojure/tools.logging "1.0.0"]
                  [ch.qos.logback/logback-classic "1.2.3"]
-                 [ring/ring-jetty-adapter "1.6.3"]
+                 [ring/ring-jetty-adapter "1.8.0"]
                  [slester/ring-browser-caching "0.1.1"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
                  [org.clojure/data.xml "0.0.8"]
-                 [danlentz/clj-uuid "0.1.7"]
-                 [compojure "1.6.0"]
+                 [danlentz/clj-uuid "0.1.9"]
+                 [compojure "1.6.1"]
                  [hiccup "1.0.5"]
-                 [markdown-clj "1.0.2"]
-                 [cprop "0.1.11"]
+                 [markdown-clj "1.10.3-mschaef"]
+                 [cprop "0.1.16"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.4.1.201607150455-r"]
-                 [co.deps/ring-etag-middleware "0.2.0"]]
+                 [co.deps/ring-etag-middleware "0.2.1"]]
 
   :ring { :handler rhinowiki.core/handler }
   

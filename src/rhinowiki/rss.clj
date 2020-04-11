@@ -1,6 +1,7 @@
 (ns rhinowiki.rss
   (:use rhinowiki.utils)
-  (:require [clojure.data.xml :as xml]))
+  (:require [clojure.data.xml :as xml]
+            [rhinowiki.parser :as parser]))
 
 (def df-rss-rfc822 (java.text.SimpleDateFormat. "EEE, dd MMM yyyy HH:mm:ss Z"))
 
@@ -14,7 +15,8 @@
                (xml/element "author" {} (rss-blog-email blog))
                (xml/element "guid" {} (:permalink article))
                (xml/element "pubDate" {}  (.format df-rss-rfc822 (:date article)))
-               (xml/element "description" {} (xml/cdata (:content-html article)))))
+               (xml/element "description" {}
+                            (xml/cdata (parser/article-content-html article)))))
 
 (defn rss-blog-feed [ blog articles ]
   (xml/indent-str

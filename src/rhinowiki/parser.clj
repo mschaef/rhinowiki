@@ -28,18 +28,23 @@
           [new-text state])))))
 
 (defn parse-article-text [ file-name article-text ]
+  (log/debug "parse-article-text" file-name)
   (md/md-to-html-string-with-meta article-text
-                                  :replacement-transformers (cons (image-link-rewriter file-name) mdt/transformer-vector)))
+                                  :replacement-transformers (cons (image-link-rewriter file-name)
+                                                                  mdt/transformer-vector)))
 
 (defn parse-article-file [ file-name raw ]
-  (let [parsed (parse-article-text file-name raw)]
-    (-> {:content-html (:html parsed)
-         :title (first (get-in parsed [:metadata :title] [ (:article-name raw)]))
-         :date (or (maybe-parse-metadata-date (first (get-in parsed [ :metadata :date ])))
+  (log/debug "parse-article-file" file-name)
+  (let [metadata (md/md-to-meta raw)]
+    (-> {:file-name file-name
+         :content-html (delay (parse-article-text file-name raw))
+         :title (first (:title metadata [(:article-name raw)]))
+         :date (or (maybe-parse-metadata-date (first (:date metadata)))
                    (:file-date raw))
-         :sponsor (first (or (get-in parsed [:metadata :sponsor]) [ nil ]))
-         :tags (set (remove empty? (clojure.string/split (first (or (get-in parsed [:metadata :tags]) [""])) #"\s+")))
-         :alias (or (get-in parsed [:metadata :alias]) [])})))
+         :sponsor (first (:sponsor metadata [ nil ]))
+         :tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))
+         :alias (:alias metadata [])})))
 
-
-
+(defn article-content-html [ article ]
+  (log/debug "article-content-html" (:file-name article))
+  (:html @(:content-html article)))

@@ -1,6 +1,7 @@
 (ns rhinowiki.atom
   (:use rhinowiki.utils)
-  (:require [clojure.data.xml :as xml]))
+  (:require [clojure.data.xml :as xml]
+            [rhinowiki.parser :as parser]))
 
 (def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 
@@ -11,7 +12,8 @@
                (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
                (xml/element "author" {} (xml/element "name" {} (:blog-author blog)))
                (xml/element "link" {:href (:permalink article)})               
-               (xml/element "content" {:type "html"} (xml/cdata (:content-html article)))))
+               (xml/element "content" {:type "html"}
+                            (xml/cdata (parser/article-content-html article)))))
 
 (defn atom-blog-feed [ blog articles ]
   (xml/indent-str
