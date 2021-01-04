@@ -161,7 +161,7 @@
   (filter #((:tags %) tag) articles))
 
 (defn blog-display-articles [ blog start tag limit ]
-  (cond-> (blog-articles blog)
+  (cond-> (remove :private (blog-articles blog))
     tag (article-filter-by-tag tag)
     start (article-filter-start-at start)
     limit (article-filter-restrict-count limit)))
@@ -229,7 +229,7 @@
 ;;;; Blog Routing
 
 (defn blog-feed-articles [ blog tag ]
-  (blog-display-articles blog nil tag  (:feed-post-limit blog)))
+  (blog-display-articles blog nil tag (:feed-post-limit blog)))
 
 (defn blog-rss-response [ blog tag ]
   (println (str "RSS response" tag))
