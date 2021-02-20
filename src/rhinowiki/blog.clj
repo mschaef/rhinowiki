@@ -85,7 +85,7 @@
     [:h1 (:blog-title blog)]]
    [:div.links
     (map (fn [ link ]
-           [:a {:href (:link link)} (:label link)])
+           [:a {:href (:link link) :target "_blank"} (:label link)])
          (or (:header-links blog) []))]])
 
 (defn site-page [ blog page-title body ]
