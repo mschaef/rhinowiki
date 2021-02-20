@@ -35,16 +35,19 @@
 
 (defn parse-article-file [ file-name raw ]
   (log/debug "parse-article-file" file-name)
-  (let [metadata (md/md-to-meta raw)]
+  (let [metadata (md/md-to-meta raw)
+        tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))]
     (-> {:file-name file-name
          :content-html (delay (parse-article-text file-name raw))
          :title (first (:title metadata [(:article-name raw)]))
          :date (or (maybe-parse-metadata-date (first (:date metadata)))
                    (:file-date raw))
          :sponsor (first (:sponsor metadata [ nil ]))
-         :tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))
+         :tags tags
          :alias (:alias metadata [])
-         :private (parse-boolean-string (first (or (:private metadata) ["false"])))})))
+         :private (or (tags "private")
+                      (parse-boolean-string (first (or (:private metadata)
+                                                       ["false"]))))})))
 
 (defn article-content-html [ article ]
   (log/debug "article-content-html" (:file-name article))

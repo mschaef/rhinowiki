@@ -161,8 +161,7 @@
   (filter #((:tags %) tag) articles))
 
 (defn- article-remove-private [ articles ]
-  (remove :private
-          (remove #((:tags %) "private") articles)))
+  (remove :private articles))
 
 (defn blog-display-articles [ blog start tag limit ]
   (cond-> (article-remove-private (blog-articles blog))
