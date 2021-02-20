@@ -164,7 +164,8 @@
   (remove :private articles))
 
 (defn blog-display-articles [ blog start tag limit ]
-  (cond-> (article-remove-private (blog-articles blog))
+  (cond-> (blog-articles blog)
+    (not (= tag "private")) (article-remove-private)
     tag (article-filter-by-tag tag)
     start (article-filter-start-at start)
     limit (article-filter-restrict-count limit)))
