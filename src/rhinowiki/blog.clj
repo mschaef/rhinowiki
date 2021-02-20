@@ -161,7 +161,8 @@
   (filter #((:tags %) tag) articles))
 
 (defn- article-remove-private [ articles ]
-  (remove #((:tags %) "private") articles))
+  (remove :private
+          (remove #((:tags %) "private") articles)))
 
 (defn blog-display-articles [ blog start tag limit ]
   (cond-> (article-remove-private (blog-articles blog))
@@ -232,7 +233,7 @@
 ;;;; Blog Routing
 
 (defn blog-feed-articles [ blog tag ]
-  (blog-display-articles blog nil tag  (:feed-post-limit blog)))
+  (blog-display-articles blog nil tag (:feed-post-limit blog)))
 
 (defn blog-rss-response [ blog tag ]
   (println (str "RSS response" tag))

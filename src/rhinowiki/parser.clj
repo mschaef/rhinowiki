@@ -43,7 +43,8 @@
                    (:file-date raw))
          :sponsor (first (:sponsor metadata [ nil ]))
          :tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))
-         :alias (:alias metadata [])})))
+         :alias (:alias metadata [])
+         :private (parse-boolean-string (first (or (:private metadata) ["false"])))})))
 
 (defn article-content-html [ article ]
   (log/debug "article-content-html" (:file-name article))

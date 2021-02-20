@@ -10,9 +10,20 @@
 
 (defn parsable-integer? [ str ]
   (try
-   (Integer/parseInt str)
+   (Integer/parseInt (.trim str))
    (catch Exception ex
      false)))
+
+(def truthy-strings #{"yes" "true" "1" "y" "t" "on"})
+
+(defn parse-boolean-string
+  ([ str ]
+   (parse-boolean-string str nil))
+  ([ str default ]
+   (if (string? str)
+     (boolean
+      (truthy-strings (.trim str)))
+     default)))
 
 (defn vmap [f coll]
   (into {} (for [[k v] coll] [k (f v)])))
@@ -29,7 +40,7 @@
                           (keys-fn value)))
                    values)))
 
-(defn config-property 
+(defn config-property
   ( [ name ] (config-property name nil))
   ( [ name default ]
       (let [prop-binding (System/getProperty name)]
