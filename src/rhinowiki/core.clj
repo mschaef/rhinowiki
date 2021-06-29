@@ -1,6 +1,6 @@
 (ns rhinowiki.core
   (:gen-class)
-  (:use rhinowiki.utils)  
+  (:use rhinowiki.utils)
   (:require [clojure.tools.logging :as log]
             [cprop.core :as cprop]
             [rhinowiki.blog :as blog]
@@ -12,12 +12,15 @@
   (java.text.SimpleDateFormat. df))
 
 (defn resolve-load-fn [ config ]
-  (let [{data-files :data-files} config]
-    #(apply (case (:source data-files)
-              :git git/load-data-files
-              :file file/load-data-files
-              (throw (RuntimeException. "Invalid data file source in config")))
-            (apply concat data-files))))
+  (let [{data-files :data-files} config
+        {source :source} data-files]
+    (apply (case source
+             :git git/data-file-loader
+             :file file/data-file-loader
+             (throw
+              (RuntimeException.
+               (str "Invalid data file source in config:" source))))
+           (apply concat data-files))))
 
 (defn load-config []
   (let [config (-> (cprop/load-config :resource "config.edn")

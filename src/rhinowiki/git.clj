@@ -27,19 +27,18 @@
     (.addTree tree)
     (.setRecursive true)))
 
-(defn git-items [ repo ref-name ]
-  (let [head (.getRef repo ref-name)]
-    (with-open [walk (org.eclipse.jgit.revwalk.RevWalk. repo)]
-      (let [commit (.parseCommit walk (.getObjectId head))
-            tree (.parseTree walk (.getId (.getTree commit)))]
-        (with-open [tree-walk (recursive-tree-walk repo tree)]
-          (doall (tree-walk-seq tree-walk)))))))
+(defn git-items [ repo ref ]
+  (with-open [walk (org.eclipse.jgit.revwalk.RevWalk. repo)]
+    (let [commit (.parseCommit walk (.getObjectId ref))
+          tree (.parseTree walk (.getId (.getTree commit)))]
+      (with-open [tree-walk (recursive-tree-walk repo tree)]
+        (doall (tree-walk-seq tree-walk))))))
 
 (defn git-data-files [ repo ref-name article-root ]
   (map #(merge % {:content-raw (git-object-bytes repo (:git-object-id %))
                   :file-name (.substring (:file-name %) (.length article-root))})
        (filter #(.startsWith (:file-name %) article-root)
-               (git-items repo ref-name))))
+               (git-items repo (.getRef repo ref-name)))))
 
 (defn git-file-bare-repo [ root ]
   (.build (doto (org.eclipse.jgit.storage.file.FileRepositoryBuilder.)
@@ -50,13 +49,16 @@
   (.build (doto (org.eclipse.jgit.storage.file.FileRepositoryBuilder.)
             (.setWorkTree (java.io.File. root)))))
 
-(defn load-data-files [ & {:keys [ repo-path ref-name article-root ]
+(defn data-file-loader [ & {:keys [ repo-path ref-name article-root ]
                            :or {repo-path "."
                                 ref-name "refs/heads/master"
                                 article-root ""}}]
-  (log/info "Loading data files.")
-  (doall (git-data-files (if (.endsWith repo-path ".git")
-                           (git-file-bare-repo repo-path)
-                           (git-file-repo repo-path))
-                         ref-name article-root)))
+
+  (fn []
+    (let [repo (if (.endsWith repo-path ".git")
+                 (git-file-bare-repo repo-path)
+                 (git-file-repo repo-path))]
+      (log/info "Loading data files.")
+      (doall
+       (git-data-files repo ref-name article-root)))))
 
