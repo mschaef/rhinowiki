@@ -53,12 +53,12 @@
                            :or {repo-path "."
                                 ref-name "refs/heads/master"
                                 article-root ""}}]
-
-  (fn []
     (let [repo (if (.endsWith repo-path ".git")
                  (git-file-bare-repo repo-path)
-                 (git-file-repo repo-path))]
-      (log/info "Loading data files.")
-      (doall
-       (git-data-files repo ref-name article-root)))))
+                 (git-file-repo repo-path))]  
+      (fn []
+
+        (log/info "Loading data files.")
+        (doall
+         (git-data-files repo ref-name article-root)))))
 
