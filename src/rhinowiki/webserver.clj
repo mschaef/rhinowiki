@@ -38,7 +38,7 @@
       (wrap-request-logging)
       (handler/site)
       (ring-etag/wrap-file-etag)))
-    
+
 (defn start [ http-port routes ]
   (log/info "Starting Webserver on port" http-port)
   (let [server (jetty/run-jetty (handler routes)

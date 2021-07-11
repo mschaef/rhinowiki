@@ -15,7 +15,9 @@
 (defn blog-init [ blog ]
   (merge blog
          {:file-cache (atom nil)
-          :blog-id (uuid/v5 (:blog-namespace blog) (map blog [:base-url :blog-author :blog-title]))}))
+          :blog-id (uuid/v5 (:blog-namespace blog)
+                            (doall
+                             (map blog [:base-url :blog-author :blog-title])))}))
 
 (defn- strip-ending [ file-name ending ]
   (and (.endsWith file-name ending)
