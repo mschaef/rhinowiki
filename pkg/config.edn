@@ -8,8 +8,9 @@
  :header-links [{:label "GitHub" :link "https://github.com/mschaef"}
                 {:label "LinkedIn" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
                 {:label "Twitter"  :link "https://twitter.com/mschaef_ectw"}
-                {:label "Digital Asset" :link "https://www.digitalasset.com/"}
-                {:label "project:DABL" :link "https://projectdabl.com"}]
+                {:label "Toto"  :link "https://todo.mschaef.com"}
+                {:label "Stuff-A-Stocking" :link "https://stuffastocking.io"}
+                {:label "Digital Asset" :link "https://hub.daml.com"}]
 
  :sponsors {"ksm"
             {:short-name "ksm"
