@@ -3,7 +3,7 @@
         rhinowiki.utils
         [ring.middleware not-modified content-type browser-caching])
   (:require [clojure.tools.logging :as log]
-            [compojure.route :as route]            
+            [compojure.route :as route]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]

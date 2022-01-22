@@ -85,7 +85,13 @@
     [:h1 (:blog-title blog)]]
    [:div.links
     (map (fn [ link ]
-           [:a {:href (:link link) :target "_blank"} (:label link)])
+           [:a {:href (:link link) :target "_blank"}
+            (or
+             (when-let [ icon (:fa-icon link) ]
+               [:i {:class (str "fa " icon)
+                    :title (:label link)}])
+             (:label link)
+             "No icon or label specified.")])
          (or (:header-links blog) []))]])
 
 (defn site-page [ blog page-title body ]
@@ -96,7 +102,8 @@
              :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]
      [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
      [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
-     (page/include-css (webserver/resource-path "style.css"))
+     (page/include-css (webserver/resource-path "style.css")
+                       (webserver/resource-path "font-awesome.min.css"))
      (page/include-js (webserver/resource-path "highlight.pack.js"))
      [:script "hljs.initHighlightingOnLoad();"]
      [:title (if page-title
