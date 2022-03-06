@@ -31,15 +31,15 @@
                       :content-text (String. (:content-raw data-file) "UTF-8")})
     data-file))
 
-(defn article-permalink [ blog article ]
+(defn- article-permalink [ blog article ]
   (str (:base-url blog) "/" (:article-name article)))
 
-(defn parse-article [ blog raw ]
+(defn- parse-article [ blog raw ]
   (-> raw
       (merge (parser/parse-article-file (:file-name raw) (:content-text raw)))
       (assoc :permalink (article-permalink blog raw))))
 
-(defn process-data-files [ blog all-data-files ]
+(defn- process-data-files [ blog all-data-files ]
   (let [articles (map #(parse-article blog %) (filter :article-name (map find-file-article all-data-files)))]
     {:ordered (reverse (sort-by :date (filter :date articles)))
      :files-by-name (to-map :file-name all-data-files)
@@ -49,37 +49,37 @@
                                 (:alias article)))
                         articles)}))
 
-(defn data-files [ blog ]
+(defn- data-files [ blog ]
   (if-let [files @(:file-cache blog)]
     files
     (swap! (:file-cache blog)
            (fn [ current-file-cache ]
              (process-data-files blog ((:load-fn blog)))))))
 
-(defn invalidate-cache [ blog ]
+(defn- invalidate-cache [ blog ]
   (log/info "Invalidating cache")
   (swap! (:file-cache blog) (fn [ current-file-cache ] nil)))
 
-(defn file-by-name [ blog name ]
+(defn- file-by-name [ blog name ]
   (log/debug "Fetching file by name" name)
   (get-in (data-files blog) [ :files-by-name name ]))
 
-(defn article-by-name [ blog name ]
+(defn- article-by-name [ blog name ]
   (log/debug "Fetching article by name" name)
   (get-in (data-files blog) [ :articles-by-name name ]))
 
-(defn blog-articles [ blog ]
+(defn- blog-articles [ blog ]
   (log/debug "Fetching recent articles")
   (:ordered (data-files blog)))
 
 ;;;; Web Site
 
-(defn url-query [ path params ]
+(defn- url-query [ path params ]
   (str path (if (> (count params) 0)
               (str "?" (clojure.string/join "&" (map (fn [ [k v ] ] (str (name k) "=" v)) params)))
               "")))
 
-(defn blog-heading [ blog ]
+(defn- blog-heading [ blog ]
   [:div.header
    [:a {:href "/"}
     [:h1 (:blog-title blog)]]
@@ -94,7 +94,7 @@
              "No icon or label specified.")])
          (or (:header-links blog) []))]])
 
-(defn site-page [ blog page-title body ]
+(defn- site-page [ blog page-title body ]
   (hiccup/html
    [:html
     [:head
@@ -119,15 +119,15 @@
        [:a {:href "/feed/rss"} "[rss]"]
        [:a {:href "/contents"} "[contents]"]]]]]))
 
-(defn article-sponsor [ blog article ]
+(defn- article-sponsor [ blog article ]
   (get-in blog [ :sponsors (:sponsor article) ]))
 
-(defn article-sponsor-block [ blog article ]
+(defn- article-sponsor-block [ blog article ]
   (when-let [ sponsor (article-sponsor blog article)]
     [:div.sponsor
      "Written with sponsorship by " [:a {:href (:link sponsor) :target "_blank"} (:long-name sponsor) "."]]))
 
-(defn article-tags [ blog article ]
+(defn- article-tags [ blog article ]
   (when (> (count (:tags article)) 0)
     [:div.tags
      "Tags:"
@@ -136,7 +136,7 @@
              [:a {:href (url-query "/" { :tag tag })} tag]])
           (sort (:tags article)))]))
 
-(defn article-block [ blog article ]
+(defn- article-block [ blog article ]
   [:div.article
    [:div.date
     (.format (:article-header (:date-format blog)) (:date article))]
@@ -148,13 +148,13 @@
     (parser/article-content-html article)
     (article-tags blog article)]])
 
-(defn article-page [ blog article-name ]
+(defn- article-page [ blog article-name ]
   (when-let [ article-info (article-by-name blog article-name) ]
     (site-page blog
                (:title article-info)
                [:div (article-block blog article-info)])))
 
-(defn file-response [ blog file-name ]
+(defn- file-response [ blog file-name ]
   (when-let [ file-info (file-by-name blog file-name) ]
     (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
@@ -170,19 +170,19 @@
 (defn- article-remove-private [ articles ]
   (remove :private articles))
 
-(defn blog-display-articles [ blog start tag limit ]
+(defn- blog-display-articles [ blog start tag limit ]
   (cond-> (blog-articles blog)
     (not (= tag "private")) (article-remove-private)
     tag (article-filter-by-tag tag)
     start (article-filter-start-at start)
     limit (article-filter-restrict-count limit)))
 
-(defn tag-query-block [ tag ]
+(defn- tag-query-block [ tag ]
   (when tag
     [:div.query
      "Articles with tag: " [:span.tag tag]]))
 
-(defn articles-page [ blog start tag ]
+(defn- articles-page [ blog start tag ]
   (let [display-articles (blog-display-articles blog start tag (:recent-post-limit blog))]
     (site-page blog
                nil
@@ -195,18 +195,18 @@
                                                      tag (assoc :tag tag)))}
                       "Older Articles..."])]])))
 
-(defn contents-block [ blog article ]
+(defn- contents-block [ blog article ]
   [:div
    [:a
     {:href (:permalink article)}
     (:title article)]])
 
-(defn group-by-date-header [ blog articles ]
+(defn- group-by-date-header [ blog articles ]
   (partition-by :date-header
                 (map #(assoc % :date-header (.format (:contents-header (:date-format blog)) (:date %)))
                      articles)))
 
-(defn contents-page-article-entry [ blog article ]
+(defn- contents-page-article-entry [ blog article ]
   [:div.entry
    [:a { :href (:permalink article)}
     (:title article)]
@@ -214,7 +214,7 @@
      [:span.sponsor
       "sponsor: " [:a {:href (:link sponsor) :target "_blank"} (:short-name sponsor)]])])
 
-(defn contents-page [ blog start tag ]
+(defn- contents-page [ blog start tag ]
   (let [display-articles (blog-display-articles blog start tag (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
     (site-page blog
@@ -237,21 +237,23 @@
                       "Older Articles..."])]])))
 
 
-;;;; Blog Routing
+;;;; RSS and Atom Feeds
 
-(defn blog-feed-articles [ blog tag ]
+(defn- blog-feed-articles [ blog tag ]
   (blog-display-articles blog nil tag (:feed-post-limit blog)))
 
-(defn blog-rss-response [ blog tag ]
-  (println (str "RSS response" tag))
+(defn- blog-rss-response [ blog tag ]
   (-> (rss/rss-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
       (ring-response/header "Content-Type" "text/xml")))
 
-(defn blog-atom-response [ blog tag ]
+(defn- blog-atom-response [ blog tag ]
   (-> (atom/atom-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
       (ring-response/header "Content-Type" "text/atom+xml")))
+
+
+;;;; Blog Routing
 
 (defn blog-routes [ blog ]
   (routes
