@@ -26,7 +26,13 @@
       (log/trace label (dissoc resp :body))
       resp)))
 
-(defn- handler [ app-routes ]
+(defn wrap-invalidate-param [ app invalidate-fn ]
+  (fn [req]
+    (when (= (get-in req [:params :invalidate] req) "Y")
+      (invalidate-fn))
+    (app req)))
+
+(defn- handler [ invalidate-fn app-routes ]
   (-> (routes
        app-routes
        (route/resources (str "/" (get-version)))
@@ -36,12 +42,13 @@
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})
       (wrap-request-logging)
+      (wrap-invalidate-param invalidate-fn)
       (handler/site)
       (ring-etag/wrap-file-etag)))
-    
-(defn start [ http-port routes ]
+
+(defn start [ http-port invalidate-fn routes ]
   (log/info "Starting Webserver on port" http-port)
-  (let [server (jetty/run-jetty (handler routes)
+  (let [server (jetty/run-jetty (handler invalidate-fn routes)
                                 { :port http-port :join? false })]
     (add-shutdown-hook
      (fn []

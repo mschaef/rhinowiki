@@ -1,6 +1,6 @@
 (ns rhinowiki.core
   (:gen-class)
-  (:use rhinowiki.utils)  
+  (:use rhinowiki.utils)
   (:require [clojure.tools.logging :as log]
             [cprop.core :as cprop]
             [rhinowiki.blog :as blog]
@@ -26,10 +26,12 @@
 
 (defn -main [& args]
   (log/info "Starting Rhinowiki" (get-version))
-  (let [config (load-config)]
+  (let [config (load-config)
+        blog (blog/blog-init config)]
     (log/debug "config" config)
     (webserver/start (:http-port config)
-                     (blog/blog-routes (blog/blog-init config)))
+                     #(blog/invalidate-cache blog)
+                     (blog/blog-routes blog))
     (log/info "end run.")))
 
 

@@ -56,7 +56,7 @@
            (fn [ current-file-cache ]
              (process-data-files blog ((:load-fn blog)))))))
 
-(defn- invalidate-cache [ blog ]
+(defn invalidate-cache [ blog ]
   (log/info "Invalidating cache")
   (swap! (:file-cache blog) (fn [ current-file-cache ] nil)))
 
