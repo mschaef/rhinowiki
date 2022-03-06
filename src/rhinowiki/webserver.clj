@@ -46,12 +46,13 @@
       (handler/site)
       (ring-etag/wrap-file-etag)))
 
-(defn start [ http-port invalidate-fn routes ]
-  (log/info "Starting Webserver on port" http-port)
-  (let [server (jetty/run-jetty (handler invalidate-fn routes)
-                                { :port http-port :join? false })]
-    (add-shutdown-hook
-     (fn []
-       (log/info "Shutting down webserver")
-       (.stop server)))
-    (.join server)))
+(defn start [ config invalidate-fn routes ]
+  (let [{ http-port :http-port } config]
+    (log/info "Starting Webserver on port" http-port)
+    (let [server (jetty/run-jetty (handler invalidate-fn routes)
+                                  { :port http-port :join? false })]
+      (add-shutdown-hook
+       (fn []
+         (log/info "Shutting down webserver")
+         (.stop server)))
+      (.join server))))

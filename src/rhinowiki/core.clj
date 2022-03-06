@@ -29,8 +29,10 @@
   (let [config (load-config)
         blog (blog/blog-init config)]
     (log/debug "config" config)
-    (webserver/start (:http-port config)
-                     #(blog/invalidate-cache blog)
+    (webserver/start config
+                     (if (:development-mode config)
+                       #(blog/invalidate-cache blog)
+                       #())
                      (blog/blog-routes blog))
     (log/info "end run.")))
 
