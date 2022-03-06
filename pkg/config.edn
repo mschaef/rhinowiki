@@ -3,17 +3,4 @@
 {:http-port 8089
  :base-url "http://www.mschaef.com"
  :data-files {:source :git
-              :repo-path "/home/git/mschaef-blog.git"}
-
- :header-links [{:label "Github" :fa-icon "fa-github-square" :link "https://github.com/mschaef"}
-                {:label "LinkedIn" :fa-icon "fa-linkedin" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
-                {:label "Twitter" :fa-icon "fa-twitter-square"  :link "https://twitter.com/mschaef_ectw"}
-                {:label "Toto"  :link "https://todo.mschaef.com"}
-                {:label "Stuff-A-Stocking" :link "https://stuffastocking.io"}
-                {:label "Digital Asset" :link "https://www.digitalasset.com/"}
-                {:label "Daml Hub" :link "https://hub.daml.com"}]
-
- :sponsors {"ksm"
-            {:short-name "ksm"
-             :long-name "KSM Technology Partners"
-             :link "https://www.ksmpartners.com/"}}}
+              :repo-path "/home/git/mschaef-blog.git"}}
