@@ -65,8 +65,14 @@ A {
     padding-right: 0.1em;
 }
 
-.article-content A {
+.article-content A:hover {
     background: #d0d0d0;
+}
+
+.article-content img {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 A:visited {
