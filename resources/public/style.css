@@ -60,9 +60,13 @@ A {
 }
 
 .article-content A {
-    background: #f0f0f0;
+    background: #e0e0e0;
     padding-left: 0.1em;
     padding-right: 0.1em;
+}
+
+.article-content A {
+    background: #d0d0d0;
 }
 
 A:visited {
@@ -75,7 +79,7 @@ A:link {
 }
 
 A:hover {
-    background: #d0d0d0;
+    background: #d0d0d0
 }
 
 .query {
