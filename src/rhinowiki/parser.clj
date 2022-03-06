@@ -30,6 +30,8 @@
 (defn parse-article-text [ file-name article-text ]
   (log/debug "parse-article-text" file-name)
   (md/md-to-html-string-with-meta article-text
+                                  :footnotes? true
+                                  :reference-links? true
                                   :replacement-transformers (cons (image-link-rewriter file-name)
                                                                   mdt/transformer-vector)))
 
