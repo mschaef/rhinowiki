@@ -5,6 +5,7 @@
             [clj-uuid :as uuid]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
+            [hiccup.util :as hiccup-util]
             [ring.util.response :as ring-response]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.parser :as parser]
@@ -180,7 +181,8 @@
 (defn- tag-query-block [ tag ]
   (when tag
     [:div.query
-     "Articles with tag: " [:span.tag tag]]))
+     "Articles with tag: "
+     [:span.tag (hiccup-util/escape-html tag)]]))
 
 (defn- articles-page [ blog start tag ]
   (let [display-articles (blog-display-articles blog start tag (:recent-post-limit blog))]
