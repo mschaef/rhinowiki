@@ -99,6 +99,14 @@ A:hover {
     border-radius: 0.5em;
 }
 
+.tag.dev {
+    background: red;
+    color: white;
+    margin-left: 3px;
+    padding: 3px;
+    text-transform: uppercase;
+}
+
 .article .sponsor {
     font-size: 0.75rem;
     margin-top: 0.5em;

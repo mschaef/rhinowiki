@@ -12,6 +12,7 @@
                  [org.clojure/tools.logging "1.2.4"]
                  [ch.qos.logback/logback-classic "1.4.4"]
                  [ring/ring-jetty-adapter "1.9.6"]
+                 [ring/ring-devel "1.9.4"]
                  [slester/ring-browser-caching "0.1.1"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
                  [org.clojure/data.xml "0.0.8"]

@@ -5,6 +5,7 @@
   (:require [clojure.tools.logging :as log]
             [compojure.route :as route]
             [ring.adapter.jetty :as jetty]
+            [ring.middleware.reload :as ring-reload]
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]
             [co.deps.ring-etag-middleware :as ring-etag]
@@ -13,11 +14,16 @@
 (defn resource-path [ path ]
   (str "/" (get-version) "/" path))
 
-(defn- wrap-request-logging [ app ]
+(defn- wrap-request-logging [ app development-mode? ]
   (fn [req]
-    (log/debug 'REQUEST (:request-method req) (:uri req))
+    (if development-mode?
+      (log/debug 'REQUEST (:request-method req) (:uri req) (:params req) (:headers req))
+      (log/debug 'REQUEST (:request-method req) (:uri req)))
+
     (let [resp (app req)]
-      (log/trace 'RESPONSE (:status resp))
+      (if development-mode?
+        (log/trace 'RESPONSE (dissoc resp :body))
+        (log/trace 'RESPONSE (:status resp)))
       resp)))
 
 (defn- wrap-show-response [ app label ]
@@ -32,7 +38,20 @@
       (invalidate-fn))
     (app req)))
 
-(defn- handler [ invalidate-fn app-routes ]
+(def ^:dynamic *dev-mode* false)
+
+(defn- wrap-dev-mode [ handler dev-mode ]
+  (fn [ req ]
+    (binding [*dev-mode* dev-mode]
+      (handler req))))
+
+(defn- wrap-dev-support [ handler dev-mode ]
+  (cond-> (-> handler
+              (wrap-dev-mode dev-mode)
+              (wrap-request-logging dev-mode))
+    dev-mode (ring-reload/wrap-reload)))
+
+(defn- handler [ config invalidate-fn app-routes ]
   (-> (routes
        app-routes
        (route/resources (str "/" (get-version)))
@@ -41,15 +60,17 @@
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})
-      (wrap-request-logging)
       (wrap-invalidate-param invalidate-fn)
       (handler/site)
-      (ring-etag/wrap-file-etag)))
+      (ring-etag/wrap-file-etag)
+      (wrap-dev-support (:development-mode config))))
 
 (defn start [ config invalidate-fn routes ]
   (let [{ http-port :http-port } config]
     (log/info "Starting Webserver on port" http-port)
-    (let [server (jetty/run-jetty (handler invalidate-fn routes)
+    (when (:development-mode config)
+      (log/warn "=== DEVELOPMENT MODE ==="))
+    (let [server (jetty/run-jetty (handler config invalidate-fn routes)
                                   { :port http-port :join? false })]
       (add-shutdown-hook
        (fn []

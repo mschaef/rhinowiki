@@ -16,7 +16,8 @@
 (defn blog-init [ blog ]
   (merge blog
          {:file-cache (atom nil)
-          :blog-id (uuid/v5 (:blog-namespace blog) (map blog [:base-url :blog-author :blog-title]))}))
+          :blog-id (uuid/v5 (:blog-namespace blog)
+                            (map blog [:base-url :blog-author :blog-title]))}))
 
 (defn- strip-ending [ file-name ending ]
   (and (.endsWith file-name ending)
@@ -83,7 +84,10 @@
 (defn- blog-heading [ blog ]
   [:div.header
    [:a {:href "/"}
-    [:h1 (:blog-title blog)]]
+    [:h1
+     (:blog-title blog)
+     (when webserver/*dev-mode*
+       [:span.tag.dev "DEV"])]]
    [:div.links
     (map (fn [ link ]
            [:a {:href (:link link) :target "_blank"}
@@ -107,9 +111,11 @@
                        (webserver/resource-path "font-awesome.min.css"))
      (page/include-js (webserver/resource-path "highlight.pack.js"))
      [:script "hljs.initHighlightingOnLoad();"]
-     [:title (if page-title
-               (str page-title " - " (:blog-title blog))
-               (:blog-title blog))]]
+     [:title
+      (when webserver/*dev-mode* "DEV - ")
+      (if page-title
+        (str page-title " - " (:blog-title blog))
+        (:blog-title blog))]]
     [:body
      (blog-heading blog)
      body
