@@ -9,3 +9,8 @@ run:
 .PHONY: clean
 clean:
 	lein clean
+
+.PHONY: package
+package:
+	lein clean
+	lein release patch
