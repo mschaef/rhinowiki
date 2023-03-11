@@ -14,7 +14,7 @@
  :blog-title "Mike Schaeffer's Blog"
  :blog-email "mike@mschaef.com"
  :blog-language "en-US"
- :copyright-message "Copyright (C) 2004-2022- Mike Schaeffer"
+ :copyright-message "Copyright (C) 2004-2023 - Mike Schaeffer"
 
  :data-files {:source :git
               :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
