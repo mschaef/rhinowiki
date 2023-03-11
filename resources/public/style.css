@@ -38,6 +38,12 @@ code {
     }
 }
 
+@media print {
+    .header .links {
+        display: none;
+    }
+}
+
 .header .links {
     font-size: 0.75rem;
 }
