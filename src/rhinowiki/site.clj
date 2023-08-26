@@ -7,8 +7,6 @@
             [hiccup.util :as hiccup-util]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.parser :as parser]
-            [rhinowiki.atom :as atom]
-            [rhinowiki.rss :as rss]
             [rhinowiki.blog :as blog]
             [rhinowiki.feeds :as feeds]))
 

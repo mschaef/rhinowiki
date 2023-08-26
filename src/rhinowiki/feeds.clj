@@ -92,4 +92,3 @@
 
    (GET "/blog/personal/index.rss" []
      (ring-response/redirect "/feed/rss?tag=personal" :moved-permanently))))
-
