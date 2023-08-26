@@ -6,7 +6,8 @@
             [rhinowiki.blog :as blog]
             [rhinowiki.git :as git]
             [rhinowiki.file :as file]
-            [rhinowiki.webserver :as webserver]))
+            [rhinowiki.webserver :as webserver]
+            [rhinowiki.site :as site]))
 
 (defn parse-date-format [ df ]
   (java.text.SimpleDateFormat. df))
@@ -33,7 +34,7 @@
                      (if (:development-mode config)
                        #(blog/invalidate-cache blog)
                        #())
-                     (blog/blog-routes blog))
+                     (site/blog-routes blog))
     (log/info "end run.")))
 
 
