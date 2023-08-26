@@ -13,4 +13,5 @@ clean:
 .PHONY: package
 package:
 	lein clean
+	lein compile
 	lein release patch
