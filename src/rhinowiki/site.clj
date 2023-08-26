@@ -5,12 +5,12 @@
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [hiccup.util :as hiccup-util]
-            [ring.util.response :as ring-response]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.parser :as parser]
             [rhinowiki.atom :as atom]
             [rhinowiki.rss :as rss]
-            [rhinowiki.blog :as blog]))
+            [rhinowiki.blog :as blog]
+            [rhinowiki.feeds :as feeds]))
 
 
 ;;;; Web Site
@@ -104,25 +104,6 @@
   (when-let [ file-info (blog/file-by-name blog file-name) ]
     (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
-(defn- article-filter-start-at [ articles start ]
-  (drop start articles))
-
-(defn- article-filter-restrict-count [ articles limit ]
-  (take limit articles))
-
-(defn- article-filter-by-tag [ articles tag ]
-  (filter #((:tags %) tag) articles))
-
-(defn- article-remove-private [ articles ]
-  (remove :private articles))
-
-(defn- blog-display-articles [ blog start tag limit ]
-  (cond-> (blog/blog-articles blog)
-    (not (= tag "private")) (article-remove-private)
-    tag (article-filter-by-tag tag)
-    start (article-filter-start-at start)
-    limit (article-filter-restrict-count limit)))
-
 (defn- tag-query-block [ tag ]
   (when tag
     [:div.query
@@ -130,7 +111,7 @@
      [:span.tag (hiccup-util/escape-html tag)]]))
 
 (defn- articles-page [ blog start tag ]
-  (let [display-articles (blog-display-articles blog start tag (:recent-post-limit blog))]
+  (let [display-articles (blog/blog-display-articles blog start tag (:recent-post-limit blog))]
     (site-page blog
                nil
                [:div.articles
@@ -162,7 +143,7 @@
       "sponsor: " [:a {:href (:link sponsor) :target "_blank"} (:short-name sponsor)]])])
 
 (defn- contents-page [ blog start tag ]
-  (let [display-articles (blog-display-articles blog start tag (:contents-post-limit blog))
+  (let [display-articles (blog/blog-display-articles blog start tag (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
     (site-page blog
                "Table of Contents"
@@ -184,21 +165,6 @@
                       "Older Articles..."])]])))
 
 
-;;;; RSS and Atom Feeds
-
-(defn- blog-feed-articles [ blog tag ]
-  (blog-display-articles blog nil tag (:feed-post-limit blog)))
-
-(defn- blog-rss-response [ blog tag ]
-  (-> (rss/rss-blog-feed blog (blog-feed-articles blog tag))
-      (ring-response/response)
-      (ring-response/header "Content-Type" "application/rss+xml")))
-
-(defn- blog-atom-response [ blog tag ]
-  (-> (atom/atom-blog-feed blog (blog-feed-articles blog tag))
-      (ring-response/response)
-      (ring-response/header "Content-Type" "application/atom+xml")))
-
 ;;;; Blog Routing
 
 (defn blog-routes [ blog ]
@@ -209,20 +175,7 @@
    (GET "/contents" [ start tag ]
      (contents-page blog (or (parsable-integer? start) 0) tag))
 
-   (GET "/feed/atom" [ tag ]
-     (blog-atom-response blog tag))
-
-   (GET "/feed/rss" [ tag ]
-     (blog-rss-response blog tag))
-
-   (GET "/blog/index.rss" []
-     (ring-response/redirect "/feed/rss" :moved-permanently))
-
-   (GET "/blog/tech/index.rss" []
-     (ring-response/redirect "/feed/rss?tag=tech" :moved-permanently))
-
-   (GET "/blog/personal/index.rss" []
-     (ring-response/redirect "/feed/rss?tag=personal" :moved-permanently))
+   (feeds/feed-routes blog)
 
    (POST "/invalidate" []
       (blog/invalidate-cache blog)

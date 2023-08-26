@@ -66,3 +66,22 @@
   (log/debug "Fetching recent articles")
   (:ordered (data-files blog)))
 
+
+(defn- article-filter-start-at [ articles start ]
+  (drop start articles))
+
+(defn- article-filter-restrict-count [ articles limit ]
+  (take limit articles))
+
+(defn- article-filter-by-tag [ articles tag ]
+  (filter #((:tags %) tag) articles))
+
+(defn- article-remove-private [ articles ]
+  (remove :private articles))
+
+(defn blog-display-articles [ blog start tag limit ]
+  (cond-> (blog-articles blog)
+    (not (= tag "private")) (article-remove-private)
+    tag (article-filter-by-tag tag)
+    start (article-filter-start-at start)
+    limit (article-filter-restrict-count limit)))
