@@ -253,12 +253,12 @@
 (defn- blog-rss-response [ blog tag ]
   (-> (rss/rss-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
-      (ring-response/header "Content-Type" "text/xml")))
+      (ring-response/header "Content-Type" "application/rss+xml")))
 
 (defn- blog-atom-response [ blog tag ]
   (-> (atom/atom-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
-      (ring-response/header "Content-Type" "text/atom+xml")))
+      (ring-response/header "Content-Type" "application/atom+xml")))
 
 
 ;;;; Blog Routing
