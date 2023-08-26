@@ -1,6 +1,6 @@
 (defproject rhinowiki "0.3.11-SNAPSHOT"
   :description "Rhinowiki Blog Engine"
-  :url "http://www.mschaef.com"
+  :url "http://mschaef.com"
 
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
