@@ -1,4 +1,4 @@
-(defproject rhinowiki "0.3.13-SNAPSHOT"
+(defproject rhinowiki "0.3.13"
   :description "Rhinowiki Blog Engine"
   :url "http://mschaef.com"
 
