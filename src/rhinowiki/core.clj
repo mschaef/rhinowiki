@@ -1,15 +1,17 @@
 (ns rhinowiki.core
   (:gen-class)
-  (:use rhinowiki.utils)
-  (:require [clojure.tools.logging :as log]
-            [cprop.core :as cprop]
+  (:use playbook.core
+        rhinowiki.utils)
+  (:require [playbook.logging :as logging]
+            [playbook.config :as config]
+            [taoensso.timbre :as log]
             [rhinowiki.blog :as blog]
             [rhinowiki.git :as git]
             [rhinowiki.file :as file]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.site :as site]))
 
-(defn parse-date-format [ df ]
+(defn- parse-date-format [ df ]
   (java.text.SimpleDateFormat. df))
 
 (defn resolve-load-fn [ config ]
@@ -21,20 +23,24 @@
             (apply concat data-files))))
 
 (defn load-config []
-  (let [config (-> (cprop/load-config :resource "config.edn")
+  (let [config (-> (config/load-config)
                    (update :date-format #(vmap parse-date-format %)))]
     (assoc config :load-fn (resolve-load-fn config))))
 
+(defn- app-start [ config ]
+    (let [ blog (blog/blog-init config)]
+      (webserver/start config
+                       (if (:development-mode config)
+                         #(blog/invalidate-cache blog)
+                         #())
+                       (site/blog-routes blog))))
+
 (defn -main [& args]
-  (log/info "Starting Rhinowiki" (get-version))
-  (let [config (load-config)
-        blog (blog/blog-init config)]
-    (log/debug "config" config)
-    (webserver/start config
-                     (if (:development-mode config)
-                       #(blog/invalidate-cache blog)
-                       #())
-                     (site/blog-routes blog))
+  (let [config (load-config)]
+    (logging/setup-logging config)
+    (when (:development-mode config)
+      (log/warn "=== DEVELOPMENT MODE ==="))
+    (app-start config)
     (log/info "end run.")))
 
 

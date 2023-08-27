@@ -1,8 +1,9 @@
 (ns rhinowiki.webserver
   (:use compojure.core
+        playbook.core
         rhinowiki.utils
         [ring.middleware not-modified content-type browser-caching])
-  (:require [clojure.tools.logging :as log]
+  (:require [taoensso.timbre :as log]
             [compojure.route :as route]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :as ring-reload]
@@ -68,8 +69,6 @@
 (defn start [ config invalidate-fn routes ]
   (let [{ http-port :http-port } config]
     (log/info "Starting Webserver on port" http-port)
-    (when (:development-mode config)
-      (log/warn "=== DEVELOPMENT MODE ==="))
     (let [server (jetty/run-jetty (handler config invalidate-fn routes)
                                   { :port http-port :join? false })]
       (add-shutdown-hook

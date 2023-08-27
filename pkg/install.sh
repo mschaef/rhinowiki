@@ -42,7 +42,6 @@ install -v --group=rhinowiki --owner=rhinowiki --directory /var/lib/rhinowiki
 # Configuration Files
 
 install -v --group=root --owner=root --directory /etc/rhinowiki
-install -v --group=root --owner=root logback.xml /etc/rhinowiki
 install -v --group=root --owner=root config.edn /etc/rhinowiki
 
 # rhinowiki service configuration

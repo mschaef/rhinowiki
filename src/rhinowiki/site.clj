@@ -1,7 +1,7 @@
 (ns rhinowiki.site
   (:use compojure.core
-        rhinowiki.utils)
-  (:require [clojure.tools.logging :as log]
+        playbook.core)
+  (:require [taoensso.timbre :as log]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [hiccup.util :as hiccup-util]
@@ -168,10 +168,10 @@
 (defn blog-routes [ blog ]
   (routes
    (GET "/" [ start tag ]
-     (articles-page blog (or (parsable-integer? start) 0) tag))
+     (articles-page blog (or (try-parse-integer start) 0) tag))
 
    (GET "/contents" [ start tag ]
-     (contents-page blog (or (parsable-integer? start) 0) tag))
+     (contents-page blog (or (try-parse-integer start) 0) tag))
 
    (feeds/feed-routes blog)
 

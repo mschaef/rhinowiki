@@ -9,8 +9,6 @@
             [lein-tar "3.3.0"]]
 
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [org.clojure/tools.logging "1.2.4"]
-                 [ch.qos.logback/logback-classic "1.4.11"]
                  [ring/ring-jetty-adapter "1.10.0"]
                  [ring/ring-devel "1.10.0"]
                  [slester/ring-browser-caching "0.1.1"]
@@ -22,7 +20,8 @@
                  [markdown-clj "1.11.4"]
                  [cprop "0.1.19"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.4.1.201607150455-r"]
-                 [co.deps/ring-etag-middleware "0.2.1"]]
+                 [co.deps/ring-etag-middleware "0.2.1"]
+                 [com.mschaef/playbook "0.0.11"]]
 
   :ring { :handler rhinowiki.core/handler }
 

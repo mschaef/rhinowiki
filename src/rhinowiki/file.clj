@@ -1,6 +1,6 @@
 (ns rhinowiki.file
-  (:use rhinowiki.utils)
-  (:require [clojure.tools.logging :as log]
+  (:use playbook.core)
+  (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]))
 
 (def file-hash-namespace #uuid "dc8f0822-f57d-48d6-a281-448c5b97a84b")

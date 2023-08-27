@@ -1,6 +1,6 @@
 (ns rhinowiki.parser
-  (:use rhinowiki.utils)
-  (:require [clojure.tools.logging :as log]
+  (:use playbook.core)
+  (:require [taoensso.timbre :as log]
             [markdown.core :as md]
             [markdown.transformers :as mdt]))
 
@@ -48,8 +48,8 @@
          :tags tags
          :alias (:alias metadata [])
          :private (or (tags "private")
-                      (parse-boolean-string (first (or (:private metadata)
-                                                       ["false"]))))})))
+                      (try-parse-boolean (first (or (:private metadata)
+                                                    ["false"]))))})))
 
 (defn article-content-html [ article ]
   (log/debug "article-content-html" (:file-name article))

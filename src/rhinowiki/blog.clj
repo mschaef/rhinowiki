@@ -1,7 +1,7 @@
 (ns rhinowiki.blog
   (:use compojure.core
-        rhinowiki.utils)
-  (:require [clojure.tools.logging :as log]
+        playbook.core)
+  (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]
             [rhinowiki.parser :as parser]))
 

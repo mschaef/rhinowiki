@@ -1,6 +1,6 @@
 (ns rhinowiki.git
-  (:use rhinowiki.utils)
-  (:require [clojure.tools.logging :as log]
+  (:use playbook.core)
+  (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]))
 
 (def git-hash-namespace #uuid "705adc91-9f5a-40d9-8960-d356dfe73402")
