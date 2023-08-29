@@ -23,14 +23,12 @@
                  [co.deps/ring-etag-middleware "0.2.1"]
                  [com.mschaef/playbook "0.0.11"]]
 
-  :ring { :handler rhinowiki.core/handler }
-
   :tar {:uberjar true
         :format :tar-gz
         :output-dir "."
         :leading-path "rhinowiki-install"}
 
-  :main ^:skip-aot rhinowiki.core
+  :main ^:skip-aot rhinowiki.main
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
 

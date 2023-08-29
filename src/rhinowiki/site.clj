@@ -22,7 +22,7 @@
   [:div.header
    [:a {:href "/"}
     [:h1
-     (:blog-title (log/spy :info blog))
+     (:blog-title blog)
      (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
    [:div.links

@@ -1,7 +1,6 @@
-(ns rhinowiki.core
-  (:gen-class)
-  (:use playbook.core
-        rhinowiki.utils)
+(ns rhinowiki.main
+  (:gen-class :main true)
+  (:use playbook.core)
   (:require [playbook.logging :as logging]
             [playbook.config :as config]
             [taoensso.timbre :as log]
@@ -22,7 +21,7 @@
               (throw (RuntimeException. "Invalid data file source in config")))
             (apply concat data-files))))
 
-(defn load-config []
+(defn- load-config []
   (let [config (-> (config/load-config)
                    (update :date-format #(vmap parse-date-format %)))]
     (assoc config :load-fn (resolve-load-fn config))))
@@ -38,9 +37,8 @@
 (defn -main [& args]
   (let [config (load-config)]
     (logging/setup-logging config)
+    (log/info "Starting App" (:app config))
     (when (:development-mode config)
       (log/warn "=== DEVELOPMENT MODE ==="))
     (app-start config)
     (log/info "end run.")))
-
-
