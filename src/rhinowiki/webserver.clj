@@ -15,41 +15,14 @@
 (defn resource-path [ path ]
   (str "/" (get-version) "/" path))
 
-(defn- wrap-request-logging [ app development-mode? ]
-  (fn [req]
-    (if development-mode?
-      (log/debug 'REQUEST (:request-method req) (:uri req) (:params req) (:headers req))
-      (log/debug 'REQUEST (:request-method req) (:uri req)))
-
-    (let [resp (app req)]
-      (if development-mode?
-        (log/trace 'RESPONSE (dissoc resp :body))
-        (log/trace 'RESPONSE (:status resp)))
-      resp)))
-
-(defn- wrap-show-response [ app label ]
-  (fn [req]
-    (let [resp (app req)]
-      (log/trace label (dissoc resp :body))
-      resp)))
-
 (defn wrap-invalidate-param [ app invalidate-fn ]
   (fn [req]
     (when (= (get-in req [:params :invalidate] req) "Y")
       (invalidate-fn))
     (app req)))
 
-(def ^:dynamic *dev-mode* false)
-
-(defn- wrap-dev-mode [ handler dev-mode ]
-  (fn [ req ]
-    (binding [*dev-mode* dev-mode]
-      (handler req))))
-
 (defn- wrap-dev-support [ handler dev-mode ]
-  (cond-> (-> handler
-              (wrap-dev-mode dev-mode)
-              (wrap-request-logging dev-mode))
+  (cond-> handler
     dev-mode (ring-reload/wrap-reload)))
 
 (defn- handler [ config invalidate-fn app-routes ]

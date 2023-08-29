@@ -22,8 +22,8 @@
   [:div.header
    [:a {:href "/"}
     [:h1
-     (:blog-title blog)
-     (when webserver/*dev-mode*
+     (:blog-title (log/spy :info blog))
+     (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
    [:div.links
     (map (fn [ link ]
@@ -49,7 +49,7 @@
      (page/include-js (webserver/resource-path "highlight.pack.js"))
      [:script "hljs.initHighlightingOnLoad();"]
      [:title
-      (when webserver/*dev-mode* "DEV - ")
+      (when (:development-mode blog) "DEV - ")
       (if page-title
         (str page-title " - " (:blog-title blog))
         (:blog-title blog))]]
