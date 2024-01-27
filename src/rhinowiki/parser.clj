@@ -40,7 +40,7 @@
   (let [metadata (md/md-to-meta raw)
         tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))]
     (-> {:file-name file-name
-         :content-html (delay (parse-article-text file-name raw))
+         :content-full-html (delay (parse-article-text file-name raw))
          :title (first (:title metadata [(:article-name raw)]))
          :date (or (maybe-parse-metadata-date (first (:date metadata)))
                    (:file-date raw))
@@ -53,4 +53,4 @@
 
 (defn article-content-html [ article ]
   (log/debug "article-content-html" (:file-name article))
-  (:html @(:content-html article)))
+  (:html @(:content-full-html article)))
