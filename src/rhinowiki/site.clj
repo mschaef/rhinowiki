@@ -80,23 +80,30 @@
              [:a {:href (url-query "/" { :tag tag })} tag]])
           (sort (:tags article)))]))
 
-(defn- article-block [ blog article ]
+(defn- article-block [ blog article summarize? ]
   [:div.article
    [:div.date
     (.format (:article-header (:date-format blog)) (:date article))]
    [:div.title
     [:a { :href (:permalink article)}
      (:title article)]]
-   [:div.article-content
-    (article-sponsor-block blog article)
-    (parser/article-content-html article)
-    (article-tags blog article)]])
+   (let [ short-html (and summarize?
+                          (parser/article-short-html article))]
+     [:div.article-content
+      (article-sponsor-block blog article)
+      (or short-html
+          (parser/article-content-html article))
+      (when short-html
+        [:div.read-more
+         [:a.feed-navigation { :href (:permalink article)}
+          "Read More..."]])
+      (article-tags blog article)])])
 
 (defn- article-page [ blog article-name ]
   (when-let [ article-info (blog/article-by-name blog article-name) ]
     (site-page blog
                (:title article-info)
-               [:div (article-block blog article-info)])))
+               [:div (article-block blog article-info false)])))
 
 (defn- file-response [ blog file-name ]
   (when-let [ file-info (blog/file-by-name blog file-name) ]
@@ -114,7 +121,7 @@
                nil
                [:div.articles
                 (tag-query-block tag)
-                (map #(article-block blog %) display-articles)
+                (map #(article-block blog % true) display-articles)
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:recent-post-limit blog))
                          [:a {:href (url-query "/" (cond-> { :start (+ start (:recent-post-limit blog)) }

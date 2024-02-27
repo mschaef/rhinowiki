@@ -27,23 +27,38 @@
                    (clojure.string/replace new-text m (make-server-image-link base src alt))))
           [new-text state])))))
 
-(defn parse-article-text [ file-name article-text ]
-  (log/debug "parse-article-text" file-name)
+(defn article-md-to-html [ file-name article-text ]
   (md/md-to-html-string-with-meta article-text
                                   :footnotes? true
                                   :reference-links? true
                                   :replacement-transformers (cons (image-link-rewriter file-name)
                                                                   mdt/transformer-vector)))
 
-(defn parse-article-file [ file-name raw ]
+(def more-tag "<!--more-->")
+
+(defn string-index-of [ string text ]
+  (let [ index (.indexOf string text) ]
+    (and (>= index 0)
+         index)))
+
+(defn parse-article-md [ file-name article-text ]
+  (if-let [tag-index (string-index-of article-text more-tag) ]
+    (let [ short-text (.substring article-text 0 tag-index) ]
+      {:short-text
+       (delay (article-md-to-html file-name short-text))
+       :full-text
+       (delay (article-md-to-html file-name (str short-text (.substring article-text (+ tag-index (.length more-tag))))))})
+    {:full-text (delay (article-md-to-html file-name article-text))}))
+
+(defn parse-article-file [ file-name article-md ]
   (log/debug "parse-article-file" file-name)
-  (let [metadata (md/md-to-meta raw)
+  (let [metadata (md/md-to-meta article-md)
         tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))]
     (-> {:file-name file-name
-         :content-full-html (delay (parse-article-text file-name raw))
-         :title (first (:title metadata [(:article-name raw)]))
+         :content-html (parse-article-md file-name article-md)
+         :title (first (:title metadata [(:article-name article-md)]))
          :date (or (maybe-parse-metadata-date (first (:date metadata)))
-                   (:file-date raw))
+                   (:file-date article-md))
          :sponsor (first (:sponsor metadata [ nil ]))
          :tags tags
          :alias (:alias metadata [])
@@ -51,6 +66,11 @@
                       (try-parse-boolean (first (or (:private metadata)
                                                     ["false"]))))})))
 
+(defn article-short-html [ article ]
+  (log/debug "article-short-html" (:file-name article))
+  (if-let [ short-text (:short-text (:content-html article)) ]
+    (:html @short-text)))
+
 (defn article-content-html [ article ]
   (log/debug "article-content-html" (:file-name article))
-  (:html @(:content-full-html article)))
+  (:html @(:full-text (:content-html article))))

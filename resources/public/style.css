@@ -124,6 +124,10 @@ A:hover {
     font-size: 0.75em;
 }
 
+.article .read-more {
+    margin-bottom: 8px;
+}
+
 .article .title {
     font-size: 1.75rem;
     font-weight: bold;
