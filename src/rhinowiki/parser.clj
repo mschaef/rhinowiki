@@ -2,7 +2,8 @@
   (:use playbook.core)
   (:require [taoensso.timbre :as log]
             [markdown.core :as md]
-            [markdown.transformers :as mdt]))
+            [markdown.transformers :as mdt]
+            [rhinowiki.highlight :as highlight]))
 
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 
@@ -32,7 +33,11 @@
                                   :footnotes? true
                                   :reference-links? true
                                   :replacement-transformers (cons (image-link-rewriter file-name)
-                                                                  mdt/transformer-vector)))
+                                                                  mdt/transformer-vector)
+                                  :codeblock-no-escape? true
+                                  :codeblock-callback (fn
+                                                        [code language]
+                                                        (highlight/highlight code language))))
 
 (def more-tag "<!--more-->")
 

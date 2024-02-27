@@ -46,8 +46,6 @@
      [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
      (page/include-css (webserver/resource-path "style.css")
                        (webserver/resource-path "font-awesome.min.css"))
-     (page/include-js (webserver/resource-path "highlight.pack.js"))
-     [:script "hljs.initHighlightingOnLoad();"]
      [:title
       (when (:development-mode blog) "DEV - ")
       (if page-title
