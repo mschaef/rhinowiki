@@ -10,7 +10,8 @@
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]
             [co.deps.ring-etag-middleware :as ring-etag]
-            [compojure.handler :as handler]))
+            [compojure.handler :as handler]
+            [playbook.config :as config]))
 
 (defn resource-path [ path ]
   (str "/" (get-version) "/" path))
@@ -37,6 +38,7 @@
       (wrap-invalidate-param invalidate-fn)
       (handler/site)
       (ring-etag/wrap-file-etag)
+      (config/wrap-config)
       (wrap-dev-support (:development-mode config))))
 
 (defn start [ config invalidate-fn routes ]

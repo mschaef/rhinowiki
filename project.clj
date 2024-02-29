@@ -21,7 +21,7 @@
                  [cprop "0.1.19"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.4.1.201607150455-r"]
                  [co.deps/ring-etag-middleware "0.2.1"]
-                 [com.mschaef/playbook "0.0.11"]]
+                 [com.mschaef/playbook "0.1.2"]]
 
   :tar {:uberjar true
         :format :tar-gz
