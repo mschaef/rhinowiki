@@ -1,6 +1,6 @@
 ;; Rhinowiki Configuration File
 
 {:http-port 8089
- :base-url "https://mschaef.com"
+ :blog-base-url "https://mschaef.com"
  :data-files {:source :git
               :repo-path "/home/git/mschaef-blog.git"}}

@@ -10,16 +10,15 @@
                :contents-header "MMMM yyyy"
                :article-header "MMMM d, y"}
 
- :base-url "http://localhost:8080"
+ :blog-base-url "http://localhost:8080"
  :blog-author "Mike Schaeffer"
  :blog-title "Mike Schaeffer's Blog"
  :blog-email "mike@mschaef.com"
  :blog-language "en-US"
- :copyright-message "Copyright (C) 2004-2024 - Mike Schaeffer"
+ :blog-copyright "Copyright (C) 2004-2024 - Mike Schaeffer"
 
  :data-files {:source :git
               :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
-
 
  :header-links [{:label "Github" :fa-icon "fa-github-square" :link "https://github.com/mschaef"}
                 {:label "LinkedIn" :fa-icon "fa-linkedin" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}

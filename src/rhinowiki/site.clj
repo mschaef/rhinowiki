@@ -1,3 +1,24 @@
+;; Copyright (c) 2015-2024 Michael Schaeffer (dba East Coast Toolworks)
+;;
+;; Licensed as below.
+;;
+;; Licensed under the Apache License, Version 2.0 (the "License");
+;; you may not use this file except in compliance with the License.
+;; You may obtain a copy of the License at
+;;
+;;       http://www.apache.org/licenses/LICENSE-2.0
+;;
+;; The license is also includes at the root of the project in the file
+;; LICENSE.
+;;
+;; Unless required by applicable law or agreed to in writing, software
+;; distributed under the License is distributed on an "AS IS" BASIS,
+;; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;; See the License for the specific language governing permissions and
+;; limitations under the License.
+;;
+;; You must not remove this notice, or any other, from this software.
+
 (ns rhinowiki.site
   (:use compojure.core
         playbook.core)
@@ -42,8 +63,8 @@
     [:head
      [:meta {:name "viewport"
              :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]
-     [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
-     [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
+     [:link {:rel "alternate" :type "application/atom+xml" :href (str (:blog-base-url blog) "/feed/atom") :title "Atom Feed"}]
+     [:link {:rel "alternate" :type "application/rss+xml" :href (str (:blog-base-url blog) "/feed/rss") :title "RSS Feed"}]
      (page/include-css (webserver/resource-path "style.css")
                        (webserver/resource-path "font-awesome.min.css"))
      (page/include-js (webserver/resource-path "highlight.pack.js"))
@@ -57,7 +78,7 @@
      (blog-heading blog)
      body
      [:div.footer
-      (:copyright-message blog)
+      (:blog-copyright blog)
       [:span.item
        [:a {:href "/feed/atom"} "[atom]"]
        [:a {:href "/feed/rss"} "[rss]"]
