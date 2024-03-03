@@ -20,4 +20,8 @@
             (.asString (.execute highlight-js-fn (object-array [ code lang ])))))))))
 
 (defn highlight [code lang]
-  (@highlighter code lang))
+  (try
+    (@highlighter code lang)
+    (catch Exception ex
+      (log/warn (str "Error highlighting code in language: " lang " (" (.getMessage ex) ")"))
+      (@highlighter code "text"))))
