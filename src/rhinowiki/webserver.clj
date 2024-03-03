@@ -18,7 +18,8 @@
 
 (defn wrap-invalidate-param [ app invalidate-fn ]
   (fn [req]
-    (when (= (get-in req [:params :invalidate] req) "Y")
+    (when (and (config/cval :development-mode)
+               (= (get-in req [:params :invalidate] req) "Y"))
       (invalidate-fn))
     (app req)))
 
@@ -26,7 +27,7 @@
   (cond-> handler
     dev-mode (ring-reload/wrap-reload)))
 
-(defn- handler [ config invalidate-fn app-routes ]
+(defn- handler [ invalidate-fn app-routes ]
   (-> (routes
        app-routes
        (route/resources (str "/" (get-version)))
@@ -39,12 +40,12 @@
       (handler/site)
       (ring-etag/wrap-file-etag)
       (config/wrap-config)
-      (wrap-dev-support (:development-mode config))))
+      (wrap-dev-support (config/cval :development-mode))))
 
-(defn start [ config invalidate-fn routes ]
-  (let [{ http-port :http-port } config]
+(defn start [ invalidate-fn routes ]
+  (let [ http-port (config/cval :http-port) ]
     (log/info "Starting Webserver on port" http-port)
-    (let [server (jetty/run-jetty (handler config invalidate-fn routes)
+    (let [server (jetty/run-jetty (handler invalidate-fn routes)
                                   { :port http-port :join? false })]
       (add-shutdown-hook
        (fn []

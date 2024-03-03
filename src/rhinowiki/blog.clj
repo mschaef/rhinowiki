@@ -3,13 +3,27 @@
         playbook.core)
   (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]
+            [playbook.config :as config]
             [rhinowiki.parser :as parser]))
 
-(defn blog-init [ blog ]
-  (merge blog
-         {:file-cache (atom nil)
-          :blog-id (uuid/v5 (:blog-namespace blog)
-                            (map blog [:base-url :blog-author :blog-title]))}))
+(defn- parse-date-format [ df ]
+  (java.text.SimpleDateFormat. df))
+
+(defn- resolve-load-fn [ handlers ]
+  (let [ data-files (config/cval :data-files)]
+    (if-let [ handler ((:source data-files) handlers) ]
+      #(apply handler (apply concat data-files))
+      (throw (RuntimeException. "Invalid data file source in config")))))
+
+(defn blog-init [ handlers ]
+  ;; Include configuration information in the blog map. A chunk of the
+  ;; existing blog code relies on it being there.
+  (merge (config/cval)
+         {:load-fn (resolve-load-fn handlers)
+          :date-format (vmap parse-date-format (config/cval :date-format))
+          :file-cache (atom nil)
+          :blog-id (uuid/v5 (config/cval :blog-namespace)
+                            (map config/cval [:base-url :blog-author :blog-title]))}))
 
 (defn- strip-ending [ file-name ending ]
   (and (.endsWith file-name ending)
@@ -52,7 +66,7 @@
 
 (defn invalidate-cache [ blog ]
   (log/info "Invalidating cache")
-  (swap! (:file-cache blog) (fn [ current-file-cache ] nil)))
+  (swap! (blog :file-cache) (constantly nil)))
 
 (defn file-by-name [ blog name ]
   (log/debug "Fetching file by name" name)
@@ -65,7 +79,6 @@
 (defn blog-articles [ blog ]
   (log/debug "Fetching recent articles")
   (:ordered (data-files blog)))
-
 
 (defn- article-filter-start-at [ articles start ]
   (drop start articles))
