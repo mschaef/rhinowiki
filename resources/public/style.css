@@ -10,6 +10,8 @@ body {
 pre {
     margin-left: 0.25em;
     margin-right: 0.25em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 code {
@@ -52,10 +54,6 @@ body .header .links A {
     font-size: 0.875rem;
 }
 
-pre code {
-    font-size: 0.75rem;
-}
-
 blockquote {
     font-size: 0.9rem;
     font-style: italic;
@@ -66,7 +64,7 @@ A {
 }
 
 .article-content A {
-    background: #e0e0e0;
+    background: #f0f0f0;
     padding-left: 0.1em;
     padding-right: 0.1em;
 }
