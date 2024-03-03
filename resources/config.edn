@@ -15,7 +15,7 @@
  :blog-title "Mike Schaeffer's Blog"
  :blog-email "mike@mschaef.com"
  :blog-language "en-US"
- :copyright-message "Copyright (C) 2004-2023 - Mike Schaeffer"
+ :copyright-message "Copyright (C) 2004-2024 - Mike Schaeffer"
 
  :data-files {:source :git
               :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
@@ -23,7 +23,6 @@
 
  :header-links [{:label "Github" :fa-icon "fa-github-square" :link "https://github.com/mschaef"}
                 {:label "LinkedIn" :fa-icon "fa-linkedin" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
-                {:label "Twitter" :fa-icon "fa-twitter-square"  :link "https://twitter.com/mschaef_ectw"}
                 {:label "Toto"  :link "https://todo.mschaef.com"}
                 {:label "Stuff-A-Stocking" :link "https://stuffastocking.io"}
                 {:label "Digital Asset" :link "https://www.digitalasset.com/"}
