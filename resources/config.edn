@@ -15,7 +15,7 @@
  :blog-title "Mike Schaeffer's Blog"
  :blog-email "mike@mschaef.com"
  :blog-language "en-US"
- :blog-copyright "Copyright (C) 2004-2024 - Mike Schaeffer"
+ :blog-copyright "Copyright (C) 2004-2025 - Mike Schaeffer"
 
  :data-files {:source :git
               :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
@@ -25,7 +25,7 @@
                 {:label "Toto"  :link "https://todo.mschaef.com"}
                 {:label "Stuff-A-Stocking" :link "https://stuffastocking.io"}
                 {:label "Digital Asset" :link "https://www.digitalasset.com/"}
-                {:label "Daml Hub" :link "https://hub.daml.com"}]
+                {:label "Canton Network" :link "https://www.canton.network"}]
 
  :sponsors {"ksm"
             {:short-name "ksm"
