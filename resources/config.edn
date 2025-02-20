@@ -30,4 +30,6 @@
  :sponsors {"ksm"
             {:short-name "ksm"
              :long-name "KSM Technology Partners"
-             :link "https://www.ksmpartners.com/"}}}
+             :link "https://www.ksmpartners.com/"}}
+
+ :rhinowiki-repository "https://github.com/mschaef/rhinowiki"}

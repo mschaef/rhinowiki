@@ -21,7 +21,8 @@
 
 (ns rhinowiki.site
   (:use compojure.core
-        playbook.core)
+        playbook.core
+        rhinowiki.utils)
   (:require [taoensso.timbre :as log]
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
@@ -29,7 +30,8 @@
             [rhinowiki.webserver :as webserver]
             [rhinowiki.parser :as parser]
             [rhinowiki.blog :as blog]
-            [rhinowiki.feeds :as feeds]))
+            [rhinowiki.feeds :as feeds]
+            [playbook.config :as config]))
 
 
 ;;;; Web Site
@@ -80,7 +82,11 @@
       [:span.item
        [:a {:href "/feed/atom"} "[atom]"]
        [:a {:href "/feed/rss"} "[rss]"]
-       [:a {:href "/contents"} "[contents]"]]]]]))
+       [:a {:href "/contents"} "[contents]"]]
+
+      [:div.item
+       "Made with "
+       [:a {:href (config/cval :rhinowiki-repository)} "Rhinowiki " (get-version)]]]]]))
 
 (defn- article-sponsor [ blog article ]
   (get-in blog [ :sponsors (:sponsor article) ]))
