@@ -31,19 +31,19 @@
             [lein-ancient "1.0.0-RC3"]]
 
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [ring/ring-jetty-adapter "1.11.0"]
-                 [ring/ring-devel "1.11.0"]
+                 [ring/ring-jetty-adapter "1.13.0"]
+                 [ring/ring-devel "1.13.0"]
                  [co.deps/ring-etag-middleware "0.2.1"]
                  [slester/ring-browser-caching "0.1.1"]
                  [org.clojure/data.xml "0.0.8"]
-                 [danlentz/clj-uuid "0.1.9"]
+                 [danlentz/clj-uuid "0.2.0"]
                  [compojure "1.7.1"]
                  [hiccup "1.0.5"]
-                 [markdown-clj "1.11.9"]
-                 [cprop "0.1.19"]
+                 [markdown-clj "1.12.3"]
+                 [cprop "0.1.20"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
                  [org.graalvm.js/js "22.3.2" :upgrade :graalvm]
-                 [com.mschaef/playbook "0.1.2"]]
+                 [com.mschaef/playbook "0.1.4"]]
 
   :tar {:uberjar true
         :format :tar-gz
