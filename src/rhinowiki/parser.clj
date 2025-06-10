@@ -58,7 +58,7 @@
                                   :codeblock-no-escape? true
                                   :codeblock-callback (fn
                                                         [code language]
-                                                        (highlight/highlight code language))))
+                                                        (highlight/highlight file-name code language))))
 
 (def more-tag "<!--more-->")
 

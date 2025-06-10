@@ -21,9 +21,10 @@
             (locking pg
               (.asString (.execute highlight-js-fn (object-array [ code lang ]))))))))))
 
-(defn highlight [code lang]
+(defn highlight [file-name code lang]
   (try
     (@highlighter code lang)
     (catch Exception ex
-      (log/warn (str "Error highlighting code in language: " lang " (" (.getMessage ex) ")"))
+      (log/warn (str "Error highlighting code in language \"" lang "\" while processing file: "
+                     file-name " (" (.getMessage ex) ")"))
       (@highlighter code "text"))))
