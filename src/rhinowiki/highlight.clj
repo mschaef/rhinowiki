@@ -15,9 +15,11 @@
     (with-exception-barrier "create-highlighter"
       (let [pg (make-javascript-context)]
         (.eval pg "js" (slurp (clojure.java.io/resource "highlight.min.js")))
-        (let [ highlight-js-fn (.eval pg "js" highlight-js-code)]
+        (let [ highlight-js-fn (locking pg
+                                 (.eval pg "js" highlight-js-code))]
           (fn [ code lang ]
-            (.asString (.execute highlight-js-fn (object-array [ code lang ])))))))))
+            (locking pg
+              (.asString (.execute highlight-js-fn (object-array [ code lang ]))))))))))
 
 (defn highlight [code lang]
   (try
