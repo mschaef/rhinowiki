@@ -22,9 +22,14 @@
               (.asString (.execute highlight-js-fn (object-array [ code lang ]))))))))))
 
 (defn highlight [file-name code lang]
-  (try
-    (@highlighter code lang)
-    (catch Exception ex
-      (log/warn (str "Error highlighting code in language \"" lang "\" while processing file: "
-                     file-name " (" (.getMessage ex) ")"))
-      (@highlighter code "text"))))
+  (if (= lang "")
+    (do
+      (log/warn (str "Code found missing language specification while processing file: "
+                     file-name))
+      code)
+    (try
+      (@highlighter code lang)
+      (catch Exception ex
+        (log/warn (str "Error highlighting code in language \"" lang "\" while processing file: "
+                       file-name " (" (.getMessage ex) ")"))
+        (@highlighter code "text")))))
