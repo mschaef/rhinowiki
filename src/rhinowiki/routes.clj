@@ -19,11 +19,16 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.utils)
+(ns rhinowiki.routes
+  (:gen-class :main true)
+  (:use compojure.core
+        rhinowiki.utils)
+  (:require [compojure.route :as route]
+            [rhinowiki.site :as site]))
 
-(defmacro get-version []
-  ;; Capture compile-time property definition from Lein
-  (System/getProperty "rhinowiki.version"))
-
-(defn resource-path [ path ]
-  (str "/" (get-version) "/" path))
+(defn all-routes [ blog ]
+  (routes
+   (site/blog-routes blog)
+   (route/resources (str "/" (get-version)))
+   (route/resources "/")
+   (route/not-found "Resource Not Found")))

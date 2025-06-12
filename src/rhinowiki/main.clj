@@ -22,14 +22,16 @@
 (ns rhinowiki.main
   (:gen-class :main true)
   (:use playbook.core
-        playbook.main)
+        playbook.main
+        rhinowiki.utils)
   (:require [playbook.config :as config]
             [taoensso.timbre :as log]
             [rhinowiki.blog :as blog]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.site :as site]
             [rhinowiki.git :as git]
-            [rhinowiki.file :as file]))
+            [rhinowiki.file :as file]
+            [rhinowiki.routes :as routes]))
 
 (def handlers {:git git/load-data-files
                :file file/load-data-files})
@@ -38,4 +40,4 @@
   (let [ blog (blog/blog-init handlers) ]
     (webserver/start
      #(blog/invalidate-cache blog)
-     (site/blog-routes blog))))
+     (routes/all-routes blog))))

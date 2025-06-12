@@ -22,10 +22,8 @@
 (ns rhinowiki.webserver
   (:use compojure.core
         playbook.core
-        rhinowiki.utils
         [ring.middleware not-modified content-type browser-caching])
   (:require [taoensso.timbre :as log]
-            [compojure.route :as route]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :as ring-reload]
             [ring.middleware.file-info :as ring-file-info]
@@ -33,9 +31,6 @@
             [co.deps.ring-etag-middleware :as ring-etag]
             [compojure.handler :as handler]
             [playbook.config :as config]))
-
-(defn resource-path [ path ]
-  (str "/" (get-version) "/" path))
 
 (defn wrap-invalidate-param [ app invalidate-fn ]
   (fn [req]
@@ -48,12 +43,8 @@
   (cond-> handler
     dev-mode (ring-reload/wrap-reload)))
 
-(defn- handler [ invalidate-fn app-routes ]
-  (-> (routes
-       app-routes
-       (route/resources (str "/" (get-version)))
-       (route/resources "/")
-       (route/not-found "Resource Not Found"))
+(defn- handler [ invalidate-fn routes ]
+  (-> routes
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})

@@ -27,12 +27,10 @@
             [hiccup.core :as hiccup]
             [hiccup.page :as page]
             [hiccup.util :as hiccup-util]
-            [rhinowiki.webserver :as webserver]
+            [playbook.config :as config]
             [rhinowiki.parser :as parser]
             [rhinowiki.blog :as blog]
-            [rhinowiki.feeds :as feeds]
-            [playbook.config :as config]))
-
+            [rhinowiki.feeds :as feeds]))
 
 ;;;; Web Site
 
@@ -67,8 +65,8 @@
              :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]
      [:link {:rel "alternate" :type "application/atom+xml" :href (str (:blog-base-url blog) "/feed/atom") :title "Atom Feed"}]
      [:link {:rel "alternate" :type "application/rss+xml" :href (str (:blog-base-url blog) "/feed/rss") :title "RSS Feed"}]
-     (page/include-css (webserver/resource-path "style.css")
-                       (webserver/resource-path "font-awesome.min.css"))
+     (page/include-css (resource-path "style.css")
+                       (resource-path "font-awesome.min.css"))
      [:title
       (when (:development-mode blog) "DEV - ")
       (if page-title
@@ -83,7 +81,6 @@
        [:a {:href "/feed/atom"} "[atom]"]
        [:a {:href "/feed/rss"} "[rss]"]
        [:a {:href "/contents"} "[contents]"]]
-
       [:div.item
        "Made with "
        [:a {:href (config/cval :rhinowiki-repository)} "Rhinowiki " (get-version)]]]]]))
