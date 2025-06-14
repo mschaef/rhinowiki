@@ -32,18 +32,18 @@
             [compojure.handler :as handler]
             [playbook.config :as config]))
 
-(defn wrap-invalidate-param [ app invalidate-fn ]
+(defn wrap-invalidate-param [app invalidate-fn]
   (fn [req]
     (when (and (config/cval :development-mode)
                (= (get-in req [:params :invalidate] req) "Y"))
       (invalidate-fn))
     (app req)))
 
-(defn- wrap-dev-support [ handler dev-mode ]
+(defn- wrap-dev-support [handler dev-mode]
   (cond-> handler
     dev-mode (ring-reload/wrap-reload)))
 
-(defn- handler [ invalidate-fn routes ]
+(defn- handler [invalidate-fn routes]
   (-> routes
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
@@ -54,11 +54,11 @@
       (config/wrap-config)
       (wrap-dev-support (config/cval :development-mode))))
 
-(defn start [ invalidate-fn routes ]
-  (let [ http-port (config/cval :http-port) ]
+(defn start [invalidate-fn routes]
+  (let [http-port (config/cval :http-port)]
     (log/info "Starting Webserver on port" http-port)
     (let [server (jetty/run-jetty (handler invalidate-fn routes)
-                                  { :port http-port :join? false })]
+                                  {:port http-port :join? false})]
       (add-shutdown-hook
        (fn []
          (log/info "Shutting down webserver")

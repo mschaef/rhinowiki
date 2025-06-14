@@ -25,5 +25,5 @@
   ;; Capture compile-time property definition from Lein
   (System/getProperty "rhinowiki.version"))
 
-(defn resource-path [ path ]
+(defn resource-path [path]
   (str "/" (get-version) "/" path))

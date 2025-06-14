@@ -26,7 +26,7 @@
   (:require [compojure.route :as route]
             [rhinowiki.site :as site]))
 
-(defn all-routes [ blog ]
+(defn all-routes [blog]
   (routes
    (site/blog-routes blog)
    (route/resources (str "/" (get-version)))

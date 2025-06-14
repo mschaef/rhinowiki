@@ -36,8 +36,8 @@
 (def handlers {:git git/load-data-files
                :file file/load-data-files})
 
-(defmain [ & args ]
-  (let [ blog (blog/blog-init handlers) ]
+(defmain [& args]
+  (let [blog (blog/blog-init handlers)]
     (webserver/start
      #(blog/invalidate-cache blog)
      (routes/all-routes blog))))
