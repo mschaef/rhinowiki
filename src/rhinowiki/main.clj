@@ -31,8 +31,8 @@
             [rhinowiki.site :as site]
             [rhinowiki.routes :as routes]))
 
-(defmain [ & args ]
-  (let [ blog (blog/blog-init) ]
+(defmain [& args]
+  (let [blog (blog/blog-init)]
     (webserver/start
      #(blog/invalidate-cache blog)
      (routes/all-routes blog))))

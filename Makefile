@@ -1,17 +1,22 @@
-.PHONY: build
-build:
-	lein tar
+.PHONY: help
+ help:	                                       ## Show list of available make targets
+	@cat Makefile | grep -e "^[a-zA-Z_\-]*: *.*## *" | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: run
-run:
+run:                                           ## Run the application
 	lein run
 
-.PHONY: clean
-clean:
-	lein clean
+.PHONY: format
+format:                                        ## Reformat Clojure source code
+	lein cljfmt fix
 
 .PHONY: package
-package:
+package:                                       ## Package a new release of the application
+	lein cljfmt check
 	lein clean
 	lein compile
 	lein release patch
+
+.PHONY: clean
+clean:                                         ## Clean the local build directory
+	lein clean

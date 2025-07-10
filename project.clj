@@ -28,7 +28,8 @@
 
   :plugins [[lein-ring "0.9.7"]
             [lein-tar "3.3.0"]
-            [lein-ancient "1.0.0-RC3"]]
+            [lein-ancient "1.0.0-RC3"]
+            [dev.weavejester/lein-cljfmt "0.13.0"]]
 
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [ring/ring-jetty-adapter "1.13.0"]

@@ -29,7 +29,7 @@
 
 (def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 
-(defn- atom-article-entry [ blog article ]
+(defn- atom-article-entry [blog article]
   (xml/element "entry" {}
                (xml/element "title" {} (:title article))
                (xml/element "id" {} (str "urn:uuid:" (:id article)))
@@ -39,24 +39,23 @@
                (xml/element "content" {:type "html"}
                             (xml/cdata (parser/article-content-html article)))))
 
-(defn- atom-blog-feed [ blog articles ]
+(defn- atom-blog-feed [blog articles]
   (xml/indent-str
    (xml/element "feed" {:xmlns "http://www.w3.org/2005/Atom"}
                 (xml/element "title" {} (:blog-title blog))
                 (xml/element "link" {:href (:blog-base-url blog)})
-                (xml/element "link" {:rel "self" :href (str (:blog-base-url blog) "/feed/atom")} )
+                (xml/element "link" {:rel "self" :href (str (:blog-base-url blog) "/feed/atom")})
                 (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
                                                                        (java.util.Date.))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
                 (map #(atom-article-entry blog %) articles))))
 
-
 (def df-rss-rfc822 (java.text.SimpleDateFormat. "EEE, dd MMM yyyy HH:mm:ss Z"))
 
-(defn- rss-blog-email [ blog ]
+(defn- rss-blog-email [blog]
   (format "%s (%s)" (:blog-email blog) (:blog-author blog)))
 
-(defn- rss-article-entry [ blog article ]
+(defn- rss-article-entry [blog article]
   (xml/element "item" {}
                (xml/element "title" {} (:title article))
                (xml/element "link" {} (:permalink article))
@@ -66,7 +65,7 @@
                (xml/element "description" {}
                             (xml/cdata (parser/article-content-html article)))))
 
-(defn- rss-blog-feed [ blog articles ]
+(defn- rss-blog-feed [blog articles]
   (xml/indent-str
    (xml/element "rss" {:version "2.0"}
                 (xml/element "channel" {}
@@ -79,30 +78,30 @@
                              (xml/element "language" {} (:blog-language blog))
                              (xml/element "docs" {} "http://blogs.law.harvard.edu/tech/rss")
                              (xml/element "pubDate" {} (.format df-rss-rfc822 (or (:date (first articles))
-                                                                                    (java.util.Date.))))
+                                                                                  (java.util.Date.))))
                              (map #(rss-article-entry blog %) articles)))))
 
 ;;;; RSS and Atom Feeds
 
-(defn- blog-feed-articles [ blog tag ]
+(defn- blog-feed-articles [blog tag]
   (blog/blog-display-articles blog nil tag (:feed-post-limit blog)))
 
-(defn- blog-rss-response [ blog tag ]
+(defn- blog-rss-response [blog tag]
   (-> (rss-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
       (ring-response/header "Content-Type" "application/rss+xml")))
 
-(defn- blog-atom-response [ blog tag ]
+(defn- blog-atom-response [blog tag]
   (-> (atom-blog-feed blog (blog-feed-articles blog tag))
       (ring-response/response)
       (ring-response/header "Content-Type" "application/atom+xml")))
 
-(defn feed-routes [ blog ]
+(defn feed-routes [blog]
   (routes
-   (GET "/feed/atom" [ tag ]
+   (GET "/feed/atom" [tag]
      (blog-atom-response blog tag))
 
-   (GET "/feed/rss" [ tag ]
+   (GET "/feed/rss" [tag]
      (blog-rss-response blog tag))
 
    (GET "/blog/index.rss" []
