@@ -25,22 +25,27 @@
   (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]
             [playbook.config :as config]
+            [rhinowiki.store.git :as git]
+            [rhinowiki.store.file :as file]
             [rhinowiki.parser :as parser]))
 
 (defn- parse-date-format [ df ]
   (java.text.SimpleDateFormat. df))
 
-(defn- resolve-load-fn [ handlers ]
+(def handlers {:git git/load-data-files
+               :file file/load-data-files})
+
+(defn- resolve-load-fn []
   (let [ data-files (config/cval :data-files)]
     (if-let [ handler ((:source data-files) handlers) ]
       #(apply handler (apply concat data-files))
       (throw (RuntimeException. "Invalid data file source in config")))))
 
-(defn blog-init [ handlers ]
+(defn blog-init []
   ;; Include configuration information in the blog map. A chunk of the
   ;; existing blog code relies on it being there.
   (merge (config/cval)
-         {:load-fn (resolve-load-fn handlers)
+         {:load-fn (resolve-load-fn)
           :date-format (vmap parse-date-format (config/cval :date-format))
           :file-cache (atom nil)
           :blog-id (uuid/v5 (config/cval :blog-namespace)

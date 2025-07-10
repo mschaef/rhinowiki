@@ -29,15 +29,10 @@
             [rhinowiki.blog :as blog]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.site :as site]
-            [rhinowiki.git :as git]
-            [rhinowiki.file :as file]
             [rhinowiki.routes :as routes]))
 
-(def handlers {:git git/load-data-files
-               :file file/load-data-files})
-
 (defmain [ & args ]
-  (let [ blog (blog/blog-init handlers) ]
+  (let [ blog (blog/blog-init) ]
     (webserver/start
      #(blog/invalidate-cache blog)
      (routes/all-routes blog))))

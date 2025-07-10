@@ -34,6 +34,7 @@
 
 (defn wrap-invalidate-param [ app invalidate-fn ]
   (fn [req]
+    (log/spy :info req)
     (when (and (config/cval :development-mode)
                (= (get-in req [:params :invalidate] req) "Y"))
       (invalidate-fn))

@@ -19,7 +19,7 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.file
+(ns rhinowiki.store.file
   (:use playbook.core)
   (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]))
