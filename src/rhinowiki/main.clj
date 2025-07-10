@@ -32,7 +32,7 @@
             [rhinowiki.routes :as routes]))
 
 (defmain [& args]
-  (let [blog (blog/blog-init)]
+  (let [blog (blog/blog-init (config/cval :blog))]
     (webserver/start
      #(blog/invalidate-cache blog)
      (routes/all-routes blog))))

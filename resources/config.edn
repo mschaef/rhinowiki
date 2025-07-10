@@ -1,35 +1,35 @@
 {:app {:name "Rhinowiki"}
  :http-port 8080
 
- :blog-namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
- :recent-post-limit 4
- :feed-post-limit 20
- :contents-post-limit 100
-
- :date-format {:articles-header "MMMM dd, yyyy"
-               :contents-header "MMMM yyyy"
-               :article-header "MMMM d, y"}
-
- :blog-base-url "http://localhost:8080"
- :blog-author "Mike Schaeffer"
- :blog-title "Mike Schaeffer's Blog"
- :blog-email "mike@mschaef.com"
- :blog-language "en-US"
- :blog-copyright "Copyright (C) 2004-2025 - Mike Schaeffer"
+ :rhinowiki-repository "https://github.com/mschaef/rhinowiki"
 
  :data-files {:source :git
               :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
 
- :header-links [{:label "Github" :fa-icon "fa-github-square" :link "https://github.com/mschaef"}
-                {:label "LinkedIn" :fa-icon "fa-linkedin" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
-                {:label "FamPlan"  :link "https://famplan.io"}
-                {:label "Stuff-A-Stocking" :link "https://stuffastocking.io"}
-                {:label "Digital Asset" :link "https://www.digitalasset.com/"}
-                {:label "Canton Network" :link "https://www.canton.network"}]
+ :blog {:namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
+        :recent-post-limit 4
+        :feed-post-limit 20
+        :contents-post-limit 100
 
- :sponsors {"ksm"
-            {:short-name "ksm"
-             :long-name "KSM Technology Partners"
-             :link "https://www.ksmpartners.com/"}}
+        :date-format {:articles-header "MMMM dd, yyyy"
+                      :contents-header "MMMM yyyy"
+                      :article-header "MMMM d, y"}
 
- :rhinowiki-repository "https://github.com/mschaef/rhinowiki"}
+        :base-url "http://localhost:8080"
+        :author "Mike Schaeffer"
+        :title "Mike Schaeffer's Blog"
+        :email "mike@mschaef.com"
+        :language "en-US"
+        :copyright "Copyright (C) 2004-2025 - Mike Schaeffer"
+
+        :header-links [{:label "Github" :fa-icon "fa-github-square" :link "https://github.com/mschaef"}
+                       {:label "LinkedIn" :fa-icon "fa-linkedin" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
+                       {:label "FamPlan"  :link "https://famplan.io"}
+                       {:label "Stuff-A-Stocking" :link "https://stuffastocking.io"}
+                       {:label "Digital Asset" :link "https://www.digitalasset.com/"}
+                       {:label "Canton Network" :link "https://www.canton.network"}]
+
+        :sponsors {"ksm"
+                   {:short-name "ksm"
+                    :long-name "KSM Technology Partners"
+                    :link "https://www.ksmpartners.com/"}}}}

@@ -63,8 +63,8 @@
     [:head
      [:meta {:name "viewport"
              :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]
-     [:link {:rel "alternate" :type "application/atom+xml" :href (str (:blog-base-url blog) "/feed/atom") :title "Atom Feed"}]
-     [:link {:rel "alternate" :type "application/rss+xml" :href (str (:blog-base-url blog) "/feed/rss") :title "RSS Feed"}]
+     [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
+     [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
      (page/include-css (resource-path "style.css")
                        (resource-path "font-awesome.min.css"))
      [:title

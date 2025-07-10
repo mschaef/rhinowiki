@@ -41,15 +41,15 @@
       #(apply handler (apply concat data-files))
       (throw (RuntimeException. "Invalid data file source in config")))))
 
-(defn blog-init []
+(defn blog-init [blog]
   ;; Include configuration information in the blog map. A chunk of the
   ;; existing blog code relies on it being there.
-  (merge (config/cval)
+  (merge blog
          {:load-fn (resolve-load-fn)
-          :date-format (vmap parse-date-format (config/cval :date-format))
+          :date-format (vmap parse-date-format (:date-format blog))
           :file-cache (atom nil)
-          :blog-id (uuid/v5 (config/cval :blog-namespace)
-                            (map config/cval [:blog-base-url :blog-author :blog-title]))}))
+          :blog-id (uuid/v5 (:namespace blog)
+                            (map blog [:base-url :author :title]))}))
 
 (defn- strip-ending [file-name ending]
   (and (.endsWith file-name ending)
@@ -66,7 +66,7 @@
     data-file))
 
 (defn- article-permalink [blog article]
-  (str (:blog-base-url blog) "/" (:article-name article)))
+  (str (:base-url blog) "/" (:article-name article)))
 
 (defn- parse-article [blog raw]
   (-> raw

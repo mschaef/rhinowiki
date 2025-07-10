@@ -34,7 +34,7 @@
                (xml/element "title" {} (:title article))
                (xml/element "id" {} (str "urn:uuid:" (:id article)))
                (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
-               (xml/element "author" {} (xml/element "name" {} (:blog-author blog)))
+               (xml/element "author" {} (xml/element "name" {} (:author blog)))
                (xml/element "link" {:href (:permalink article)})
                (xml/element "content" {:type "html"}
                             (xml/cdata (parser/article-content-html article)))))
@@ -42,9 +42,9 @@
 (defn- atom-blog-feed [blog articles]
   (xml/indent-str
    (xml/element "feed" {:xmlns "http://www.w3.org/2005/Atom"}
-                (xml/element "title" {} (:blog-title blog))
-                (xml/element "link" {:href (:blog-base-url blog)})
-                (xml/element "link" {:rel "self" :href (str (:blog-base-url blog) "/feed/atom")})
+                (xml/element "title" {} (:title blog))
+                (xml/element "link" {:href (:base-url blog)})
+                (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed/atom")})
                 (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
                                                                        (java.util.Date.))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
@@ -53,7 +53,7 @@
 (def df-rss-rfc822 (java.text.SimpleDateFormat. "EEE, dd MMM yyyy HH:mm:ss Z"))
 
 (defn- rss-blog-email [blog]
-  (format "%s (%s)" (:blog-email blog) (:blog-author blog)))
+  (format "%s (%s)" (:email blog) (:author blog)))
 
 (defn- rss-article-entry [blog article]
   (xml/element "item" {}
@@ -69,9 +69,9 @@
   (xml/indent-str
    (xml/element "rss" {:version "2.0"}
                 (xml/element "channel" {}
-                             (xml/element "title" {} (:blog-title blog))
-                             (xml/element "link" {} (:blog-base-url blog))
-                             (xml/element "description" {} (:blog-title blog))
+                             (xml/element "title" {} (:title blog))
+                             (xml/element "link" {} (:base-url blog))
+                             (xml/element "description" {} (:title blog))
                              (xml/element "managingEditor" {} (rss-blog-email blog))
                              (xml/element "webMaster" {} (rss-blog-email blog))
                              (xml/element "generator" {} (str "rhinowiki-" (get-version)))
