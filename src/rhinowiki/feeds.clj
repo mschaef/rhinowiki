@@ -103,13 +103,4 @@
      (blog-atom-response blog tag))
 
    (GET "/feed/rss" [tag]
-     (blog-rss-response blog tag))
-
-   (GET "/blog/index.rss" []
-     (ring-response/redirect "/feed/rss" :moved-permanently))
-
-   (GET "/blog/tech/index.rss" []
-     (ring-response/redirect "/feed/rss?tag=tech" :moved-permanently))
-
-   (GET "/blog/personal/index.rss" []
-     (ring-response/redirect "/feed/rss?tag=personal" :moved-permanently))))
+     (blog-rss-response blog tag))))

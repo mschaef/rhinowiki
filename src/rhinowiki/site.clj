@@ -26,6 +26,7 @@
   (:require [taoensso.timbre :as log]
             [hiccup.page :as hiccup-page]
             [hiccup.util :as hiccup-util]
+            [ring.util.response :as ring-response]
             [playbook.config :as config]
             [rhinowiki.parser :as parser]
             [rhinowiki.blog :as blog]
@@ -123,6 +124,11 @@
           "Read More..."]])
       (article-tags blog article)])])
 
+(defn- maybe-redirect-response [blog path]
+  (when-let [target (get-in blog [:redirects path])]
+    (log/debug "Blog redirect from" path "to" target)
+    (ring-response/redirect target :moved-permanently)))
+
 (defn- article-page [blog article-name]
   (when-let [article-info (blog/article-by-name blog article-name)]
     (site-page blog
@@ -208,6 +214,9 @@
    (POST "/invalidate" []
      (blog/invalidate-cache blog)
      "invalidated")
+
+   (GET "/*" {params :params}
+     (maybe-redirect-response blog (:* params)))
 
    (GET "/*" {params :params}
      (article-page blog (:* params)))
