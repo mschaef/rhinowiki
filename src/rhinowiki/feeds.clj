@@ -24,6 +24,7 @@
         rhinowiki.utils)
   (:require [clojure.data.xml :as xml]
             [ring.util.response :as ring-response]
+            [playbook.config :as config]
             [rhinowiki.parser :as parser]
             [rhinowiki.blog :as blog]))
 
@@ -76,7 +77,7 @@
                              (xml/element "webMaster" {} (rss-blog-email blog))
                              (xml/element "generator" {} (str "rhinowiki-" (get-version)))
                              (xml/element "language" {} (:blog-language blog))
-                             (xml/element "docs" {} "http://blogs.law.harvard.edu/tech/rss")
+                             (xml/element "docs" {} (config/cval :rss-spec-location))
                              (xml/element "pubDate" {} (.format df-rss-rfc822 (or (:date (first articles))
                                                                                   (java.util.Date.))))
                              (map #(rss-article-entry blog %) articles)))))
