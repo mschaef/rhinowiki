@@ -69,23 +69,23 @@
 
 (defn- site-page [blog page-title body]
   (hiccup-page/html5
-   [:html {:lang (:language blog)}
-    [:head
-     [:meta {:name "viewport"
-             :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]
-     [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
-     [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
-     (hiccup-page/include-css (resource-path "style.css")
-                              (resource-path "font-awesome.min.css"))
-     [:title
-      (when (:development-mode blog) "DEV - ")
-      (if page-title
-        (str page-title " - " (:blog-title blog))
-        (:blog-title blog))]]
-    [:body
-     (blog-header blog)
-     body
-     (blog-footer blog)]]))
+   {:lang (:language blog)}
+   [:head
+    [:meta {:name "viewport"
+            :content "width=device-width, initial-scale=1.0"}]
+    [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
+    [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
+    (hiccup-page/include-css (resource-path "style.css")
+                             (resource-path "font-awesome.min.css"))
+    [:title
+     (when (:development-mode blog) "DEV - ")
+     (if page-title
+       (str page-title " - " (:blog-title blog))
+       (:blog-title blog))]]
+   [:body
+    (blog-header blog)
+    body
+    (blog-footer blog)]))
 
 (defn- article-sponsor [blog article]
   (get-in blog [:sponsors (:sponsor article)]))
