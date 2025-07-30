@@ -76,7 +76,7 @@
                              (xml/element "managingEditor" {} (rss-blog-email blog))
                              (xml/element "webMaster" {} (rss-blog-email blog))
                              (xml/element "generator" {} (str "rhinowiki-" (get-version)))
-                             (xml/element "language" {} (:blog-language blog))
+                             (xml/element "language" {} (:language blog))
                              (xml/element "docs" {} (config/cval :rss-spec-location))
                              (xml/element "pubDate" {} (.format df-rss-rfc822 (or (:date (first articles))
                                                                                   (java.util.Date.))))
