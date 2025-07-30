@@ -40,7 +40,7 @@
 
 (defn- blog-header [blog]
   [:div.blog-header
-   [:a {:href "/"}
+   [:a.blog-title {:href "/"}
     [:h1
      (:title blog)
      (when (:development-mode blog)

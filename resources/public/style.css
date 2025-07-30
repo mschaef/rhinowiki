@@ -60,23 +60,7 @@ blockquote {
 }
 
 A {
-    border-bottom: none;
-}
-
-.article-content A {
-    background: #f0f0f0;
-    padding-left: 0.1em;
-    padding-right: 0.1em;
-}
-
-.article-content A:hover {
-    background: #d0d0d0;
-}
-
-.article-content img {
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
+    text-decoration-style: dotted;
 }
 
 A:visited {
@@ -85,13 +69,15 @@ A:visited {
 
 A:link {
     color: black;
-    text-decoration: none;
 }
 
 A:hover {
-    background: #d0d0d0
+    background: #c0c0c0;
 }
 
+A.blog-title {
+    text-decoration: none;
+}
 .query {
     font-style: italic;
 }
@@ -128,6 +114,13 @@ A:hover {
 
 .article h2.title {
     margin-bottom: 0px;
+    font-weight: normal;
+}
+
+.article-content img {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .feed-navigation {
