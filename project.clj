@@ -19,7 +19,7 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(defproject rhinowiki "0.3.22"
+(defproject rhinowiki "0.3.23-SNAPSHOT"
   :description "Rhinowiki Blog Engine"
   :url "http://mschaef.com"
 
