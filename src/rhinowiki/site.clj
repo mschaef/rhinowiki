@@ -80,8 +80,8 @@
     [:title
      (when (:development-mode blog) "DEV - ")
      (if page-title
-       (str page-title " - " (:blog-title blog))
-       (:blog-title blog))]]
+       (str (:title blog) " - " page-title)
+       (:title blog))]]
    [:body
     (blog-header blog)
     body
