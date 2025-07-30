@@ -35,22 +35,22 @@ code {
         margin-right: 6em;
     }
 
-    .header .links {
+    .blog-header .links {
         float: right;
     }
 }
 
 @media print {
-    .header .links {
+    .blog-header .links {
         display: none;
     }
 }
 
-.header .links {
+.blog-header .links {
     font-size: 0.75rem;
 }
 
-body .header .links A {
+body .blog-header .links A {
     font-size: 0.875rem;
 }
 
@@ -126,9 +126,8 @@ A:hover {
     margin-bottom: 8px;
 }
 
-.article .title {
-    font-size: 1.75rem;
-    font-weight: bold;
+.article h2.title {
+    margin-bottom: 0px;
 }
 
 .feed-navigation {
@@ -142,7 +141,7 @@ A:hover {
     margin-bottom: 0.5em;
 }
 
-.contents .header {
+.contents .contents-header {
     font-weight: bold;
 }
 
@@ -164,7 +163,7 @@ A:hover {
 }
 
 .date {
-    color: #a0a0a0;
+    color: #505050;
 }
 
 .article {
@@ -177,31 +176,36 @@ A:hover {
     margin-bottom: 2.5em;
 }
 
-.header {
+.blog-header {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.header .links {
+.blog-header h1 {
+    padding: 0;
+}
+
+.blog-header .links {
     font-size: 1.25rem;
-    padding-top: 0.375em;
-    padding-right: 2em;
 }
 
-.header .links A {
+.blog-header .links A {
     font-size: 1.5rem;
     display: inline;
     padding: 0.25em;
     padding-left: 0.75em;
     padding-right: 0.75em;
-    color: #b0b0b0;
+    color: #505050;
 }
 
-.header .links A:hover {
+.blog-header .links A:hover {
     color: black;
 }
 
-.header h1 {
+.blog-header h1 {
     display: inline;
     font-size: 1.25rem;
     padding-top: 0.5em;
@@ -235,14 +239,14 @@ p:first-child {
     margin-top: 0.16em;
 }
 
-.footer {
+.blog-footer {
     text-align: center;
     font-size: 0.8rem;
-    font-style: italic;
+    margin-top: 1em;
     margin-bottom: 1em;
 }
 
-.footer .item {
+.blog-footer .item {
     padding-left: 0.33em;
     padding-right: 0.33em;
 }

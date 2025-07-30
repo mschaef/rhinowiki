@@ -24,8 +24,7 @@
         playbook.core
         rhinowiki.utils)
   (:require [taoensso.timbre :as log]
-            [hiccup.core :as hiccup]
-            [hiccup.page :as page]
+            [hiccup.page :as hiccup-page]
             [hiccup.util :as hiccup-util]
             [playbook.config :as config]
             [rhinowiki.parser :as parser]
@@ -39,11 +38,11 @@
               (str "?" (clojure.string/join "&" (map (fn [[k v]] (str (name k) "=" v)) params)))
               "")))
 
-(defn- blog-heading [blog]
-  [:div.header
+(defn- blog-header [blog]
+  [:div.blog-header
    [:a {:href "/"}
     [:h1
-     (:blog-title blog)
+     (:title blog)
      (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
    [:div.links
@@ -57,33 +56,36 @@
              "No icon or label specified.")])
          (or (:header-links blog) []))]])
 
+(defn- blog-footer [blog]
+  [:div.blog-footer
+   (:blog-copyright blog)
+   [:span.item
+    [:a {:href "/feed/atom"} "[atom]"]
+    [:a {:href "/feed/rss"} "[rss]"]
+    [:a {:href "/contents"} "[contents]"]]
+   [:div.item
+    "Made with "
+    [:a {:href (config/cval :rhinowiki-repository)} "Rhinowiki " (get-version)]]])
+
 (defn- site-page [blog page-title body]
-  (hiccup/html
-   [:html
+  (hiccup-page/html5
+   [:html {:lang (:language blog)}
     [:head
      [:meta {:name "viewport"
              :content "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0"}]
      [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
      [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
-     (page/include-css (resource-path "style.css")
-                       (resource-path "font-awesome.min.css"))
+     (hiccup-page/include-css (resource-path "style.css")
+                              (resource-path "font-awesome.min.css"))
      [:title
       (when (:development-mode blog) "DEV - ")
       (if page-title
         (str page-title " - " (:blog-title blog))
         (:blog-title blog))]]
     [:body
-     (blog-heading blog)
+     (blog-header blog)
      body
-     [:div.footer
-      (:blog-copyright blog)
-      [:span.item
-       [:a {:href "/feed/atom"} "[atom]"]
-       [:a {:href "/feed/rss"} "[rss]"]
-       [:a {:href "/contents"} "[contents]"]]
-      [:div.item
-       "Made with "
-       [:a {:href (config/cval :rhinowiki-repository)} "Rhinowiki " (get-version)]]]]]))
+     (blog-footer blog)]]))
 
 (defn- article-sponsor [blog article]
   (get-in blog [:sponsors (:sponsor article)]))
@@ -106,7 +108,7 @@
   [:div.article
    [:div.date
     (.format (:article-header (:date-format blog)) (:date article))]
-   [:div.title
+   [:h2.title
     [:a {:href (:permalink article)}
      (:title article)]]
    (let [short-html (and summarize?
@@ -180,7 +182,7 @@
                 [:div.blocks
                  (map (fn [block]
                         [:div.block
-                         [:div.header
+                         [:div.contents-header
                           (:date-header (first block))]
                          [:div.articles
                           (map #(contents-page-article-entry blog %) block)]])
