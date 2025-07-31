@@ -25,31 +25,23 @@
   (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]
             [playbook.config :as config]
-            [rhinowiki.store.git :as git]
-            [rhinowiki.store.file :as file]
+            [rhinowiki.store.core :as store-core]
+            [rhinowiki.store.store :as store]
             [rhinowiki.parser :as parser]))
 
 (defn- parse-date-format [df]
   (java.text.SimpleDateFormat. df))
 
-(def handlers {:git git/load-data-files
-               :file file/load-data-files})
-
-(defn- resolve-load-fn []
-  (let [data-files (config/cval :data-files)]
-    (if-let [handler ((:source data-files) handlers)]
-      #(apply handler (apply concat data-files))
-      (throw (RuntimeException. "Invalid data file source in config")))))
-
 (defn blog-init [blog]
   ;; Include configuration information in the blog map. A chunk of the
   ;; existing blog code relies on it being there.
-  (merge blog
-         {:load-fn (resolve-load-fn)
-          :date-format (vmap parse-date-format (:date-format blog))
-          :file-cache (atom nil)
-          :blog-id (uuid/v5 (:namespace blog)
-                            (map blog [:base-url :author :title]))}))
+  (let [store (store-core/create-store (config/cval :storage))]
+    (merge blog
+           {:store store
+            :date-format (vmap parse-date-format (:date-format blog))
+            :file-cache (atom nil)
+            :blog-id (uuid/v5 (:namespace blog)
+                              (map blog [:base-url :author :title]))})))
 
 (defn- strip-ending [file-name ending]
   (and (.endsWith file-name ending)
@@ -88,7 +80,7 @@
     files
     (swap! (:file-cache blog)
            (fn [current-file-cache]
-             (process-data-files blog ((:load-fn blog)))))))
+             (process-data-files blog (store/load-all-public (:store blog)))))))
 
 (defn invalidate-cache [blog]
   (log/info "Invalidating cache")

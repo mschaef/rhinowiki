@@ -3,7 +3,7 @@
 {:http-port 8089
  :log-path "/var/log/rhinowiki/rhinowiki.log"
 
- :data-files {:source :git
-              :repo-path "/home/git/mschaef-blog.git"}
+ :storage {:source :git
+           :repo-path "/home/git/mschaef-blog.git"}
 
  :blog {:base-url "https://mschaef.com"}}

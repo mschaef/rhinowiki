@@ -3,8 +3,8 @@
 
  :rhinowiki-repository "https://github.com/mschaef/rhinowiki"
 
- :data-files {:source :git
-              :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
+ :storage {:source :git
+           :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
 
  :rss-spec-location "https://cyber.harvard.edu/rss/"
 

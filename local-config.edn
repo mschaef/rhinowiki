@@ -1,5 +1,7 @@
-;; #{:source :git :repo-path  "../mschaef-blog"}
-{:data-files {:source :file
-              :article-root  "../mschaef-blog"
-              :exclude-prefix "../mschaef-blog/.git"}
+;; {:storage {:source :git
+;;            :repo-path  "../mschaef-blog"}
+;;  :development-mode true}
+{:storage {:source :file
+           :article-root  "../mschaef-blog"
+           :exclude-prefix "../mschaef-blog/.git"}
  :development-mode true}
