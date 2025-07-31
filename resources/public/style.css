@@ -22,27 +22,6 @@ code {
     font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
 
-@media only screen and (min-width: 800px) {
-    body {
-        width: 800px;
-    }
-
-    pre {
-        margin-left: 4em;
-        margin-right: 6em;
-    }
-
-    blockquote {
-        margin-right: 6em;
-    }
-}
-
-@media print {
-    .blog-header .links {
-        display: none;
-    }
-}
-
 .blog-header .links {
     font-size: 0.75rem;
 }
@@ -181,11 +160,13 @@ A.blog-title {
 
 .blog-header .links {
     font-size: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .blog-header .links A {
     font-size: 1.5rem;
-    display: inline;
     padding: 0.25em;
     padding-left: 0.75em;
     padding-right: 0.75em;
@@ -241,6 +222,30 @@ p:first-child {
     padding-left: 0.33em;
     padding-right: 0.33em;
 }
+
+/* Media selectors */
+
+@media only screen and (min-width: 800px) {
+    body {
+        width: 800px;
+    }
+
+    pre {
+        margin-left: 4em;
+        margin-right: 6em;
+    }
+
+    blockquote {
+        margin-right: 6em;
+    }
+}
+
+@media print {
+    .blog-header .links {
+        display: none;
+    }
+}
+
 
 /* highlight.js */
 
