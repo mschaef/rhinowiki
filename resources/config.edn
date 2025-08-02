@@ -8,8 +8,7 @@
 
  :rss-spec-location "https://cyber.harvard.edu/rss/"
 
- :blog {:namespace #uuid "bf820223-4be5-495a-817e-c674271e43d2"
-        :recent-post-limit 4
+ :blog {:recent-post-limit 4
         :feed-post-limit 20
         :contents-post-limit 100
 
@@ -17,25 +16,4 @@
                       :contents-header "MMMM yyyy"
                       :article-header "MMMM d, y"}
 
-        :base-url "http://localhost:8080"
-        :author "Mike Schaeffer"
-        :title "Mike Schaeffer's Blog"
-        :email "mike@mschaef.com"
-        :language "en-US"
-        :copyright "Copyright (C) 2004-2025 - Mike Schaeffer"
-
-        :header-links [{:label "Github" :fa-icon "fa-github-square" :link "https://github.com/mschaef"}
-                       {:label "LinkedIn" :fa-icon "fa-linkedin" :link "https://www.linkedin.com/in/michael-schaeffer-9698251/"}
-                       {:label "FamPlan" :link "https://famplan.io"}
-                       {:label "Stuff-A-Stocking" :link "https://stuffastocking.io"}
-                       {:label "Digital Asset" :link "https://www.digitalasset.com/"}
-                       {:label "Canton Network" :link "https://www.canton.network"}]
-
-        :sponsors {"ksm"
-                   {:short-name "ksm"
-                    :long-name "KSM Technology Partners"
-                    :link "https://www.ksmpartners.com/"}}
-
-        :redirects {"blog/index.rss" "/feed/rss"
-                    "blog/tech/index.rss" "/feed/rss?tag=tech"
-                    "blog/personal/index.rss" "/feed/rss?tag=personal"}}}
+        :language "en-US"}}

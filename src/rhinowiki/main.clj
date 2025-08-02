@@ -29,10 +29,22 @@
             [rhinowiki.blog :as blog]
             [rhinowiki.webserver :as webserver]
             [rhinowiki.site :as site]
-            [rhinowiki.routes :as routes]))
+            [rhinowiki.routes :as routes]
+            [rhinowiki.store.core :as store-core]
+            [rhinowiki.store.store :as store]))
+
+(defn- load-required-edn [s filename]
+  (clojure.edn/read-string
+   (slurp (or (store/load-one s filename)
+              (throw (RuntimeException. (str "Cannot find required EDN file in storage: " filename)))))))
+
+(defn blog-config [s]
+  (deep-merge (config/cval :blog)
+              (load-required-edn s "_private/config.edn")))
 
 (defmain [& args]
-  (let [blog (blog/blog-init (config/cval :blog))]
+  (let [store (store-core/create-store (config/cval :storage))
+        blog (blog/blog-init (blog-config store))]
     (webserver/start
      #(blog/invalidate-cache blog)
      (routes/all-routes blog))))

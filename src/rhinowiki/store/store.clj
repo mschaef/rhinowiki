@@ -44,7 +44,7 @@
 (defn load-one [store filename]
   (let [file (some #(when (= filename (get-file-name %)) %) (catalog store))]
     (and file
-         (load-store-file file))))
+         (:content-raw (load-store-file file)))))
 
 (defn- is-public-file? [file]
   (not (.startsWith (get-file-name file) "_private/")))
