@@ -201,25 +201,25 @@
 
 ;;;; Blog Routing
 
-(defn blog-routes [blog]
+(defn blog-routes [blog-ref invalidate-fn]
   (routes
    (GET "/" [start tag]
-     (articles-page blog (or (try-parse-integer start) 0) tag))
+     (articles-page @blog-ref (or (try-parse-integer start) 0) tag))
 
    (GET "/contents" [start tag]
-     (contents-page blog (or (try-parse-integer start) 0) tag))
+     (contents-page @blog-ref (or (try-parse-integer start) 0) tag))
 
-   (feeds/feed-routes blog)
+   (feeds/feed-routes blog-ref)
 
    (POST "/invalidate" []
-     (blog/invalidate-cache blog)
+     (invalidate-fn)
      "invalidated")
 
    (GET "/*" {params :params}
-     (maybe-redirect-response blog (:* params)))
+     (maybe-redirect-response @blog-ref (:* params)))
 
    (GET "/*" {params :params}
-     (article-page blog (:* params)))
+     (article-page @blog-ref (:* params)))
 
    (GET "/*" {params :params}
-     (file-response blog (:* params)))))
+     (file-response @blog-ref (:* params)))))

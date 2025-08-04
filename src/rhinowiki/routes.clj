@@ -26,9 +26,9 @@
   (:require [compojure.route :as route]
             [rhinowiki.site :as site]))
 
-(defn all-routes [blog]
+(defn all-routes [blog invalidate-fn]
   (routes
-   (site/blog-routes blog)
+   (site/blog-routes blog invalidate-fn)
    (route/resources (str "/" (get-version)))
    (route/resources "/")
    (route/not-found "Resource Not Found")))

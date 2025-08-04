@@ -32,10 +32,16 @@
 (defn- parse-date-format [df]
   (java.text.SimpleDateFormat. df))
 
-(defn blog-init [blog]
+(defn- blog-config [store]
+  (deep-merge (config/cval :blog-defaults)
+              (store/load-required-edn store "_private/config.edn")))
+
+(defn blog-init [store-spec]
   ;; Include configuration information in the blog map. A chunk of the
   ;; existing blog code relies on it being there.
-  (let [store (store-core/create-store (config/cval :storage))]
+  (let [store (store-core/create-store store-spec)
+        blog (blog-config store)]
+    (log/spy :warn blog)
     (merge blog
            {:store store
             :date-format (vmap parse-date-format (:date-format blog))
@@ -81,10 +87,6 @@
     (swap! (:file-cache blog)
            (fn [current-file-cache]
              (process-data-files blog (store/load-all-public (:store blog)))))))
-
-(defn invalidate-cache [blog]
-  (log/info "Invalidating cache")
-  (swap! (blog :file-cache) (constantly nil)))
 
 (defn file-by-name [blog name]
   (log/debug "Fetching file by name" name)

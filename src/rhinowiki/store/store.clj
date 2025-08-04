@@ -46,6 +46,12 @@
     (and file
          (:content-raw (load-store-file file)))))
 
+(defn load-required-edn [s filename]
+  (clojure.edn/read-string
+   (slurp (or (load-one s filename)
+              (throw (RuntimeException. (str "Cannot find required EDN file in storage: " filename)))))))
+
+
 (defn- is-public-file? [file]
   (not (.startsWith (get-file-name file) "_private/")))
 
