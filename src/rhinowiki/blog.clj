@@ -41,7 +41,6 @@
   ;; existing blog code relies on it being there.
   (let [store (store-core/create-store store-spec)
         blog (blog-config store)]
-    (log/spy :warn blog)
     (merge blog
            {:store store
             :date-format (vmap parse-date-format (:date-format blog))
