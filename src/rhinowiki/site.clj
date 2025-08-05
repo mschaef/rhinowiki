@@ -124,20 +124,11 @@
           "Read More..."]])
       (article-tags blog article)])])
 
-(defn- maybe-redirect-response [blog path]
-  (when-let [target (get-in blog [:redirects path])]
-    (log/debug "Blog redirect from" path "to" target)
-    (ring-response/redirect target :moved-permanently)))
-
 (defn- article-page [blog article-name]
   (when-let [article-info (blog/article-by-name blog article-name)]
     (site-page blog
                (:title article-info)
                [:div (article-block blog article-info false)])))
-
-(defn- file-response [blog file-name]
-  (when-let [file-info (blog/file-by-name blog file-name)]
-    (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
 (defn- tag-query-block [tag]
   (when tag
@@ -198,6 +189,15 @@
                          [:a {:href (url-query "/contents" (cond-> {:start (+ start (:contents-post-limit blog))}
                                                              tag (assoc :tag tag)))}
                           "Older Articles..."])]])))
+
+(defn- maybe-redirect-response [blog path]
+  (when-let [target (get-in blog [:redirects path])]
+    (log/debug "Blog redirect from" path "to" target)
+    (ring-response/redirect target :moved-permanently)))
+
+(defn- file-response [blog file-name]
+  (when-let [file-info (blog/file-by-name blog file-name)]
+    (java.io.ByteArrayInputStream. (:content-raw file-info))))
 
 ;;;; Blog Routing
 

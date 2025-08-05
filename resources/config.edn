@@ -3,9 +3,6 @@
 
  :rhinowiki-repository "https://github.com/mschaef/rhinowiki"
 
- :storage {:source :git
-           :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}
-
  :rss-spec-location "https://cyber.harvard.edu/rss/"
 
  :blog-defaults {:recent-post-limit 4
@@ -16,4 +13,7 @@
                                :contents-header "MMMM yyyy"
                                :article-header "MMMM d, y"}
 
-                 :language "en-US"}}
+                 :language "en-US"}
+
+ :storage {:source :git
+           :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}}
