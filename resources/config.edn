@@ -5,15 +5,14 @@
 
  :rss-spec-location "https://cyber.harvard.edu/rss/"
 
- :blog-defaults {:recent-post-limit 4
-                 :feed-post-limit 20
-                 :contents-post-limit 100
+ :blog-defaults  {:recent-post-limit 4
+                   :feed-post-limit 20
+                   :contents-post-limit 100
 
-                 :date-format {:articles-header "MMMM dd, yyyy"
-                               :contents-header "MMMM yyyy"
-                               :article-header "MMMM d, y"}
+                   :date-format {:articles-header "MMMM dd, yyyy"
+                                 :contents-header "MMMM yyyy"
+                                 :article-header "MMMM d, y"}
 
-                 :language "en-US"}
+                   :language "en-US"}
 
- :storage {:source :git
-           :repo-path  "/Users/mschaef/personal/mschaef-blog.git"}}
+ :blog-overrides {}}

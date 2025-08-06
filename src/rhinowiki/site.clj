@@ -145,9 +145,9 @@
                 (map #(article-block blog % true) display-articles)
                 [:div.feed-navigation
                  (unless (< (count display-articles) (:recent-post-limit blog))
-                         [:a {:href (url-query "/" (cond-> {:start (+ start (:recent-post-limit blog))}
-                                                     tag (assoc :tag tag)))}
-                          "Older Articles..."])]])))
+                   [:a {:href (url-query "/" (cond-> {:start (+ start (:recent-post-limit blog))}
+                                               tag (assoc :tag tag)))}
+                    "Older Articles..."])]])))
 
 (defn- contents-block [blog article]
   [:div

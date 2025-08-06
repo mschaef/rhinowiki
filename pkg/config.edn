@@ -4,6 +4,4 @@
  :log-path "/var/log/rhinowiki/rhinowiki.log"
 
  :storage {:source :git
-           :repo-path "/home/git/mschaef-blog.git"}
-
- :blog {:base-url "https://mschaef.com"}}
+           :repo-path "/home/git/mschaef-blog.git"}}

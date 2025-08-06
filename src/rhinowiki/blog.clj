@@ -33,8 +33,10 @@
   (java.text.SimpleDateFormat. df))
 
 (defn- blog-config [store]
+  (log/spy :warn (config/cval))
   (deep-merge (config/cval :blog-defaults)
-              (store/load-required-edn store "_private/config.edn")))
+              (store/load-required-edn store "_private/config.edn")
+              (config/cval :blog-overrides)))
 
 (defn blog-init [store-spec]
   ;; Include configuration information in the blog map. A chunk of the

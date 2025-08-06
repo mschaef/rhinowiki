@@ -4,4 +4,6 @@
 {:storage {:source :file
            :article-root  "../mschaef-blog"
            :exclude-prefix "../mschaef-blog/.git"}
- :development-mode true}
+ :development-mode true
+
+ :blog (:overrides {:base-url "http://localhost:8080"})}

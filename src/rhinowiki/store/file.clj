@@ -69,4 +69,6 @@
     (catalog-data-files spec)))
 
 (defn create-store [spec]
+  (when (not (.isDirectory (java.io.File. (:article-root spec))))
+    (throw (RuntimeException. (str "Cannot find article storage at: " (:article-root spec)))))
   (FileStore. spec))
