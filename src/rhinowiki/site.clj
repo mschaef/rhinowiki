@@ -97,9 +97,9 @@
                      (map #(article-block blog % true) display-articles)
                      [:div.feed-navigation
                       (unless (< (count display-articles) (:recent-post-limit blog))
-                        [:a {:href (url-query "/" (cond-> {:start (+ start (:recent-post-limit blog))}
-                                               tag (assoc :tag tag)))}
-                         "Older Articles..."])]])))
+                              [:a {:href (url-query "/" (cond-> {:start (+ start (:recent-post-limit blog))}
+                                                          tag (assoc :tag tag)))}
+                               "Older Articles..."])]])))
 
 (defn- contents-block [blog article]
   [:div
@@ -138,9 +138,9 @@
                            display-article-blocks)]
                      [:div.feed-navigation
                       (unless (< (count display-articles) (:contents-post-limit blog))
-                        [:a {:href (url-query "/contents" (cond-> {:start (+ start (:contents-post-limit blog))}
-                                                            tag (assoc :tag tag)))}
-                         "Older Articles..."])]])))
+                              [:a {:href (url-query "/contents" (cond-> {:start (+ start (:contents-post-limit blog))}
+                                                                  tag (assoc :tag tag)))}
+                               "Older Articles..."])]])))
 
 (defn- maybe-redirect-response [blog path]
   (when-let [target (get-in blog [:redirects path])]

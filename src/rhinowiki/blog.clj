@@ -33,7 +33,6 @@
   (java.text.SimpleDateFormat. df))
 
 (defn- blog-config [store]
-  (log/spy :warn (config/cval))
   (deep-merge (config/cval :blog-defaults)
               (store/load-required-edn store "_private/config.edn")
               (config/cval :blog-overrides)))

@@ -47,11 +47,11 @@
 
 (defn all-routes [blog-ref]
   (routes
-    (GET "/error" {params :params}
-      (error-page @blog-ref))
+   (GET "/error" {params :params}
+     (error-page @blog-ref))
 
-    (GET "/induce-error" []
-      (when (config/cval :development-mode)
-        (throw (Exception. "Induced Error"))))
+   (GET "/induce-error" []
+     (when (config/cval :development-mode)
+       (throw (Exception. "Induced Error"))))
 
-    (route/not-found (partial page-not-found @blog-ref))))
+   (route/not-found (partial page-not-found @blog-ref))))
