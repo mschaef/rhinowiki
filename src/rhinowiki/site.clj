@@ -30,7 +30,9 @@
             [playbook.config :as config]
             [rhinowiki.parser :as parser]
             [rhinowiki.blog :as blog]
-            [rhinowiki.feeds :as feeds]))
+            [rhinowiki.feeds :as feeds]
+            [rhinowiki.page :as page]
+            [rhinowiki.error-handling :as error-handling]))
 
 ;;;; Web Site
 
@@ -38,56 +40,6 @@
   (str path (if (> (count params) 0)
               (str "?" (clojure.string/join "&" (map (fn [[k v]] (str (name k) "=" v)) params)))
               "")))
-
-(defn- blog-header [blog]
-  [:div.blog-header
-   [:a.blog-title {:href "/"}
-    [:h1
-     (:title blog)
-     (when (:development-mode blog)
-       [:span.tag.dev "DEV"])]]
-   [:div.links
-    (map (fn [link]
-           [:a {:href (:link link) :target "_blank"}
-            (or
-             (when-let [icon (:fa-icon link)]
-               [:i {:class (str "fa " icon)
-                    :title (:label link)}])
-             (:label link)
-             "No icon or label specified.")])
-         (or (:header-links blog) []))]])
-
-(defn- blog-footer [blog]
-  [:div.blog-footer
-   (:blog-copyright blog)
-   [:span.item
-    [:a {:href "/feed/atom"} "[atom]"]
-    [:a {:href "/feed/rss"} "[rss]"]
-    [:a {:href "/contents"} "[contents]"]]
-   [:div.item
-    "Made with "
-    [:a {:href (config/cval :rhinowiki-repository)} "Rhinowiki " (get-version)]]])
-
-(defn- site-page [blog page-title body]
-  (hiccup-page/html5
-   {:lang (:language blog)}
-   [:head
-    [:meta {:name "viewport"
-            :content "width=device-width, initial-scale=1.0"}]
-    [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
-    [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
-    (hiccup-page/include-css (resource-path "style.css")
-                             (resource-path "font-awesome.min.css"))
-    [:title
-     (when (:development-mode blog) "DEV - ")
-     (if page-title
-       (str (:title blog) " - " page-title)
-       (:title blog))]]
-   [:body
-    (blog-header blog)
-    body
-    (blog-footer blog)]))
-
 (defn- article-sponsor [blog article]
   (get-in blog [:sponsors (:sponsor article)]))
 
@@ -126,9 +78,9 @@
 
 (defn- article-page [blog article-name]
   (when-let [article-info (blog/article-by-name blog article-name)]
-    (site-page blog
-               (:title article-info)
-               [:div (article-block blog article-info false)])))
+    (page/site-page blog
+                    (:title article-info)
+                    [:div (article-block blog article-info false)])))
 
 (defn- tag-query-block [tag]
   (when tag
@@ -138,16 +90,16 @@
 
 (defn- articles-page [blog start tag]
   (let [display-articles (blog/blog-display-articles blog start tag (:recent-post-limit blog))]
-    (site-page blog
-               nil
-               [:div.articles
-                (tag-query-block tag)
-                (map #(article-block blog % true) display-articles)
-                [:div.feed-navigation
-                 (unless (< (count display-articles) (:recent-post-limit blog))
-                   [:a {:href (url-query "/" (cond-> {:start (+ start (:recent-post-limit blog))}
+    (page/site-page blog
+                    nil
+                    [:div.articles
+                     (tag-query-block tag)
+                     (map #(article-block blog % true) display-articles)
+                     [:div.feed-navigation
+                      (unless (< (count display-articles) (:recent-post-limit blog))
+                        [:a {:href (url-query "/" (cond-> {:start (+ start (:recent-post-limit blog))}
                                                tag (assoc :tag tag)))}
-                    "Older Articles..."])]])))
+                         "Older Articles..."])]])))
 
 (defn- contents-block [blog article]
   [:div
@@ -171,24 +123,24 @@
 (defn- contents-page [blog start tag]
   (let [display-articles (blog/blog-display-articles blog start tag (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
-    (site-page blog
-               "Table of Contents"
-               [:div.contents
-                (tag-query-block tag)
-                [:div.subtitle "Table of Contents"]
-                [:div.blocks
-                 (map (fn [block]
-                        [:div.block
-                         [:div.contents-header
-                          (:date-header (first block))]
-                         [:div.articles
-                          (map #(contents-page-article-entry blog %) block)]])
-                      display-article-blocks)]
-                [:div.feed-navigation
-                 (unless (< (count display-articles) (:contents-post-limit blog))
-                         [:a {:href (url-query "/contents" (cond-> {:start (+ start (:contents-post-limit blog))}
-                                                             tag (assoc :tag tag)))}
-                          "Older Articles..."])]])))
+    (page/site-page blog
+                    "Table of Contents"
+                    [:div.contents
+                     (tag-query-block tag)
+                     [:div.subtitle "Table of Contents"]
+                     [:div.blocks
+                      (map (fn [block]
+                             [:div.block
+                              [:div.contents-header
+                               (:date-header (first block))]
+                              [:div.articles
+                               (map #(contents-page-article-entry blog %) block)]])
+                           display-article-blocks)]
+                     [:div.feed-navigation
+                      (unless (< (count display-articles) (:contents-post-limit blog))
+                        [:a {:href (url-query "/contents" (cond-> {:start (+ start (:contents-post-limit blog))}
+                                                            tag (assoc :tag tag)))}
+                         "Older Articles..."])]])))
 
 (defn- maybe-redirect-response [blog path]
   (when-let [target (get-in blog [:redirects path])]
@@ -222,4 +174,6 @@
      (article-page @blog-ref (:* params)))
 
    (GET "/*" {params :params}
-     (file-response @blog-ref (:* params)))))
+     (file-response @blog-ref (:* params)))
+
+   (error-handling/all-routes blog-ref)))

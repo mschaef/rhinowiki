@@ -28,7 +28,7 @@
 
 (defn all-routes [blog invalidate-fn]
   (routes
-   (site/blog-routes blog invalidate-fn)
    (route/resources (str "/" (get-version)))
    (route/resources "/")
+   (site/blog-routes blog invalidate-fn)
    (route/not-found "Resource Not Found")))

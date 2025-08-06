@@ -28,6 +28,7 @@
             [ring.middleware.reload :as ring-reload]
             [ring.middleware.file-info :as ring-file-info]
             [ring.middleware.resource :as ring-resource]
+            [ring.util.response :as ring-response]
             [co.deps.ring-etag-middleware :as ring-etag]
             [compojure.handler :as handler]
             [playbook.config :as config]))
@@ -43,6 +44,18 @@
   (cond-> handler
     dev-mode (ring-reload/wrap-reload)))
 
+(defn wrap-exception-handling [app]
+  (fn [req]
+    (try
+      (app req)
+      (catch Exception ex
+        (let [ex-uuid (.toString (java.util.UUID/randomUUID))]
+          (log/error ex (str "Unhandled exception while processing " (:request-method req)
+                             " request to: " (:uri req) " (uuid: " ex-uuid ")"))
+          (if (= (:uri req) "/error")
+            (throw (Exception. "Double fault while processing uncaught exception." ex))
+            (ring-response/redirect (str "/error?uuid=" ex-uuid))))))))
+
 (defn- handler [invalidate-fn routes]
   (-> routes
       (wrap-content-type)
@@ -52,7 +65,8 @@
       (handler/site)
       (ring-etag/wrap-file-etag)
       (config/wrap-config)
-      (wrap-dev-support (config/cval :development-mode))))
+      (wrap-dev-support (config/cval :development-mode))
+      (wrap-exception-handling)))
 
 (defn start [invalidate-fn routes]
   (let [http-port (config/cval :http-port)]
