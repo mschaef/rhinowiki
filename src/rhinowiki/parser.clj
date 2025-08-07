@@ -24,7 +24,8 @@
   (:require [taoensso.timbre :as log]
             [markdown.core :as md]
             [markdown.transformers :as mdt]
-            [rhinowiki.highlight :as highlight]))
+            [rhinowiki.highlight :as highlight]
+            [rhinowiki.store.store :as store]))
 
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 
@@ -35,19 +36,30 @@
          (catch Exception ex
            nil))))
 
+(defn- local-image-dimensions [blog image-path]
+  (when-let [image-contents (store/load-one (:store blog) image-path)]
+    (some (fn [reader]
+            (.setInput reader (javax.imageio.stream.MemoryCacheImageInputStream.
+                               (java.io.ByteArrayInputStream. image-contents)))
+            {:width (.getWidth reader (.getMinIndex reader))
+             :height (.getHeight reader (.getMinIndex reader))})
+          (iterator-seq (javax.imageio.ImageIO/getImageReadersBySuffix
+                         (org.apache.commons.io.FilenameUtils/getExtension image-path))))))
+
+(defn- image-link [src alt dimensions]
+  (if dimensions
+    (str "<img src=\"" src "\" alt=\"" alt "\" width=\"" (:width dimensions) "\" height=\"" (:height dimensions) "\"/>")
+    (str "<img src=\"" src "\" alt=\"" alt "\"/>")))
+
 (defn- ensure-absolute-image-link [blog article-path src alt]
-  (let [image-path (cond
-                     (or (.startsWith src "http://") (.startsWith src "https://"))
-                     src
-
-                     (.startsWith src "/")
-                     (str (:base-url blog) src)
-
-                     :else
-                     (str
-                      (:base-url blog)
-                      (.getAbsolutePath (java.io.File. (format "/%s/%s" article-path src)))))]
-    (format "![%s](%s)" alt image-path)))
+  (if (or (.startsWith src "http://") (.startsWith src "https://"))
+    (image-link src alt nil)
+    (let [image-path (.substring (if (.startsWith src "/")
+                                   src
+                                   (.getAbsolutePath (java.io.File. (format "/%s/%s" article-path src))))
+                                 1)
+          image-url (str (:base-url blog) "/" src)]
+      (image-link image-url alt (local-image-dimensions blog image-path)))))
 
 (defn- image-link-rewriter [blog article-file-name]
   (let [article-path (or (.getParent (java.io.File. article-file-name)) "")]
