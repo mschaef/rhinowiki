@@ -6,4 +6,4 @@
            :exclude-prefix "../mschaef-blog/.git"}
  :development-mode true
 
- :blog (:overrides {:base-url "http://localhost:8080"})}
+ :blog-overrides {:base-url "http://localhost:8080"}}

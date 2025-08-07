@@ -28,60 +28,70 @@
 
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 
-(defn maybe-parse-metadata-date [text]
+(defn- maybe-parse-metadata-date [text]
   (and text
        (try
          (.parse df-metadata text)
          (catch Exception ex
            nil))))
 
-(defn- make-server-image-link [base src alt]
-  (format "![%s](%s)" alt (.getAbsolutePath (java.io.File. (format "/%s/%s" base src)))))
+(defn- ensure-absolute-image-link [blog article-path src alt]
+  (let [image-path (cond
+                     (or (.startsWith src "http://") (.startsWith src "https://"))
+                     src
 
-(defn- image-link-rewriter [root-file-name]
-  (let [base (or (.getParent (java.io.File. root-file-name)) "")]
+                     (.startsWith src "/")
+                     (str (:base-url blog) src)
+
+                     :else
+                     (str
+                      (:base-url blog)
+                      (.getAbsolutePath (java.io.File. (format "/%s/%s" article-path src)))))]
+    (format "![%s](%s)" alt image-path)))
+
+(defn- image-link-rewriter [blog article-file-name]
+  (let [article-path (or (.getParent (java.io.File. article-file-name)) "")]
     (fn [text state]
       (loop [matches (distinct (re-seq #"!\[([^\]]+)\]\s*\(([^\)]+)\)" text))
              new-text text]
         (if (seq matches)
           (let [[m alt src] (first matches)]
             (recur (rest matches)
-                   (clojure.string/replace new-text m (make-server-image-link base src alt))))
+                   (clojure.string/replace new-text m (ensure-absolute-image-link blog article-path src alt))))
           [new-text state])))))
 
-(defn article-md-to-html [file-name article-text]
+(defn- article-md-to-html [blog article-file-name article-text]
   (md/md-to-html-string-with-meta article-text
                                   :footnotes? true
                                   :reference-links? true
-                                  :replacement-transformers (cons (image-link-rewriter file-name)
+                                  :replacement-transformers (cons (image-link-rewriter blog article-file-name)
                                                                   mdt/transformer-vector)
                                   :codeblock-no-escape? true
-                                  :codeblock-callback (fn
-                                                        [code language]
-                                                        (highlight/highlight file-name code language))))
+                                  :codeblock-callback (fn [code language]
+                                                        (highlight/highlight article-file-name code language))))
 
 (def more-tag "<!--more-->")
 
-(defn string-index-of [string text]
+(defn- string-index-of [string text]
   (let [index (.indexOf string text)]
     (and (>= index 0)
          index)))
 
-(defn parse-article-md [file-name article-text]
+(defn- parse-article-md [blog article-file-name article-text]
   (if-let [tag-index (string-index-of article-text more-tag)]
     (let [short-text (.substring article-text 0 tag-index)]
       {:short-text
-       (delay (article-md-to-html file-name short-text))
+       (delay (article-md-to-html blog article-file-name short-text))
        :full-text
-       (delay (article-md-to-html file-name (str short-text (.substring article-text (+ tag-index (.length more-tag))))))})
-    {:full-text (delay (article-md-to-html file-name article-text))}))
+       (delay (article-md-to-html blog article-file-name (str short-text (.substring article-text (+ tag-index (.length more-tag))))))})
+    {:full-text (delay (article-md-to-html blog article-file-name article-text))}))
 
-(defn parse-article-file [file-name article-md]
-  (log/debug "parse-article-file" file-name)
+(defn parse-article-file [blog article-file-name article-md]
+  (log/debug "parse-article-file" article-file-name)
   (let [metadata (md/md-to-meta article-md)
         tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))]
-    (-> {:file-name file-name
-         :content-html (parse-article-md file-name article-md)
+    (-> {:file-name article-file-name
+         :content-html (parse-article-md blog article-file-name article-md)
          :title (first (:title metadata [(:article-name article-md)]))
          :date (or (maybe-parse-metadata-date (first (:date metadata)))
                    (:file-date article-md))

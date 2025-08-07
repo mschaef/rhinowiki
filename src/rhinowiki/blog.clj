@@ -68,7 +68,7 @@
 
 (defn- parse-article [blog raw]
   (-> raw
-      (merge (parser/parse-article-file (:file-name raw) (:content-text raw)))
+      (merge (parser/parse-article-file blog (:file-name raw) (:content-text raw)))
       (assoc :permalink (article-permalink blog raw))))
 
 (defn- process-data-files [blog all-data-files]
