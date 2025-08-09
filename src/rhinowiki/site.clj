@@ -143,7 +143,8 @@
                                "Older Articles..."])]])))
 
 (defn- maybe-redirect-response [blog path]
-  (when-let [target (get-in blog [:redirects path])]
+  (when-let [target (or (get-in blog [:redirects path])
+                        (blog/article-redirect-by-name blog path))]
     (log/debug "Blog redirect from" path "to" target)
     (ring-response/redirect target :moved-permanently)))
 

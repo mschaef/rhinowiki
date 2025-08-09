@@ -71,6 +71,14 @@
       (merge (parser/parse-article-file blog (:file-name raw) (:content-text raw)))
       (assoc :permalink (article-permalink blog raw))))
 
+(defn- article-redirect-map [articles]
+  (into {}
+        (mapcat (fn [article]
+                  (map (fn [redirect]
+                         [redirect (str "/" (:article-name article))])
+                       (:redirect-from article)))
+                articles)))
+
 (defn- process-data-files [blog all-data-files]
   (let [articles (map #(parse-article blog %) (filter :article-name (map find-file-article all-data-files)))]
     {:ordered (reverse (sort-by :date (filter :date articles)))
@@ -79,7 +87,8 @@
                         (fn [article]
                           (cons (:article-name article)
                                 (:alias article)))
-                        articles)}))
+                        articles)
+     :article-redirects-by-name (article-redirect-map articles)}))
 
 (defn- data-files [blog]
   (if-let [files @(:file-cache blog)]
@@ -95,6 +104,10 @@
 (defn article-by-name [blog name]
   (log/debug "Fetching article by name" name)
   (get-in (data-files blog) [:articles-by-name name]))
+
+(defn article-redirect-by-name [blog name]
+  (log/debug "Fetching article rdirect by name" name)
+  (get-in (data-files blog) [:article-redirects-by-name name]))
 
 (defn blog-articles [blog]
   (log/debug "Fetching recent articles")

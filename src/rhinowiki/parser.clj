@@ -103,6 +103,9 @@
        (delay (article-md-to-html blog article-file-name (str short-text (.substring article-text (+ tag-index (.length more-tag))))))})
     {:full-text (delay (article-md-to-html blog article-file-name article-text))}))
 
+(defn- split-space-delimited-metadata-set [md-val]
+  (set (remove empty? (clojure.string/split (first (or md-val [""])) #"\s+"))))
+
 (defn parse-article-file [blog article-file-name article-md]
   (log/debug "parse-article-file" article-file-name)
   (let [metadata (md/md-to-meta article-md)
@@ -110,10 +113,11 @@
     (-> {:file-name article-file-name
          :content-html (parse-article-md blog article-file-name article-md)
          :title (first (:title metadata [(:article-name article-md)]))
+         :redirect-from (split-space-delimited-metadata-set (:redirect-from metadata))
          :date (or (maybe-parse-metadata-date (first (:date metadata)))
                    (:file-date article-md))
          :sponsor (first (:sponsor metadata [nil]))
-         :tags tags
+         :tags (split-space-delimited-metadata-set (:tags metadata))
          :alias (:alias metadata [])
          :private (or (tags "private")
                       (try-parse-boolean (first (or (:private metadata)
