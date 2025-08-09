@@ -38,13 +38,18 @@
 
 (defn- local-image-dimensions [blog image-path]
   (when-let [image-contents (store/load-one (:store blog) image-path)]
-    (some (fn [reader]
-            (.setInput reader (javax.imageio.stream.MemoryCacheImageInputStream.
-                               (java.io.ByteArrayInputStream. image-contents)))
-            {:width (.getWidth reader (.getMinIndex reader))
-             :height (.getHeight reader (.getMinIndex reader))})
-          (iterator-seq (javax.imageio.ImageIO/getImageReadersBySuffix
-                         (org.apache.commons.io.FilenameUtils/getExtension image-path))))))
+    (try
+      (some (fn [reader]
+              (.setInput reader (javax.imageio.stream.MemoryCacheImageInputStream.
+                                 (java.io.ByteArrayInputStream. image-contents)))
+              {:width (.getWidth reader (.getMinIndex reader))
+               :height (.getHeight reader (.getMinIndex reader))})
+            (iterator-seq (javax.imageio.ImageIO/getImageReadersBySuffix
+                           (org.apache.commons.io.FilenameUtils/getExtension image-path))))
+      (catch Exception ex
+        (log/warn (str "Error computing dimensions of local image: " image-path
+                       " (" (.getMessage ex) ")"))
+        nil))))
 
 (defn- image-link [src alt dimensions]
   (if dimensions
