@@ -22,6 +22,7 @@
 (ns rhinowiki.parser
   (:use playbook.core)
   (:require [taoensso.timbre :as log]
+            [clojure.string :as str]
             [markdown.core :as md]
             [markdown.transformers :as mdt]
             [rhinowiki.highlight :as highlight]
@@ -74,7 +75,7 @@
         (if (seq matches)
           (let [[m alt src] (first matches)]
             (recur (rest matches)
-                   (clojure.string/replace new-text m (ensure-absolute-image-link blog article-path src alt))))
+                   (str/replace new-text m (ensure-absolute-image-link blog article-path src alt))))
           [new-text state])))))
 
 (defn- article-md-to-html [blog article-file-name article-text]
@@ -104,12 +105,12 @@
     {:full-text (delay (article-md-to-html blog article-file-name article-text))}))
 
 (defn- split-space-delimited-metadata-set [md-val]
-  (set (remove empty? (clojure.string/split (first (or md-val [""])) #"\s+"))))
+  (set (remove empty? (str/split (str/join " " md-val) #"\s+"))))
 
 (defn parse-article-file [blog article-file-name article-md]
   (log/debug "parse-article-file" article-file-name)
   (let [metadata (md/md-to-meta article-md)
-        tags (set (remove empty? (clojure.string/split (first (:tags metadata [""])) #"\s+")))]
+        tags (set (remove empty? (str/split (first (:tags metadata [""])) #"\s+")))]
     (-> {:file-name article-file-name
          :content-html (parse-article-md blog article-file-name article-md)
          :title (first (:title metadata [(:article-name article-md)]))
