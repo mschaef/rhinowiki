@@ -44,7 +44,7 @@
                  [cprop "0.1.20"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
                  [org.graalvm.js/js "22.3.2" :upgrade :graalvm]
-                 [com.mschaef/playbook "0.1.4"]]
+                 [com.mschaef/playbook "0.1.8"]]
 
   :tar {:uberjar true
         :format :tar-gz

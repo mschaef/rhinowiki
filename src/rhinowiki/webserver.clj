@@ -36,7 +36,9 @@
 (defn wrap-invalidate-param [app invalidate-fn]
   (fn [req]
     (when (and (config/cval :development-mode)
-               (= (get-in req [:params :invalidate] req) "Y"))
+               (try-parse-boolean
+                (get-in req [:params :invalidate] req)
+                false))
       (invalidate-fn))
     (app req)))
 
