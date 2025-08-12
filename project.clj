@@ -31,7 +31,7 @@
             [lein-ancient "1.0.0-RC3"]
             [dev.weavejester/lein-cljfmt "0.13.0"]]
 
-  :dependencies [[org.clojure/clojure "1.11.1"]
+  :dependencies [[org.clojure/clojure "1.12.1"]
                  [ring/ring-jetty-adapter "1.13.0"]
                  [ring/ring-devel "1.13.0"]
                  [co.deps/ring-etag-middleware "0.2.1"]
