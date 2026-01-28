@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+if [[ "${1-}" =~ ^-*h(elp)?$ ]]; then
+    echo 'Usage: ./build-highlight-js
+
+No arguments. Automates the process of downloading and
+building highlight.js.
+'
+
+    exit
+fi
+
+## Configuration
+
+version=11.11.1
+
+languages=( \
+   armasm asciidoc awk bash basic c cal capnproto clean clojure clojure-repl \
+   cpp csharp css delphi diff dns dockerfile dos elixir erlang excel fortran \
+   fsharp gcode glsl gradle haml handlebars haskell http hy inform7 ini java \
+   javascript json kotlin latex less lisp makefile markdown mel mipsasm monkey \
+   nginx nix objectivec ocaml openscad pgsql php plaintext powershell processing \
+   prolog properties protobuf python python-repl r rib rsl ruby ruleslanguage rust \
+   scala scheme scss shell smalltalk sml sql stata subunit swift tcl thrift tp \
+   typescript vbnet verilog vhdl x86asm xml xquery yaml )
+
+## Build Script
+
+mkdir -p target/highlight
+cd target/highlight
+
+curl -L "https://github.com/highlightjs/highlight.js/archive/refs/tags/${version}.tar.gz" \
+     --location \
+     --output highlight-source-archive.tgz
+
+tar xzf highlight-source-archive.tgz --strip-components 1
+
+npm install
+
+node ./tools/build.js -t browser $"${languages[@]}"
+
+cp build/highlight.min.js ..
+
