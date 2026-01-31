@@ -22,14 +22,23 @@
               (.asString (.execute highlight-js-fn (object-array [code lang]))))))))))
 
 (defn highlight [file-name code lang]
-  (if (= lang "")
-    (do
-      (log/warn (str "Code found missing language specification while processing file: "
-                     file-name))
-      code)
-    (try
-      (@highlighter code lang)
-      (catch Exception ex
-        (log/warn (str "Error highlighting code in language \"" lang "\" while processing file: "
-                       file-name " (" (.getMessage ex) ")"))
-        (@highlighter code "text")))))
+  (let [{:keys [code lang error]}
+        (if (= lang "")
+          {:lang "text"
+           :error (str "Code found missing language specification while processing file: " file-name)
+           :code code}
+          (try
+            {:lang lang
+             :code (@highlighter code lang)}
+            (catch Exception ex
+              {:error (str "Error highlighting code in language \"" lang "\" while processing file: " file-name " (" (.getMessage ex) ")")
+               :code (@highlighter code "text")
+               :lang "text"})))]
+    (str
+     "<div class=\"codeblock " (when error "error")  "\"><code class=\"" lang "\"><pre>"
+     code
+     "</pre></code>"
+     (when error
+       (log/warn error)
+       (str "<div class=\"error-message\">" error "</div>"))
+     "</div>")))

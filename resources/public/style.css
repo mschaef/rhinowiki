@@ -10,10 +10,10 @@ body {
 }
 
 pre {
-    margin-left: 0.25em;
-    margin-right: 0.25em;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    padding-left: 4em;
+    padding-right: 4em;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 code {
@@ -246,6 +246,15 @@ p:first-child {
     }
 }
 
+.codeblock.error {
+    border: 1px solid red;
+}
+
+.codeblock.error .error-message {
+    font-size: 80%;
+    background: #ffdddd;
+    color: red;
+}
 
 /* highlight.js */
 

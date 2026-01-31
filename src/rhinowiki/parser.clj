@@ -85,8 +85,9 @@
                                   :replacement-transformers (cons (image-link-rewriter blog article-file-name)
                                                                   mdt/transformer-vector)
                                   :codeblock-no-escape? true
+                                  :codeblock-no-tags? true
                                   :codeblock-callback (fn [code language]
-                                                        (highlight/highlight article-file-name code language))))
+                                                         (highlight/highlight article-file-name code language))))
 
 (def more-tag "<!--more-->")
 
