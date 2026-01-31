@@ -21,7 +21,7 @@
 
 (defproject rhinowiki "0.3.28-SNAPSHOT"
   :description "Rhinowiki Blog Engine"
-  :url "http://mschaef.com"
+  :url "https://mschaef.com"
 
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -31,21 +31,21 @@
             [lein-ancient "1.0.0-RC3"]
             [dev.weavejester/lein-cljfmt "0.13.0"]]
 
-  :dependencies [[org.clojure/clojure "1.12.1"]
-                 [ring/ring-jetty-adapter "1.14.2"]
-                 [ring/ring-devel "1.14.2"]
+  :dependencies [[org.clojure/clojure "1.12.4"]
+                 [ring/ring-jetty-adapter "1.15.3"]
+                 [ring/ring-devel "1.15.3"]
                  [ring/ring-codec "1.3.0"]
                  [co.deps/ring-etag-middleware "0.2.1"]
                  [slester/ring-browser-caching "0.1.1"]
                  [org.clojure/data.xml "0.0.8"]
                  [danlentz/clj-uuid "0.2.0"]
-                 [compojure "1.7.1"]
+                 [compojure "1.7.2"]
                  [hiccup "1.0.5"]
                  [markdown-clj "1.12.4"]
-                 [cprop "0.1.20"]
+                 [cprop "0.1.21"]
                  [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
                  [org.graalvm.js/js "22.3.2" :upgrade :graalvm]
-                 [com.mschaef/playbook "0.1.8"]]
+                 [com.mschaef/playbook "0.1.10"]]
 
   :tar {:uberjar true
         :format :tar-gz
