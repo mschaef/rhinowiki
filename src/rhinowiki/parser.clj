@@ -26,8 +26,7 @@
             [markdown.core :as md]
             [markdown.transformers :as mdt]
             [hiccup.core :as hiccup-core]
-            [rhinowiki.highlight :as highlight]
-            [rhinowiki.store.store :as store]))
+            [rhinowiki.highlight :as highlight]))
 
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 
@@ -39,7 +38,7 @@
            nil))))
 
 (defn- local-image-dimensions [blog image-path]
-  (when-let [image-contents (store/load-one (:store blog) image-path)]
+  (when-let [image-contents ((:load-file-fn blog) image-path)]
     (try
       (some (fn [reader]
               (.setInput reader (javax.imageio.stream.MemoryCacheImageInputStream.

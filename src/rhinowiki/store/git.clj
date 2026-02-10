@@ -23,7 +23,7 @@
   (:use playbook.core)
   (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]
-            [rhinowiki.store.store :as store]))
+            [rhinowiki.store.core :as core]))
 
 (def git-hash-namespace #uuid "705adc91-9f5a-40d9-8960-d356dfe73402")
 
@@ -57,7 +57,7 @@
           (doall (tree-walk-seq tree-walk)))))))
 
 (deftype GitStoreFile [repo file-name catalog-entry]
-  store/StoreFile
+  core/StoreFile
 
   (-get-file-name [self]
     file-name)
@@ -93,7 +93,7 @@
                                 ref-name article-root)))
 
 (deftype GitStore [spec]
-  store/Store
+  core/Store
 
   (-catalog [self]
     (catalog-data-files spec)))

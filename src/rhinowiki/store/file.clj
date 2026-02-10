@@ -23,12 +23,12 @@
   (:use playbook.core)
   (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]
-            [rhinowiki.store.store :as store]))
+            [rhinowiki.store.core :as core]))
 
 (def file-hash-namespace #uuid "dc8f0822-f57d-48d6-a281-448c5b97a84b")
 
 (deftype FileStoreFile [file-name article-root data-file]
-  store/StoreFile
+  core/StoreFile
 
   (-get-file-name [self]
     file-name)
@@ -63,7 +63,7 @@
          (files-at-root article-root exclude-prefix))))
 
 (deftype FileStore [spec]
-  store/Store
+  core/Store
 
   (-catalog [self]
     (catalog-data-files spec)))

@@ -25,13 +25,9 @@
         playbook.main
         rhinowiki.utils)
   (:require [playbook.config :as config]
-            [taoensso.timbre :as log]
             [rhinowiki.blog :as blog]
             [rhinowiki.webserver :as webserver]
-            [rhinowiki.site :as site]
-            [rhinowiki.routes :as routes]
-            [rhinowiki.store.core :as store-core]
-            [rhinowiki.store.store :as store]))
+            [rhinowiki.routes :as routes]))
 
 (defmain [& args]
   (let [load-blog #(blog/blog-init (config/cval :storage))

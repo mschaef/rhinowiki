@@ -20,39 +20,38 @@
 ;; You must not remove this notice, or any other, from this software.
 
 (ns rhinowiki.store.store
-  (:use compojure.core
-        playbook.core)
+  (:use playbook.core)
   (:require [taoensso.timbre :as log]
-            [playbook.config :as config]))
-
-(defprotocol StoreFile
-  (-get-file-name [self])
-  (-load-store-file [self]))
+            [playbook.config :as config]
+            [rhinowiki.store.core :as core]
+            [rhinowiki.store.file :as file]
+            [rhinowiki.store.git :as git]))
 
 (defn get-file-name [storefile]
-  (-get-file-name storefile))
+  (core/-get-file-name storefile))
 
 (defn load-store-file [storefile]
-  (-load-store-file storefile))
-
-(defprotocol Store
-  (-catalog [self]))
+  (core/-load-store-file storefile))
 
 (defn catalog [store]
-  (-catalog store))
+  (core/-catalog store))
 
 (defn load-one [store filename]
   (let [file (some #(when (= filename (get-file-name %)) %) (catalog store))]
     (and file
          (:content-raw (load-store-file file)))))
 
-(defn load-required-edn [s filename]
-  (clojure.edn/read-string
-   (slurp (or (load-one s filename)
-              (throw (RuntimeException. (str "Cannot find required EDN file in storage: " filename)))))))
-
 (defn- is-public-file? [file]
   (not (.startsWith (get-file-name file) "_private/")))
 
 (defn load-all-public [store]
   (map load-store-file (filter is-public-file? (catalog store))))
+
+
+(def ctors {:git git/create-store
+            :file file/create-store})
+
+(defn create-store [spec]
+  (if-let [ctor ((:source spec) ctors)]
+    (ctor spec)
+    (throw (RuntimeException. (str "Invalid data file source in config: " spec)))))

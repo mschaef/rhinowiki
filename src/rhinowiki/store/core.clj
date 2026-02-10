@@ -19,18 +19,11 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.store.core
-  (:use compojure.core
-        playbook.core)
-  (:require [taoensso.timbre :as log]
-            [playbook.config :as config]
-            [rhinowiki.store.git :as git]
-            [rhinowiki.store.file :as file]))
+(ns rhinowiki.store.core)
 
-(def ctors {:git git/create-store
-            :file file/create-store})
+(defprotocol StoreFile
+  (-get-file-name [self])
+  (-load-store-file [self]))
 
-(defn create-store [spec]
-  (if-let [ctor ((:source spec) ctors)]
-    (ctor spec)
-    (throw (RuntimeException. (str "Invalid data file source in config: " spec)))))
+(defprotocol Store
+  (-catalog [self]))

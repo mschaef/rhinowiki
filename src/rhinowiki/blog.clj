@@ -24,30 +24,38 @@
         playbook.core)
   (:require [taoensso.timbre :as log]
             [clj-uuid :as uuid]
+            [clojure.edn :as edn]
             [playbook.config :as config]
-            [rhinowiki.store.core :as store-core]
             [rhinowiki.store.store :as store]
             [rhinowiki.parser :as parser]))
+
+
+(defn load-required-edn [s filename]
+  (edn/read-string
+   (slurp (or (store/load-one s filename)
+              (throw (RuntimeException. (str "Cannot find required EDN file in storage: " filename)))))))
 
 (defn- parse-date-format [df]
   (java.text.SimpleDateFormat. df))
 
 (defn- blog-config [store]
   (deep-merge (config/cval :blog-defaults)
-              (store/load-required-edn store "_private/config.edn")
+              (load-required-edn store "_private/config.edn")
               (config/cval :blog-overrides)))
 
 (defn blog-init [store-spec]
   ;; Include configuration information in the blog map. A chunk of the
   ;; existing blog code relies on it being there.
-  (let [store (store-core/create-store store-spec)
+  (let [store (store/create-store store-spec)
         blog (blog-config store)]
     (merge blog
            {:store store
+            :load-file-fn #(store/load-one store %)
             :date-format (vmap parse-date-format (:date-format blog))
             :file-cache (atom nil)
             :blog-id (uuid/v5 (:namespace blog)
                               (map blog [:base-url :author :title]))})))
+
 
 (defn- strip-ending [file-name ending]
   (and (.endsWith file-name ending)
