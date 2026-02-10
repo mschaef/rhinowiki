@@ -25,6 +25,7 @@
             [clojure.string :as str]
             [markdown.core :as md]
             [markdown.transformers :as mdt]
+            [hiccup.core :as hiccup-core]
             [rhinowiki.highlight :as highlight]
             [rhinowiki.store.store :as store]))
 
@@ -78,6 +79,22 @@
                    (str/replace new-text m (ensure-absolute-image-link blog article-path src alt))))
           [new-text state])))))
 
+(defn class-set [classes]
+  (clojure.string/join " " (map str (filter #(classes %)
+                                            (keys classes)))))
+
+(defn- highlight-codeblock-callback [article-file-name code language]
+  (let [{:keys [code lang error]} (highlight/highlight article-file-name code language)]
+    (hiccup-core/html
+     [:div {:class  (class-set {"codeblock" true
+                                "error" error})}
+      [:code {:class lang}
+       [:pre
+        code]]
+      (when error
+        [:div.error-message
+         error])])))
+
 (defn- article-md-to-html [blog article-file-name article-text]
   (md/md-to-html-string-with-meta article-text
                                   :footnotes? true
@@ -86,8 +103,7 @@
                                                                   mdt/transformer-vector)
                                   :codeblock-no-escape? true
                                   :codeblock-no-tags? true
-                                  :codeblock-callback (fn [code language]
-                                                        (highlight/highlight article-file-name code language))))
+                                  :codeblock-callback (partial highlight-codeblock-callback article-file-name)))
 
 (def more-tag "<!--more-->")
 
