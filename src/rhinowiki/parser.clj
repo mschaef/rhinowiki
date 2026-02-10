@@ -53,9 +53,9 @@
         nil))))
 
 (defn- image-link [src alt dimensions]
-  (if dimensions
-    (str "<img src=\"" src "\" alt=\"" alt "\" width=\"" (:width dimensions) "\" height=\"" (:height dimensions) "\"/>")
-    (str "<img src=\"" src "\" alt=\"" alt "\"/>")))
+  (hiccup-core/html
+   [:img (cond-> {:src src :alt alt}
+           dimensions (merge dimensions))]))
 
 (defn- ensure-absolute-image-link [blog article-path src alt]
   (if (or (.startsWith src "http://") (.startsWith src "https://"))
