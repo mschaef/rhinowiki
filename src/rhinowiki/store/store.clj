@@ -1,4 +1,4 @@
-;; Copyright (c) 2015-2025 Michael Schaeffer (dba East Coast Toolworks)
+;; Copyright (c) 2015-2026 Michael Schaeffer (dba East Coast Toolworks)
 ;;
 ;; Licensed as below.
 ;;
@@ -46,7 +46,6 @@
 
 (defn load-all-public [store]
   (map load-store-file (filter is-public-file? (catalog store))))
-
 
 (def ctors {:git git/create-store
             :file file/create-store})

@@ -29,7 +29,6 @@
             [rhinowiki.store.store :as store]
             [rhinowiki.parser :as parser]))
 
-
 (defn load-required-edn [s filename]
   (edn/read-string
    (slurp (or (store/load-one s filename)
@@ -55,7 +54,6 @@
             :file-cache (atom nil)
             :blog-id (uuid/v5 (:namespace blog)
                               (map blog [:base-url :author :title]))})))
-
 
 (defn- strip-ending [file-name ending]
   (and (.endsWith file-name ending)

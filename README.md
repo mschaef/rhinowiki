@@ -21,7 +21,7 @@ program, I liked the name and stuck with it.
 
 ## License
 
-Copyright © 2016-2025 East Coast Toolworks
+Copyright © 2016-2026 East Coast Toolworks
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
