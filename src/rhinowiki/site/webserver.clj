@@ -19,7 +19,7 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.webserver
+(ns rhinowiki.site.webserver
   (:use compojure.core
         playbook.core
         [ring.middleware not-modified content-type browser-caching])

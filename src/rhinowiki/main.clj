@@ -25,9 +25,9 @@
         playbook.main
         rhinowiki.utils)
   (:require [playbook.config :as config]
-            [rhinowiki.blog :as blog]
-            [rhinowiki.webserver :as webserver]
-            [rhinowiki.routes :as routes]))
+            [rhinowiki.blog.blog :as blog]
+            [rhinowiki.site.webserver :as webserver]
+            [rhinowiki.site.routes :as routes]))
 
 (defmain [& args]
   (let [load-blog #(blog/blog-init (config/cval :storage))

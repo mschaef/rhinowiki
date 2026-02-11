@@ -19,14 +19,14 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.feeds
+(ns rhinowiki.site.feeds
   (:use compojure.core
         rhinowiki.utils)
   (:require [clojure.data.xml :as xml]
             [ring.util.response :as ring-response]
             [playbook.config :as config]
-            [rhinowiki.parser :as parser]
-            [rhinowiki.blog :as blog]))
+            [rhinowiki.blog.parser :as parser]
+            [rhinowiki.blog.blog :as blog]))
 
 (def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
 

@@ -19,16 +19,16 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.routes
+(ns rhinowiki.site.routes
   (:gen-class :main true)
   (:use compojure.core
         rhinowiki.utils)
   (:require [compojure.route :as route]
-            [rhinowiki.site :as site]))
+            [rhinowiki.site.pages :as pages]))
 
 (defn all-routes [blog invalidate-fn]
   (routes
    (route/resources (str "/" (get-version)))
    (route/resources "/")
-   (site/blog-routes blog invalidate-fn)
+   (pages/blog-routes blog invalidate-fn)
    (route/not-found "Resource Not Found")))

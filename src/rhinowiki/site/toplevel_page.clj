@@ -19,7 +19,7 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.page
+(ns rhinowiki.site.toplevel-page
   (:use compojure.core
         playbook.core
         rhinowiki.utils)

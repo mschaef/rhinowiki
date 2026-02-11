@@ -19,14 +19,14 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.parser
+(ns rhinowiki.blog.parser
   (:use playbook.core)
   (:require [taoensso.timbre :as log]
             [clojure.string :as str]
             [markdown.core :as md]
             [markdown.transformers :as mdt]
             [hiccup.core :as hiccup-core]
-            [rhinowiki.highlight :as highlight]))
+            [rhinowiki.blog.highlight :as highlight]))
 
 (def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 

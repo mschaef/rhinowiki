@@ -19,7 +19,7 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.site
+(ns rhinowiki.site.pages
   (:use compojure.core
         playbook.core
         rhinowiki.utils)
@@ -28,11 +28,11 @@
             [hiccup.util :as hiccup-util]
             [ring.util.response :as ring-response]
             [playbook.config :as config]
-            [rhinowiki.parser :as parser]
-            [rhinowiki.blog :as blog]
-            [rhinowiki.feeds :as feeds]
-            [rhinowiki.page :as page]
-            [rhinowiki.error-handling :as error-handling]))
+            [rhinowiki.blog.parser :as parser]
+            [rhinowiki.blog.blog :as blog]
+            [rhinowiki.site.feeds :as feeds]
+            [rhinowiki.site.toplevel-page :as page]
+            [rhinowiki.site.error-handling :as error-handling]))
 
 ;;;; Web Site
 
@@ -40,6 +40,7 @@
   (str path (if (> (count params) 0)
               (str "?" (clojure.string/join "&" (map (fn [[k v]] (str (name k) "=" v)) params)))
               "")))
+
 (defn- article-sponsor [blog article]
   (get-in blog [:sponsors (:sponsor article)]))
 

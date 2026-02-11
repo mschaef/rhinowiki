@@ -18,13 +18,13 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.error-handling
+(ns rhinowiki.site.error-handling
   (:use playbook.core
         compojure.core)
   (:require [taoensso.timbre :as log]
             [compojure.route :as route]
             [playbook.config :as config]
-            [rhinowiki.page :as page]))
+            [rhinowiki.site.toplevel-page :as page]))
 
 (defn error-page [blog]
   (page/site-page blog "Unexpected Error"

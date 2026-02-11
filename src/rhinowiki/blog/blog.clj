@@ -19,7 +19,7 @@
 ;;
 ;; You must not remove this notice, or any other, from this software.
 
-(ns rhinowiki.blog
+(ns rhinowiki.blog.blog
   (:use compojure.core
         playbook.core)
   (:require [taoensso.timbre :as log]
@@ -27,7 +27,7 @@
             [clojure.edn :as edn]
             [playbook.config :as config]
             [rhinowiki.store.store :as store]
-            [rhinowiki.parser :as parser]))
+            [rhinowiki.blog.parser :as parser]))
 
 (defn load-required-edn [s filename]
   (edn/read-string

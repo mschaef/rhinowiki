@@ -1,4 +1,4 @@
-(ns rhinowiki.highlight
+(ns rhinowiki.blog.highlight
   (:use playbook.core)
   (:require [taoensso.timbre :as log]))
 
