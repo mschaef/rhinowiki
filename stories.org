@@ -1,0 +1,7 @@
+* Backlog
+** Multi-tenant support
+** Correct layering violations related to invalidate-fn
+** Add etag support for better caching
+** Add rate limiting (maybe nginx configuration)
+** Add a way to gather stats on what's being read and by whom (and what referrer)
+* Complete
