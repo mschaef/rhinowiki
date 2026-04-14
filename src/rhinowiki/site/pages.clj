@@ -50,7 +50,8 @@
      "Written with sponsorship by " [:a {:href (:link sponsor) :target "_blank"} (:long-name sponsor) "."]]))
 
 (defn- article-tags [blog article]
-  (when (> (count (:tags article)) 0)
+  (when (and (not (:page article))
+             (> (count (:tags article)) 0))
     [:div.tags
      "Tags:"
      (map (fn [tag]
@@ -60,8 +61,9 @@
 
 (defn- article-block [blog article summarize?]
   [:div.article
-   [:div.date
-    (.format (:article-header (:date-format blog)) (:date article))]
+   (when (not (:page article))
+     [:div.date
+      (.format (:article-header (:date-format blog)) (:date article))])
    [:h2.title
     [:a {:href (:permalink article)}
      (:title article)]]
@@ -80,7 +82,7 @@
 (defn- article-page [blog article-name]
   (when-let [article-info (blog/article-by-name blog article-name)]
     (page/site-page blog
-                    (:title article-info)
+                    article-info
                     [:div (article-block blog article-info false)])))
 
 (defn- tag-query-block [tag]
@@ -92,7 +94,7 @@
 (defn- articles-page [blog start tag]
   (let [display-articles (blog/blog-display-articles blog start tag (:recent-post-limit blog))]
     (page/site-page blog
-                    nil
+                    {}
                     [:div.articles
                      (tag-query-block tag)
                      (map #(article-block blog % true) display-articles)
@@ -125,7 +127,7 @@
   (let [display-articles (blog/blog-display-articles blog start tag (:contents-post-limit blog))
         display-article-blocks (group-by-date-header blog display-articles)]
     (page/site-page blog
-                    "Table of Contents"
+                    {:title "Table of Contents"}
                     [:div.contents
                      (tag-query-block tag)
                      [:div.subtitle "Table of Contents"]

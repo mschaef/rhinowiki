@@ -39,50 +39,51 @@
       (:label link-info)
       "No icon or label specified.")]))
 
-(defn- blog-header [blog]
+
+(defn- blog-header [blog page-info]
   [:div.blog-header
    [:a.blog-title {:href "/"}
     [:h1
      (:title blog)
      (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
-   [:div.links
-    (map render-header-link
-         (or (:header-links blog) []))]])
+   (when (not (:page page-info))
+     [:div.links
+      (map render-header-link
+           (or (:header-links blog) []))])])
 
-(defn- blog-footer [blog]
+(defn- blog-footer [blog page-info]
   [:div.blog-footer
-
-   [:span.item
-    [:a {:href "/feed/atom"} "[atom]"]
-    [:a {:href "/feed/rss"} "[rss]"]
-    [:a {:href "/contents"} "[contents]"]
-]
-            (:copyright blog)
+   (when (not (:page page-info))
+     [:span.item
+      [:a {:href "/feed/atom"} "[atom]"]
+      [:a {:href "/feed/rss"} "[rss]"]
+      [:a {:href "/contents"} "[contents]"]])
+   (:copyright blog)
    [:div.item
     "Made with "
     [:a {:href (config/cval :rhinowiki-repository)}
-     "Rhinowiki " (get-version)]]
+     "Rhinowiki " (get-version)]]])
 
-])
 
-(defn site-page [blog page-title body]
-  (hiccup-page/html5
-   {:lang (:language blog)}
-   [:head
-    [:meta {:name "viewport"
-            :content "width=device-width, initial-scale=1.0"}]
-    [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
-    [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
-    (hiccup-page/include-css (resource-path "style.css")
-                             (resource-path "font-awesome.min.css"))
-    [:title
-     (when (:development-mode blog) "DEV - ")
-     (if page-title
-       (str (:title blog) " - " page-title)
-       (:title blog))]]
-   [:body
-    (blog-header blog)
-    body
-    (blog-footer blog)]))
+(defn site-page [blog page-info body]
+  (let [page-title (:title page-info)]
+    (hiccup-page/html5
+     {:lang (:language blog)}
+     [:head
+      [:meta {:name "viewport"
+              :content "width=device-width, initial-scale=1.0"}]
+      [:link {:rel "alternate" :type "application/atom+xml" :href (str (:base-url blog) "/feed/atom") :title "Atom Feed"}]
+      [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
+      (hiccup-page/include-css (resource-path "style.css")
+                               (resource-path "font-awesome.min.css"))
+      [:title
+       (when (:development-mode blog) "DEV - ")
+       (if page-title
+         (str (:title blog) " - " page-title)
+         (:title blog))]]
+     [:body
+      (blog-header blog page-info)
+      body
+      (blog-footer blog page-info)])))
 
