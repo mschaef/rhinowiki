@@ -27,6 +27,18 @@
             [hiccup.page :as hiccup-page]
             [playbook.config :as config]))
 
+(defn- render-header-link [link-info]
+  (let [link (:link link-info)]
+    [:a (merge {:href link}
+               (when (not (.startsWith link "/"))
+                 {:target "_blank"}))
+     (or
+      (when-let [icon (:fa-icon link-info)]
+        [:i {:class (str "fa " icon)
+             :title (:label link-info)}])
+      (:label link-info)
+      "No icon or label specified.")]))
+
 (defn- blog-header [blog]
   [:div.blog-header
    [:a.blog-title {:href "/"}
@@ -35,14 +47,7 @@
      (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
    [:div.links
-    (map (fn [link]
-           [:a {:href (:link link) :target "_blank"}
-            (or
-             (when-let [icon (:fa-icon link)]
-               [:i {:class (str "fa " icon)
-                    :title (:label link)}])
-             (:label link)
-             "No icon or label specified.")])
+    (map render-header-link
          (or (:header-links blog) []))]])
 
 (defn- blog-footer [blog]
@@ -54,7 +59,8 @@
     [:a {:href "/contents"} "[contents]"]]
    [:div.item
     "Made with "
-    [:a {:href (config/cval :rhinowiki-repository)} "Rhinowiki " (get-version)]]])
+    [:a {:href (config/cval :rhinowiki-repository)}
+     "Rhinowiki " (get-version)]]])
 
 (defn site-page [blog page-title body]
   (hiccup-page/html5
