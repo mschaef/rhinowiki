@@ -52,15 +52,19 @@
 
 (defn- blog-footer [blog]
   [:div.blog-footer
-   (:blog-copyright blog)
+
    [:span.item
     [:a {:href "/feed/atom"} "[atom]"]
     [:a {:href "/feed/rss"} "[rss]"]
-    [:a {:href "/contents"} "[contents]"]]
+    [:a {:href "/contents"} "[contents]"]
+]
+            (:copyright blog)
    [:div.item
     "Made with "
     [:a {:href (config/cval :rhinowiki-repository)}
-     "Rhinowiki " (get-version)]]])
+     "Rhinowiki " (get-version)]]
+
+])
 
 (defn site-page [blog page-title body]
   (hiccup-page/html5
