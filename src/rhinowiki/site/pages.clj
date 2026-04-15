@@ -64,9 +64,10 @@
    (when (not (:page article))
      [:div.date
       (.format (:article-header (:date-format blog)) (:date article))])
-   [:h2.title
-    [:a {:href (:permalink article)}
-     (:title article)]]
+   (when (not (:page article))
+     [:h2.title
+      [:a {:href (:permalink article)}
+       (:title article)]])
    (let [short-html (and summarize?
                          (parser/article-short-html article))]
      [:div.article-content
@@ -160,6 +161,11 @@
 (defn blog-routes [blog-ref invalidate-fn]
   (routes
    (GET "/" [start tag]
+     (or
+      (article-page @blog-ref "index")
+      (articles-page @blog-ref (or (try-parse-integer start) 0) tag)))
+
+   (GET "/blog" [start tag]
      (articles-page @blog-ref (or (try-parse-integer start) 0) tag))
 
    (GET "/contents" [start tag]
