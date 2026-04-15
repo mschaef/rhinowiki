@@ -47,10 +47,9 @@
      (:title blog)
      (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
-   (when (not (:page page-info))
      [:div.links
       (map render-header-link
-           (or (:header-links blog) []))])])
+           (or (:header-links blog) []))]])
 
 (defn- blog-footer [blog page-info]
   [:div.blog-footer
