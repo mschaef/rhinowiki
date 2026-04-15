@@ -39,7 +39,6 @@
       (:label link-info)
       "No icon or label specified.")]))
 
-
 (defn- blog-header [blog page-info]
   [:div.blog-header
    [:a.blog-title {:href "/"}
@@ -47,9 +46,9 @@
      (:title blog)
      (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
-     [:div.links
-      (map render-header-link
-           (or (:header-links blog) []))]])
+   [:div.links
+    (map render-header-link
+         (or (:header-links blog) []))]])
 
 (defn- blog-footer [blog page-info]
   [:div.blog-footer
@@ -63,7 +62,6 @@
     "Made with "
     [:a {:href (config/cval :rhinowiki-repository)}
      "Rhinowiki " (get-version)]]])
-
 
 (defn site-page [blog page-info body]
   (let [page-title (:title page-info)]
