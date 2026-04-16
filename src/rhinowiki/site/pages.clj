@@ -68,11 +68,11 @@
                         (parser/article-short-html article))]
     [:div.article
      (content-when (not (:page article))
-       [:div.date
-        (.format (:article-header (:date-format blog)) (:date article))]
-       [:h2.title
-        [:a {:href (:permalink article)}
-         (:title article)]])
+                   [:div.date
+                    (.format (:article-header (:date-format blog)) (:date article))]
+                   [:h2.title
+                    [:a {:href (:permalink article)}
+                     (:title article)]])
      [:div.article-content
       (article-sponsor-block blog article)
       (or short-html
