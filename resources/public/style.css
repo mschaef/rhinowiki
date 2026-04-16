@@ -1,12 +1,20 @@
+:root {
+    --text-color: #1f1f1f;
+    --secondary-text-color: #505050;
+    --accent-color: #8b2c2c;
+    --page-color: #f8f8f8;
+}
+
 body {
     margin: 1em auto;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 11pt;
     line-height: 1.5;
     text-align: left;
+    background: var(--page-color);
 }
 
 pre {
@@ -36,24 +44,32 @@ blockquote {
 }
 
 A {
-    text-decoration-style: dotted;
+    text-decoration-line: none;
 }
 
 A:visited {
-    color: black;
+    color: var(--accent-color);
 }
 
 A:link {
-    color: black;
+    color: var(--accent-color);
 }
 
 A:hover {
-    background: #c0c0c0;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
 }
 
 A.blog-title {
     text-decoration: none;
+    color: var(--text-color);
 }
+
+.blog-subtitle {
+    color: var(--secondary-text-color);
+    font-style: italic;
+}
+
 .query {
     font-style: italic;
 }
@@ -91,6 +107,10 @@ A.blog-title {
 .article h2.title {
     margin-bottom: 0px;
     font-weight: normal;
+}
+
+.article h2.title A {
+    color: var(--text-color);
 }
 
 .article-content img {
@@ -132,7 +152,7 @@ A.blog-title {
 }
 
 .date {
-    color: #505050;
+    color: var(--secondary-text-color);
 }
 
 .article {
@@ -154,6 +174,15 @@ A.blog-title {
     align-items: center;
 }
 
+h1 {
+    margin-top: 1.25em;
+    margin-bottom: 0.25em;
+}
+
+p {
+    margin-top: 0px;
+}
+
 .blog-header h1 {
     padding: 0;
 }
@@ -170,37 +199,33 @@ A.blog-title {
     padding: 0.25em;
     padding-left: 0.75em;
     padding-right: 0.75em;
-    color: #505050;
-}
-
-.blog-header .links A:hover {
-    color: black;
 }
 
 .blog-header h1 {
     display: inline;
-    font-size: 1.25rem;
-    padding-top: 0.5em;
+    font-size: 1.5em;
+    padding-top: 0.75em;
+    padding-bottom: 0em;
 }
 
 .article h1 {
     font-size: 1.375rem;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .article h2 {
     font-size: 1.25rem;
-    font-weight: bold;
+    font-weight: normal;;
 }
 
 .article h3 {
     font-size: 1.125rem;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .article h4 {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .article li:not(:last-child) {
@@ -214,7 +239,7 @@ p:first-child {
 .blog-footer {
     text-align: center;
     font-size: 0.8rem;
-    margin-top: 1em;
+    margin-top: 3em;
     margin-bottom: 1em;
 }
 
@@ -225,9 +250,9 @@ p:first-child {
 
 /* Media selectors */
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 720px) {
     body {
-        width: 800px;
+        width: 720px;
     }
 
     pre {

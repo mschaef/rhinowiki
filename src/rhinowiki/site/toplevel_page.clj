@@ -46,6 +46,8 @@
      (:title blog)
      (when (:development-mode blog)
        [:span.tag.dev "DEV"])]]
+   (when (:subtitle blog)
+     [:div.blog-subtitle (:subtitle blog)])
    [:div.links
     (map render-header-link
          (or (:header-links blog) []))]])

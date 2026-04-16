@@ -56,20 +56,23 @@
      "Tags:"
      (map (fn [tag]
             [:span.tag
-             [:a {:href (url-query "/" {:tag tag})} tag]])
+             [:a {:href (url-query "/blog" {:tag tag})} tag]])
           (sort (:tags article)))]))
 
+(defmacro content-when [condition & body]
+  `(when ~condition
+     (list ~@body)))
+
 (defn- article-block [blog article summarize?]
-  [:div.article
-   (when (not (:page article))
-     [:div.date
-      (.format (:article-header (:date-format blog)) (:date article))])
-   (when (not (:page article))
-     [:h2.title
-      [:a {:href (:permalink article)}
-       (:title article)]])
-   (let [short-html (and summarize?
-                         (parser/article-short-html article))]
+  (let [short-html (and summarize?
+                        (parser/article-short-html article))]
+    [:div.article
+     (content-when (not (:page article))
+       [:div.date
+        (.format (:article-header (:date-format blog)) (:date article))]
+       [:h2.title
+        [:a {:href (:permalink article)}
+         (:title article)]])
      [:div.article-content
       (article-sponsor-block blog article)
       (or short-html
@@ -78,7 +81,7 @@
         [:div.read-more
          [:a.feed-navigation {:href (:permalink article)}
           "Read More..."]])
-      (article-tags blog article)])])
+      (article-tags blog article)]]))
 
 (defn- article-page [blog article-name]
   (when-let [article-info (blog/article-by-name blog article-name)]
@@ -101,8 +104,8 @@
                      (map #(article-block blog % true) display-articles)
                      [:div.feed-navigation
                       (unless (< (count display-articles) (:recent-post-limit blog))
-                              [:a {:href (url-query "/" (cond-> {:start (+ start (:recent-post-limit blog))}
-                                                          tag (assoc :tag tag)))}
+                              [:a {:href (url-query "/blog" (cond-> {:start (+ start (:recent-post-limit blog))}
+                                                              tag (assoc :tag tag)))}
                                "Older Articles..."])]])))
 
 (defn- contents-block [blog article]
