@@ -26,9 +26,10 @@
             [ring.util.response :as ring-response]
             [playbook.config :as config]
             [rhinowiki.blog.parser :as parser]
-            [rhinowiki.blog.blog :as blog]))
+            [rhinowiki.blog.blog :as blog]
+            [rhinowiki.utils :as utils]))
 
-(def df-atom-rfc3339 (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssXXX"))
+(def ^:private df-atom-rfc3339 (utils/thread-safe-date-format "yyyy-MM-dd'T'HH:mm:ssXXX"))
 
 (def xmlns-atom "http://www.w3.org/2005/Atom")
 
@@ -36,7 +37,7 @@
   (xml/element "entry" {}
                (xml/element "title" {} (:title article))
                (xml/element "id" {} (str "urn:uuid:" (:id article)))
-               (xml/element "updated" {} (.format df-atom-rfc3339 (:date article)))
+               (xml/element "updated" {} (utils/format-date df-atom-rfc3339 (:date article)))
                (xml/element "author" {} (xml/element "name" {} (:author blog)))
                (xml/element "link" {:href (:permalink article)})
                (xml/element "content" {:type "html"}
@@ -48,12 +49,12 @@
                 (xml/element "title" {} (:title blog))
                 (xml/element "link" {:href (:base-url blog)})
                 (xml/element "link" {:rel "self" :href (str (:base-url blog) "/feed/atom")})
-                (xml/element "updated" {} (.format df-atom-rfc3339 (or (:date (first articles))
-                                                                       (java.util.Date.))))
+                (xml/element "updated" {} (utils/format-date df-atom-rfc3339 (or (:date (first articles))
+                                                                                 (java.util.Date.))))
                 (xml/element "id" {} (str "urn:uuid:" (:blog-id blog)))
                 (map #(atom-article-entry blog %) articles))))
 
-(def df-rss-rfc822 (java.text.SimpleDateFormat. "EEE, dd MMM yyyy HH:mm:ss Z"))
+(def ^:private df-rss-rfc822 (utils/thread-safe-date-format "EEE, dd MMM yyyy HH:mm:ss Z"))
 
 (defn- rss-blog-email [blog]
   (format "%s (%s)" (:email blog) (:author blog)))
@@ -64,7 +65,7 @@
                (xml/element "link" {} (:permalink article))
                (xml/element "author" {} (rss-blog-email blog))
                (xml/element "guid" {} (:permalink article))
-               (xml/element "pubDate" {}  (.format df-rss-rfc822 (:date article)))
+               (xml/element "pubDate" {}  (utils/format-date df-rss-rfc822 (:date article)))
                (xml/element "description" {}
                             (xml/cdata (parser/article-content-html article)))))
 
@@ -83,8 +84,8 @@
                              (xml/element "generator" {} (str "rhinowiki-" (get-version)))
                              (xml/element "language" {} (:language blog))
                              (xml/element "docs" {} (config/cval :rss-spec-location))
-                             (xml/element "pubDate" {} (.format df-rss-rfc822 (or (:date (first articles))
-                                                                                  (java.util.Date.))))
+                             (xml/element "pubDate" {} (utils/format-date df-rss-rfc822 (or (:date (first articles))
+                                                                                             (java.util.Date.))))
                              (map #(rss-article-entry blog %) articles)))))
 
 ;;;; RSS and Atom Feeds

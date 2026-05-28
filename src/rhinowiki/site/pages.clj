@@ -32,7 +32,8 @@
             [rhinowiki.blog.blog :as blog]
             [rhinowiki.site.feeds :as feeds]
             [rhinowiki.site.toplevel-page :as page]
-            [rhinowiki.site.error-handling :as error-handling]))
+            [rhinowiki.site.error-handling :as error-handling]
+            [rhinowiki.utils :as utils]))
 
 ;;;; Web Site
 
@@ -69,7 +70,7 @@
     [:div.article
      (content-when (not (:page article))
                    [:div.date
-                    (.format (:article-header (:date-format blog)) (:date article))]
+                    (utils/format-date (:article-header (:date-format blog)) (:date article))]
                    [:h2.title
                     [:a {:href (:permalink article)}
                      (:title article)]])
@@ -116,7 +117,7 @@
 
 (defn- group-by-date-header [blog articles]
   (partition-by :date-header
-                (map #(assoc % :date-header (.format (:contents-header (:date-format blog)) (:date %)))
+                (map #(assoc % :date-header (utils/format-date (:contents-header (:date-format blog)) (:date %)))
                      articles)))
 
 (defn- contents-page-article-entry [blog article]

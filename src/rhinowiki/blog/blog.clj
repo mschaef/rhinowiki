@@ -27,7 +27,8 @@
             [clojure.edn :as edn]
             [playbook.config :as config]
             [rhinowiki.store.store :as store]
-            [rhinowiki.blog.parser :as parser]))
+            [rhinowiki.blog.parser :as parser]
+            [rhinowiki.utils :as utils]))
 
 (defn load-required-edn [s filename]
   (edn/read-string
@@ -35,7 +36,7 @@
               (throw (RuntimeException. (str "Cannot find required EDN file in storage: " filename)))))))
 
 (defn- parse-date-format [df]
-  (java.text.SimpleDateFormat. df))
+  (utils/thread-safe-date-format df))
 
 (defn- blog-config [store]
   (deep-merge (config/cval :blog-defaults)

@@ -20,7 +20,8 @@
 ;; You must not remove this notice, or any other, from this software.
 
 (ns rhinowiki.blog.parser
-  (:use playbook.core)
+  (:use playbook.core
+        rhinowiki.utils)
   (:require [taoensso.timbre :as log]
             [clojure.string :as str]
             [markdown.core :as md]
@@ -28,14 +29,10 @@
             [hiccup.core :as hiccup-core]
             [rhinowiki.blog.highlight :as highlight]))
 
-(def df-metadata (java.text.SimpleDateFormat. "yyyy-MM-dd"))
+(def ^:private df-metadata (thread-safe-date-format "yyyy-MM-dd"))
 
 (defn- maybe-parse-metadata-date [text]
-  (and text
-       (try
-         (.parse df-metadata text)
-         (catch Exception ex
-           nil))))
+  (and text (parse-date df-metadata text)))
 
 (defn- local-image-dimensions [blog image-path]
   (when-let [image-contents ((:load-file-fn blog) image-path)]

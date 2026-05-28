@@ -27,3 +27,30 @@
 
 (defn resource-path [path]
   (str "/" (get-version) "/" path))
+
+(defn thread-safe-date-format
+  "Returns a thread-safe date formatter backed by a ThreadLocal<SimpleDateFormat>.
+   java.text.SimpleDateFormat is not thread-safe, so bare defs shared across
+   request threads can corrupt each other's parse/format state under load.
+
+   Returns a map with two functions:
+     :format - (fn [java.util.Date]) => String
+     :parse  - (fn [String]) => java.util.Date"
+  [pattern]
+  (let [tl (proxy [ThreadLocal] []
+              (initialValue [] (java.text.SimpleDateFormat. pattern)))]
+    {:format (fn [date]  (.format ^java.text.SimpleDateFormat (.get tl) date))
+     :parse  (fn [text]  (.parse  ^java.text.SimpleDateFormat (.get tl) text))}))
+
+(defn format-date
+  "Formats a java.util.Date using a formatter returned by thread-safe-date-format."
+  [fmt date]
+  ((:format fmt) date))
+
+(defn parse-date
+  "Parses a date string using a formatter returned by thread-safe-date-format.
+   Returns nil on parse failure."
+  [fmt text]
+  (try
+    ((:parse fmt) text)
+    (catch Exception _ nil)))
