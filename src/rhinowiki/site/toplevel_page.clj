@@ -76,6 +76,8 @@
       [:link {:rel "alternate" :type "application/rss+xml" :href (str (:base-url blog) "/feed/rss") :title "RSS Feed"}]
       (hiccup-page/include-css (resource-path "style.css")
                                (resource-path "font-awesome.min.css"))
+      (when-let [override-css (:stylesheet blog)]
+        (hiccup-page/include-css (str "/" override-css)))
       [:title
        (when (:development-mode blog) "DEV - ")
        (if page-title
