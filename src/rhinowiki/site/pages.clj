@@ -177,9 +177,13 @@
 
    (feeds/feed-routes blog-ref)
 
-   (POST "/invalidate" []
-     (invalidate-fn)
-     "invalidated")
+   (POST "/invalidate" req
+     (let [provided-token (get-in req [:headers "x-invalidate-token"])
+           expected-token (config/cval :invalidate-token)]
+       (if (or (config/cval :development-mode)
+               (and expected-token (= provided-token expected-token)))
+         (do (invalidate-fn) "invalidated")
+         {:status 403 :body "Forbidden"})))
 
    (GET "/*" {params :params}
      (maybe-redirect-response @blog-ref (:* params)))

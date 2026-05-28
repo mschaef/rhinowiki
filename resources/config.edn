@@ -16,4 +16,8 @@
 
                    :language "en-US"}
 
+ ;; Secret token required in the X-Invalidate-Token header for POST /invalidate.
+ ;; If nil (the default), the endpoint rejects all requests.
+ :invalidate-token nil
+
  :blog-overrides {}}
