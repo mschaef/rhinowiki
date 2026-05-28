@@ -3,5 +3,5 @@
 {:http-port 8089
  :log-path "/var/log/rhinowiki/rhinowiki.log"
 
- :storage {:source :git
-           :repo-path "/home/git/mschaef-blog.git"}}
+ :sites {"mschaef.com" {:source :git
+                        :repo-path "/home/git/mschaef-blog.git"}}}

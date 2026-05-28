@@ -162,22 +162,22 @@
 
 ;;;; Blog Routing
 
-(defn blog-routes [blog-ref invalidate-fn]
+(defn blog-routes []
   (routes
-   (GET "/" [start tag]
+   (GET "/" {blog :rhinowiki/blog {start :start tag :tag} :params}
      (or
-      (article-page @blog-ref "index")
-      (articles-page @blog-ref (or (try-parse-integer start) 0) tag)))
+      (article-page blog "index")
+      (articles-page blog (or (try-parse-integer start) 0) tag)))
 
-   (GET "/blog" [start tag]
-     (articles-page @blog-ref (or (try-parse-integer start) 0) tag))
+   (GET "/blog" {blog :rhinowiki/blog {start :start tag :tag} :params}
+     (articles-page blog (or (try-parse-integer start) 0) tag))
 
-   (GET "/contents" [start tag]
-     (contents-page @blog-ref (or (try-parse-integer start) 0) tag))
+   (GET "/contents" {blog :rhinowiki/blog {start :start tag :tag} :params}
+     (contents-page blog (or (try-parse-integer start) 0) tag))
 
-   (feeds/feed-routes blog-ref)
+   (feeds/feed-routes)
 
-   (POST "/invalidate" req
+   (POST "/invalidate" {invalidate-fn :rhinowiki/invalidate-fn :as req}
      (let [provided-token (get-in req [:headers "x-invalidate-token"])
            expected-token (config/cval :invalidate-token)]
        (if (or (config/cval :development-mode)
@@ -185,13 +185,13 @@
          (do (invalidate-fn) "invalidated")
          {:status 403 :body "Forbidden"})))
 
-   (GET "/*" {params :params}
-     (maybe-redirect-response @blog-ref (:* params)))
+   (GET "/*" {blog :rhinowiki/blog params :params}
+     (maybe-redirect-response blog (:* params)))
 
-   (GET "/*" {params :params}
-     (article-page @blog-ref (:* params)))
+   (GET "/*" {blog :rhinowiki/blog params :params}
+     (article-page blog (:* params)))
 
-   (GET "/*" {params :params}
-     (file-response @blog-ref (:* params)))
+   (GET "/*" {blog :rhinowiki/blog params :params}
+     (file-response blog (:* params)))
 
-   (error-handling/all-routes blog-ref)))
+   (error-handling/all-routes)))

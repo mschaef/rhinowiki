@@ -1,3 +1,4 @@
+;; Copyright (c) 2015-2026 Michael Schaeffer (dba East Coast Toolworks)
 ;;
 ;; Licensed as below.
 ;;
@@ -45,13 +46,13 @@
                     " return to the home page " [:a {:href "/"} "here"]
                     " and try again."]]))
 
-(defn all-routes [blog-ref]
+(defn all-routes []
   (routes
-   (GET "/error" {params :params}
-     (error-page @blog-ref))
+   (GET "/error" {blog :rhinowiki/blog :as req}
+     (error-page blog))
 
    (GET "/induce-error" []
      (when (config/cval :development-mode)
        (throw (Exception. "Induced Error"))))
 
-   (route/not-found (partial page-not-found @blog-ref))))
+   (route/not-found (fn [req] (page-not-found (:rhinowiki/blog req) req)))))

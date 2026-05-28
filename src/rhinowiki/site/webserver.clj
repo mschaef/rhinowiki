@@ -33,13 +33,35 @@
             [compojure.handler :as handler]
             [playbook.config :as config]))
 
-(defn wrap-invalidate-param [app invalidate-fn]
+(defn wrap-virtual-host [handler sites-map]
+  (fn [req]
+    (let [host (-> (get-in req [:headers "host"] "")
+                   (clojure.string/split #":")
+                   first
+                   clojure.string/trim)
+          site (or (get sites-map host)
+                   (get sites-map (config/cval :default-site)))]
+      (if site
+        (handler (assoc req
+                        :rhinowiki/blog @(:blog-atom site)
+                        :rhinowiki/invalidate-fn (:invalidate-fn site)))
+        (do
+          (log/warn "Misdirected request - no site configured for host:"
+                    (pr-str host)
+                    "uri:" (:uri req)
+                    "remote-addr:" (:remote-addr req))
+          {:status 421
+           :headers {"Content-Type" "text/plain"}
+           :body "Misdirected Request"}))))
+
+(defn wrap-invalidate-param [app]
   (fn [req]
     (when (and (config/cval :development-mode)
                (try-parse-boolean
                 (get-in req [:params :invalidate] req)
                 false))
-      (invalidate-fn))
+      (when-let [invalidate-fn (:rhinowiki/invalidate-fn req)]
+        (invalidate-fn)))
     (app req)))
 
 (defn- wrap-dev-support [handler dev-mode]
@@ -58,22 +80,23 @@
             (throw (Exception. "Double fault while processing uncaught exception." ex))
             (ring-response/redirect (str "/error?uuid=" ex-uuid))))))))
 
-(defn- handler [invalidate-fn routes]
+(defn- handler [sites-map routes]
   (-> routes
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})
-      (wrap-invalidate-param invalidate-fn)
+      (wrap-invalidate-param)
       (handler/site)
       (ring-etag/wrap-file-etag)
       (config/wrap-config)
+      (wrap-virtual-host sites-map)
       (wrap-dev-support (config/cval :development-mode))
       (wrap-exception-handling)))
 
-(defn start [invalidate-fn routes]
+(defn start [sites-map routes]
   (let [http-port (config/cval :http-port)]
     (log/info "Starting Webserver on port" http-port)
-    (let [server (jetty/run-jetty (handler invalidate-fn routes)
+    (let [server (jetty/run-jetty (handler sites-map routes)
                                   {:port http-port :join? false})]
       (add-shutdown-hook
        (fn []

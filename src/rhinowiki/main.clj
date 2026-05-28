@@ -30,9 +30,13 @@
             [rhinowiki.site.routes :as routes]))
 
 (defmain [& args]
-  (let [load-blog #(blog/blog-init (config/cval :storage))
-        blog (atom (load-blog))
-        invalidate-fn #(swap! blog (constantly (load-blog)))]
-    (webserver/start
-     invalidate-fn
-     (routes/all-routes blog invalidate-fn))))
+  (let [sites-map
+        (into {}
+              (map (fn [[hostname store-spec]]
+                     (let [load-blog #(blog/blog-init store-spec)
+                           blog-atom (atom (load-blog))
+                           invalidate-fn #(swap! blog-atom (constantly (load-blog)))]
+                       [hostname {:blog-atom blog-atom
+                                  :invalidate-fn invalidate-fn}]))
+                   (config/cval :sites)))]
+    (webserver/start sites-map (routes/all-routes))))

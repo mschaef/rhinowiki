@@ -103,10 +103,10 @@
       (ring-response/response)
       (ring-response/header "Content-Type" "application/atom+xml")))
 
-(defn feed-routes [blog-ref]
+(defn feed-routes []
   (routes
-   (GET "/feed/atom" [tag]
-     (blog-atom-response @blog-ref tag))
+   (GET "/feed/atom" {blog :rhinowiki/blog {tag :tag} :params}
+     (blog-atom-response blog tag))
 
-   (GET "/feed/rss" [tag]
-     (blog-rss-response @blog-ref tag))))
+   (GET "/feed/rss" {blog :rhinowiki/blog {tag :tag} :params}
+     (blog-rss-response blog tag))))

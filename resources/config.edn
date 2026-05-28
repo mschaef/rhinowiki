@@ -20,4 +20,16 @@
  ;; If nil (the default), the endpoint rejects all requests.
  :invalidate-token nil
 
- :blog-overrides {}}
+ :blog-overrides {}
+
+ ;; Map of hostname -> storage spec for each hosted site.
+ ;; Example:
+ ;;   :sites {"blog.example.com" {:source :git :repo-path "/home/git/blog.git"}
+ ;;           "notes.example.com" {:source :git :repo-path "/home/git/notes.git"}}
+ :sites {}
+
+ ;; Optional fallback hostname used when the Host header doesn't match any
+ ;; entry in :sites (e.g. localhost in development, or curl without a Host
+ ;; header). The value must be a key already present in :sites.
+ ;; Example: :default-site "blog.example.com"
+ :default-site nil}
