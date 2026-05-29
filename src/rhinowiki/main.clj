@@ -26,6 +26,7 @@
         rhinowiki.utils)
   (:require [playbook.config :as config]
             [rhinowiki.blog.blog :as blog]
+            [rhinowiki.store.watcher :as watcher]
             [rhinowiki.site.webserver :as webserver]
             [rhinowiki.site.routes :as routes]))
 
@@ -33,10 +34,16 @@
   (let [sites-map
         (into {}
               (map (fn [[hostname store-spec]]
-                     (let [load-blog #(blog/blog-init store-spec)
+                     (let [generation (atom 0)
+                           load-blog #(blog/blog-init store-spec)
                            blog-atom (atom (load-blog))
-                           invalidate-fn #(swap! blog-atom (constantly (load-blog)))]
+                           invalidate-fn #(do (swap! blog-atom (constantly (load-blog)))
+                                              (swap! generation inc))]
+                       (when (and (config/cval :development-mode)
+                                  (= :file (:source store-spec)))
+                         (watcher/start-watcher (:article-root store-spec) invalidate-fn))
                        [hostname {:blog-atom blog-atom
-                                  :invalidate-fn invalidate-fn}]))
+                                  :invalidate-fn invalidate-fn
+                                  :generation generation}]))
                    (config/cval :sites)))]
     (webserver/start sites-map (routes/all-routes))))

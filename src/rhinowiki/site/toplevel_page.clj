@@ -78,6 +78,8 @@
                                (resource-path "font-awesome.min.css"))
       (when-let [override-css (:stylesheet blog)]
         (hiccup-page/include-css (str "/" override-css)))
+      (when (config/cval :development-mode)
+        (hiccup-page/include-js (resource-path "dev-reload.js")))
       [:title
        (when (:development-mode blog) "DEV - ")
        (if page-title

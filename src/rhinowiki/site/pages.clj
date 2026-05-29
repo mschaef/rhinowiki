@@ -177,6 +177,12 @@
 
    (feeds/feed-routes)
 
+   (GET "/dev/poll" {generation :rhinowiki/generation}
+     (when (config/cval :development-mode)
+       {:status 200
+        :headers {"Cache-Control" "no-store"}
+        :body {:generation (if generation @generation 0)}}))
+
    (POST "/invalidate" {invalidate-fn :rhinowiki/invalidate-fn :as req}
      (let [provided-token (get-in req [:headers "x-invalidate-token"])
            expected-token (config/cval :invalidate-token)]

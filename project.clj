@@ -34,6 +34,7 @@
   :dependencies [[org.clojure/clojure "1.12.4"]
                  [ring/ring-jetty-adapter "1.15.3"]
                  [ring/ring-devel "1.15.3"]
+                 [ring/ring-json "0.5.1"]
                  [ring/ring-codec "1.3.0"]
                  [co.deps/ring-etag-middleware "0.2.1"]
                  [slester/ring-browser-caching "0.1.1"]

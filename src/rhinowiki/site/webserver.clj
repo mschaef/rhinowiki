@@ -30,6 +30,7 @@
             [ring.middleware.resource :as ring-resource]
             [ring.util.response :as ring-response]
             [co.deps.ring-etag-middleware :as ring-etag]
+            [ring.middleware.json :as ring-json]
             [compojure.handler :as handler]
             [playbook.config :as config]))
 
@@ -44,7 +45,8 @@
       (if site
         (handler (assoc req
                         :rhinowiki/blog @(:blog-atom site)
-                        :rhinowiki/invalidate-fn (:invalidate-fn site)))
+                        :rhinowiki/invalidate-fn (:invalidate-fn site)
+                        :rhinowiki/generation (:generation site)))
         (do
           (log/warn "Misdirected request - no site configured for host:"
                     (pr-str host)
@@ -82,6 +84,7 @@
 
 (defn- handler [sites-map routes]
   (-> routes
+      (ring-json/wrap-json-response)
       (wrap-content-type)
       (wrap-browser-caching {"text/javascript" 360000
                              "text/css" 360000})
