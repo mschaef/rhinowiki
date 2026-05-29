@@ -4,7 +4,12 @@
 
 (defn make-javascript-context []
   (-> (org.graalvm.polyglot.Context/newBuilder (into-array String ["js"]))
-      (.allowAllAccess true)
+      (.allowNativeAccess false)
+      (.allowCreateThread false)
+      (.allowIO org.graalvm.polyglot.io.IOAccess/NONE)
+      (.allowHostAccess org.graalvm.polyglot.HostAccess/NONE)
+      (.allowPolyglotAccess org.graalvm.polyglot.PolyglotAccess/NONE)
+      (.allowEnvironmentAccess org.graalvm.polyglot.EnvironmentAccess/NONE)
       (.option "engine.WarnInterpreterOnly" "false")
       (.build)))
 
