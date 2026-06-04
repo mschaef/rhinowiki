@@ -44,7 +44,7 @@
                  [hiccup "1.0.5"]
                  [markdown-clj "1.12.6"]
                  [cprop "0.1.21"]
-                 [org.eclipse.jgit/org.eclipse.jgit "4.9.0.201710071750-r"]
+                 [org.eclipse.jgit/org.eclipse.jgit "7.6.0.202603022253-r"]
                  [org.graalvm.js/js "22.3.2" :upgrade :graalvm]
                  [com.mschaef/playbook "0.1.10"]]
 

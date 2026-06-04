@@ -1,9 +1,12 @@
 ;; {:storage {:source :git
 ;;            :repo-path  "../mschaef-blog"}
 ;;  :development-mode true}
-{:storage {:source :file
-           :article-root  "../mschaef-blog"
-           :exclude-prefix "../mschaef-blog/.git"}
+{:sites {"mschaef.com" {:source :file
+                        :article-root  "../mschaef-blog"
+                        :exclude-prefix "../mschaef-blog/.git"}}
+
+ :default-site "mschaef.com"
+
  :development-mode true
 
  :blog-overrides {:base-url "http://localhost:8080"}}

@@ -54,7 +54,7 @@
                     "remote-addr:" (:remote-addr req))
           {:status 421
            :headers {"Content-Type" "text/plain"}
-           :body "Misdirected Request"}))))
+           :body "Misdirected Request"})))))
 
 (defn wrap-invalidate-param [app]
   (fn [req]
@@ -91,8 +91,8 @@
       (wrap-invalidate-param)
       (handler/site)
       (ring-etag/wrap-file-etag)
-      (config/wrap-config)
       (wrap-virtual-host sites-map)
+      (config/wrap-config)
       (wrap-dev-support (config/cval :development-mode))
       (wrap-exception-handling)))
 
@@ -106,3 +106,5 @@
          (log/info "Shutting down webserver")
          (.stop server)))
       (.join server))))
+
+
