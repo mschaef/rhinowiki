@@ -48,7 +48,7 @@
 (defn- article-sponsor-block [blog article]
   (when-let [sponsor (article-sponsor blog article)]
     [:div.sponsor
-     "Written with sponsorship by " [:a {:href (:link sponsor) :target "_blank"} (:long-name sponsor) "."]]))
+     "Written with sponsorship by " [:a {:href (:link sponsor) :target "_blank" :rel "noopener noreferrer"} (:long-name sponsor) "."]]))
 
 (defn- article-tags [blog article]
   (when (and (not (:page article))
@@ -126,7 +126,7 @@
     (:title article)]
    (when-let [sponsor (article-sponsor blog article)]
      [:span.sponsor
-      "sponsor: " [:a {:href (:link sponsor) :target "_blank"} (:short-name sponsor)]])])
+      "sponsor: " [:a {:href (:link sponsor) :target "_blank" :rel "noopener noreferrer"} (:short-name sponsor)]])])
 
 (defn- contents-page [blog start tag]
   (let [display-articles (blog/blog-display-articles blog start tag (:contents-post-limit blog))

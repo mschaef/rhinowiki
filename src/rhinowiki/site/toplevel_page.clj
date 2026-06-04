@@ -31,7 +31,7 @@
   (let [link (:link link-info)]
     [:a (merge {:href link}
                (when (not (.startsWith link "/"))
-                 {:target "_blank"}))
+                 {:target "_blank" :rel "noopener noreferrer"}))
      (or
       (when-let [icon (:fa-icon link-info)]
         [:i {:class (str "fa " icon)
