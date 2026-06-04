@@ -85,7 +85,7 @@
                              (xml/element "language" {} (:language blog))
                              (xml/element "docs" {} (config/cval :rss-spec-location))
                              (xml/element "pubDate" {} (utils/format-date df-rss-rfc822 (or (:date (first articles))
-                                                                                             (java.util.Date.))))
+                                                                                            (java.util.Date.))))
                              (map #(rss-article-entry blog %) articles)))))
 
 ;;;; RSS and Atom Feeds

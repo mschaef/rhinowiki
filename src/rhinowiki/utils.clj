@@ -38,7 +38,7 @@
      :parse  - (fn [String]) => java.util.Date"
   [pattern]
   (let [tl (proxy [ThreadLocal] []
-              (initialValue [] (java.text.SimpleDateFormat. pattern)))]
+             (initialValue [] (java.text.SimpleDateFormat. pattern)))]
     {:format (fn [date]  (.format ^java.text.SimpleDateFormat (.get tl) date))
      :parse  (fn [text]  (.parse  ^java.text.SimpleDateFormat (.get tl) text))}))
 
