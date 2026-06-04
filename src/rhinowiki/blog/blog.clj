@@ -132,6 +132,9 @@
 (defn- article-remove-private [articles]
   (remove :private articles))
 
+(defn blog-all-articles [blog]
+  (vals (:articles-by-name (data-files blog))))
+
 (defn blog-display-articles [blog start tag limit]
   (cond-> (blog-articles blog)
     (not (= tag "private")) (article-remove-private)

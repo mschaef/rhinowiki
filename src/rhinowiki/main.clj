@@ -26,6 +26,7 @@
         rhinowiki.utils)
   (:require [playbook.config :as config]
             [rhinowiki.blog.blog :as blog]
+            [rhinowiki.blog.ext-links :as ext-links]
             [rhinowiki.store.watcher :as watcher]
             [rhinowiki.site.webserver :as webserver]
             [rhinowiki.site.routes :as routes]))
@@ -37,8 +38,14 @@
                      (let [generation (atom 0)
                            load-blog #(blog/blog-init store-spec)
                            blog-atom (atom (load-blog))
-                           invalidate-fn #(do (swap! blog-atom (constantly (load-blog)))
-                                              (swap! generation inc))]
+                           rebuild-ext-links! #(future
+                                                 (ext-links/rebuild-registry!
+                                                  (map :content-text (blog/blog-all-articles %))))
+                           invalidate-fn #(let [new-blog (load-blog)]
+                                            (reset! blog-atom new-blog)
+                                            (swap! generation inc)
+                                            (rebuild-ext-links! new-blog))]
+                       (rebuild-ext-links! @blog-atom)
                        (when (and (config/cval :development-mode)
                                   (= :file (:source store-spec)))
                          (watcher/start-watcher (:article-root store-spec) invalidate-fn))

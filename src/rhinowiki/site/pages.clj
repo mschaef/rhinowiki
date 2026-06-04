@@ -30,6 +30,7 @@
             [playbook.config :as config]
             [rhinowiki.blog.parser :as parser]
             [rhinowiki.blog.blog :as blog]
+            [rhinowiki.blog.ext-links :as ext-links]
             [rhinowiki.site.feeds :as feeds]
             [rhinowiki.site.toplevel-page :as page]
             [rhinowiki.site.error-handling :as error-handling]
@@ -176,6 +177,13 @@
      (contents-page blog (or (try-parse-integer start) 0) tag))
 
    (feeds/feed-routes)
+
+   (GET "/go/:slug" [slug]
+     (if-let [url (ext-links/lookup-slug slug)]
+       (do
+         (log/debug "External link redirect" slug "->" url)
+         (ring-response/redirect url))
+       {:status 404 :body "Not Found"}))
 
    (GET "/dev/poll" {generation :rhinowiki/generation}
      (when (config/cval :development-mode)

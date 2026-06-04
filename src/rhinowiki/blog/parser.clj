@@ -27,6 +27,7 @@
             [markdown.core :as md]
             [markdown.transformers :as mdt]
             [hiccup.core :as hiccup-core]
+            [rhinowiki.blog.ext-links :as ext-links]
             [rhinowiki.blog.highlight :as highlight]))
 
 (def ^:private df-metadata (thread-safe-date-format "yyyy-MM-dd"))
@@ -64,6 +65,21 @@
           image-url (str (:base-url blog) "/" src)]
       (image-link image-url alt (local-image-dimensions blog image-path)))))
 
+(defn- ext-link-rewriter []
+  (fn [text state]
+    (loop [matches (distinct (re-seq #"\[([^\]]*)\]\(!ext:(https?://[^\)]*)\)" text))
+           new-text text]
+      (if (seq matches)
+        (let [[m link-text url] (first matches)
+              slug (ext-links/register-url! url)
+              replacement (hiccup-core/html
+                           [:a {:href (str "/go/" slug)
+                                :rel "nofollow noopener noreferrer"}
+                            link-text])]
+          (recur (rest matches)
+                 (str/replace new-text m replacement)))
+        [new-text state]))))
+
 (defn- image-link-rewriter [blog article-file-name]
   (let [article-path (or (.getParent (java.io.File. article-file-name)) "")]
     (fn [text state]
@@ -95,8 +111,9 @@
   (md/md-to-html-string-with-meta article-text
                                   :footnotes? true
                                   :reference-links? true
-                                  :replacement-transformers (cons (image-link-rewriter blog article-file-name)
-                                                                  mdt/transformer-vector)
+                                  :replacement-transformers (list* (ext-link-rewriter)
+                                                                   (image-link-rewriter blog article-file-name)
+                                                                   mdt/transformer-vector)
                                   :codeblock-no-escape? true
                                   :codeblock-no-tags? true
                                   :codeblock-callback (partial highlight-codeblock-callback article-file-name)))
