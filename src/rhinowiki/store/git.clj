@@ -84,7 +84,7 @@
 
 (defn catalog-data-files [{:keys [repo-path ref-name article-root]
                            :or {repo-path "."
-                                ref-name "refs/heads/master"
+                                ref-name "refs/heads/main"
                                 article-root ""}}]
   (log/info "Loading data files.")
   (doall (git-data-file-catalog (if (.endsWith repo-path ".git")
