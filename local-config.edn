@@ -1,11 +1,11 @@
-;; {:storage {:source :git
-;;            :repo-path  "../mschaef-blog"}
-;;  :development-mode true}
-{:sites {"mschaef.com" {:source :file
-                        :article-root  "../mschaef-blog"
-                        :exclude-prefix "../mschaef-blog/.git"}}
 
- :default-site "mschaef.com"
+{:sites {"mschaef-file" {:source :file
+                         :article-root  "../mschaef-blog"
+                         :exclude-prefix "../mschaef-blog/.git"}
+         "mschaef-git" {:source :git
+                         :repo-path  "../mschaef-blog"}}
+
+ :default-site "mschaef-file"
 
  :development-mode true
 

@@ -49,7 +49,7 @@
     (.setRecursive true)))
 
 (defn- git-items [repo ref-name]
-  (let [head (.getRef repo ref-name)]
+  (let [head (.exactRef repo ref-name)]
     (with-open [walk (org.eclipse.jgit.revwalk.RevWalk. repo)]
       (let [commit (.parseCommit walk (.getObjectId head))
             tree (.parseTree walk (.getId (.getTree commit)))]

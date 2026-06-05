@@ -44,7 +44,7 @@
         watcher (.newWatchService (FileSystems/getDefault))]
     (register-recursive watcher root-file)
     (doto (Thread.
-           (fn []
+           (bound-fn []
              (log/info "File watcher started for:" article-root)
              (loop []
                (let [watch-key (try
