@@ -2,6 +2,13 @@
 
 {:http-port 8089
  :log-path "/var/log/rhinowiki/rhinowiki.log"
-
+ :invalidate-token "6ae09cfd-2974-4955-9848-12b319365ec6"
  :sites {"mschaef.com" {:source :git
-                        :repo-path "/home/git/mschaef-blog.git"}}}
+                        :repo-path "/home/git/mschaef-com.git"}
+         "econtdh.com" {:source :git
+                        :repo-path "/home/git/econtdh-com.git"}
+         "rschaef.com" {:source :git
+                        :repo-path "/home/git/rschaef-com.git"}
+         "mjschaef.com" {:source :git
+                        :repo-path "/home/git/mjschaef-com.git"}}}
+

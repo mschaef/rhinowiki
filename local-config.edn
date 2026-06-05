@@ -1,9 +1,18 @@
 
 {:sites {"mschaef-file" {:source :file
-                         :article-root  "../mschaef-blog"
-                         :exclude-prefix "../mschaef-blog/.git"}
+                         :article-root  "../sites/mschaef-com"
+                         :exclude-prefix "../sites/mschaef-com/.git"}
          "mschaef-git" {:source :git
-                         :repo-path  "../mschaef-blog"}}
+                        :repo-path  "../sites/mschaef-com"}
+         "econtdh-file" {:source :file
+                         :article-root  "../sites/econtdh-com"
+                         :exclude-prefix "../sites/econtdh-com/.git"}
+         "rschaef-file" {:source :file
+                         :article-root  "../sites/rschaef-com"
+                         :exclude-prefix "../sites/rschaef-com/.git"}
+         "mjschaef-file" {:source :file
+                         :article-root  "../sites/mjschaef-com"
+                         :exclude-prefix "../sites/mjschaef-com/.git"}}
 
  :default-site "mschaef-file"
 
